@@ -2,6 +2,9 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>{% block title %}Sistema de Gestión de Torneos{% endblock %}</title>
 
     <link
@@ -11,15 +14,41 @@
   </head>
 
   <body>
-    <nav>
-      <h2>Sistema de Gestión de Torneos</h2>
-    </nav>
+    <header>
+      <div class="logo">⚽ Sistema de Gestión de Torneos</div>
+
+      <nav>
+        <a href="{{ url_for('main.index') }}">Inicio</a>
+
+        {% if session.get("usuario_id") %}
+
+        <a href="{{ url_for('auth.profile') }}">Perfil</a>
+
+        {% if session.get("usuario_rol") == "Administrador" %}
+        <a href="{{ url_for('admin.dashboard') }}"> Administración </a>
+        {% endif %}
+
+        <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+
+        <span class="user"> {{ session["usuario_nombre"] }} </span>
+
+        {% else %}
+
+        <a href="{{ url_for('auth.login') }}">Login</a>
+
+        <a href="{{ url_for('auth.register') }}">Registro</a>
+
+        {% endif %}
+      </nav>
+    </header>
 
     <main>
       {% with messages = get_flashed_messages(with_categories=true) %} {% if
       messages %} {% for category, message in messages %}
-      <p>{{ message }}</p>
-      {% endfor %} {% endif %} {% endwith %}{% block content %} {% endblock %}
+
+      <div class="flash {{ category }}">{{ message }}</div>
+
+      {% endfor %} {% endif %} {% endwith %} {% block content %} {% endblock %}
     </main>
   </body>
 </html>

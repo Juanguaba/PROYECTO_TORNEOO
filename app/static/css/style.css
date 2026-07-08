@@ -6,19 +6,77 @@
 
 body{
     font-family:Arial, Helvetica, sans-serif;
-    background:#f5f5f5;
+    background:#f4f6f9;
+}
+
+header{
+    background:#169b37;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 40px;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
 }
 
 nav{
-    background:#0c7c2c;
+    display:flex;
+    gap:20px;
+    align-items:center;
+}
+
+nav a{
     color:white;
-    padding:18px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+nav a:hover{
+    opacity:.8;
+}
+
+.user{
+    background:white;
+    color:#169b37;
+    padding:8px 15px;
+    border-radius:20px;
+    font-weight:bold;
 }
 
 main{
-    padding:40px;
+    width:90%;
+    max-width:1200px;
+    margin:40px auto;
 }
 
-h1{
-    margin-bottom:15px;
+.flash{
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:20px;
+}
+
+.success{
+    background:#d1e7dd;
+    color:#0f5132;
+}
+
+.danger{
+    background:#f8d7da;
+    color:#842029;
+}
+
+.warning{
+    background:#fff3cd;
+    color:#664d03;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 3px 10px rgba(0,0,0,.1);
 }

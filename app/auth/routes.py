@@ -1,9 +1,15 @@
 from flask import render_template, request, redirect, url_for, flash
 
-from app import db
+from flask import session
+from .services import autenticar_usuario
 from app.models.usuario import Usuario
-from app.models.rol import Rol
+from .decorators import login_required
 from . import auth_bp
+from .services import (
+    buscar_usuario_por_email,
+    buscar_usuario_por_username,
+    crear_usuario
+)
 
 
 @auth_bp.route("/register", methods=["GET", "POST"])
@@ -23,28 +29,16 @@ def register():
             return redirect(url_for("auth.register"))
 
         # Validar usuario
-        if Usuario.query.filter_by(username=username).first():
+        if buscar_usuario_por_username(username):
             flash("El nombre de usuario ya existe.", "danger")
             return redirect(url_for("auth.register"))
 
         # Validar correo
-        if Usuario.query.filter_by(email=email).first():
+        if buscar_usuario_por_email(email):
             flash("El correo ya está registrado.", "danger")
             return redirect(url_for("auth.register"))
 
-        rol = Rol.query.filter_by(nombre="Usuario").first()
-
-        usuario = Usuario(
-            nombre=nombre,
-            username=username,
-            email=email,
-            rol=rol
-        )
-
-        usuario.set_password(password)
-
-        db.session.add(usuario)
-        db.session.commit()
+        crear_usuario(nombre, username, email, password)
 
         flash("Usuario registrado correctamente.", "success")
 
@@ -53,11 +47,52 @@ def register():
     return render_template("auth/register.html")
 
 
-@auth_bp.route("/login")
+@auth_bp.route("/login", methods=["GET", "POST"])
 def login():
+
+    if request.method == "POST":
+
+        usuario_o_email = request.form["usuario"]
+        password = request.form["password"]
+
+        usuario = autenticar_usuario(
+            usuario_o_email,
+            password
+        )
+
+        if usuario:
+
+            session["usuario_id"] = usuario.id
+            session["usuario_nombre"] = usuario.nombre
+            session["usuario_rol"] = usuario.rol.nombre
+
+            flash("Bienvenido.", "success")
+
+            return redirect(url_for("auth.profile"))
+
+        flash("Credenciales incorrectas.", "danger")
+
     return render_template("auth/login.html")
 
 
 @auth_bp.route("/profile")
+@login_required
 def profile():
-    return render_template("auth/profile.html")
+
+    usuario = Usuario.query.get(session["usuario_id"])
+
+    return render_template(
+        "auth/profile.html",
+        usuario=usuario
+    )
+
+
+@auth_bp.route("/logout")
+@login_required
+def logout():
+
+    session.clear()
+
+    flash("Sesión cerrada correctamente.", "success")
+
+    return redirect(url_for("auth.login"))

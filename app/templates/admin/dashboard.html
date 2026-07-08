@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% block title %} Panel de Administración {% endblock
+%} {% block content %}
+
+<div class="card">
+  <h1>⚙️ Panel de Administración</h1>
+
+  <br />
+
+  <p>Bienvenido {{ session["usuario_nombre"] }}</p>
+
+  <br />
+
+  <p>Desde aquí administrarás:</p>
+
+  <ul>
+    <li>Usuarios</li>
+
+    <li>Equipos</li>
+
+    <li>Jugadores</li>
+
+    <li>Torneos</li>
+
+    <li>Partidos</li>
+
+    <li>Árbitros</li>
+
+    <li>Estadísticas</li>
+  </ul>
+</div>
+
+{% endblock %}
