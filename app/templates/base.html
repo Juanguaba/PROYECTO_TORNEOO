@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Sistema de Gestión de Torneos{% endblock %}</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body>
+    <nav>
+      <h2>Sistema de Gestión de Torneos</h2>
+    </nav>
+
+    <main>
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <p>{{ message }}</p>
+      {% endfor %} {% endif %} {% endwith %}{% block content %} {% endblock %}
+    </main>
+  </body>
+</html>
