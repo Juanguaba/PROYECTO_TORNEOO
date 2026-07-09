@@ -1,0 +1,23 @@
+.btn-custom{
+
+    background:var(--primary);
+
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:12px 20px;
+
+    cursor:pointer;
+
+    transition:var(--transition);
+
+}
+
+.btn-custom:hover{
+
+    background:var(--primary-dark);
+
+}

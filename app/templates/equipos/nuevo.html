@@ -1,0 +1,159 @@
+{% extends "base.html" %} {% block title %}Nuevo Equipo{% endblock %} {% block
+content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2>
+      <i class="bi bi-plus-circle-fill text-success"></i>
+      Nuevo Equipo
+    </h2>
+
+    <p class="text-muted">Registra un nuevo equipo en el sistema.</p>
+  </div>
+
+  <a href="{{ url_for('equipos.index') }}" class="btn btn-outline-secondary">
+    <i class="bi bi-arrow-left"></i>
+
+    Volver
+  </a>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body p-4">
+    <form method="POST">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label"> Nombre del Equipo </label>
+
+          <input type="text" class="form-control" name="nombre" required />
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label"> Ciudad </label>
+
+          <input type="text" class="form-control" name="ciudad" required />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label"> Entrenador </label>
+
+          <input type="text" class="form-control" name="entrenador" required />
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label"> Año de Fundación </label>
+
+          <input
+            type="number"
+            class="form-control"
+            name="fundacion"
+            min="1800"
+            max="2100"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <label class="form-label"> Estado </label>
+
+          <select class="form-select" name="estado">
+            <option value="1">Activo</option>
+
+            <option value="0">Inactivo</option>
+          </select>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="form-label"> Escudo </label>
+
+        <div class="upload-box">
+          <input type="file" id="inputImage" accept="image/*" hidden />
+
+          <label for="inputImage" class="upload-area">
+            <div>
+              <i class="bi bi-cloud-arrow-up fs-1"></i>
+
+              <h5>Arrastra una imagen</h5>
+
+              <p>o haz clic para seleccionar</p>
+            </div>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8">
+          <img id="previewImage" style="max-width: 100%; display: none" />
+        </div>
+
+        <div class="col-lg-4">
+          <div
+            class="preview border rounded"
+            style="width: 250px; height: 250px; overflow: hidden"
+          ></div>
+        </div>
+      </div>
+      <div id="toolbar" class="cropper-toolbar">
+        <button
+          type="button"
+          id="zoomIn"
+          class="btn btn-outline-success crop-btn"
+          title="Acercar"
+        >
+          <i class="bi bi-zoom-in"></i>
+        </button>
+
+        <button
+          type="button"
+          id="zoomOut"
+          class="btn btn-outline-success crop-btn"
+          title="Alejar"
+        >
+          <i class="bi bi-zoom-out"></i>
+        </button>
+
+        <button
+          type="button"
+          id="rotate"
+          class="btn btn-outline-primary crop-btn"
+          title="Rotar"
+        >
+          <i class="bi bi-arrow-clockwise"></i>
+        </button>
+
+        <button
+          type="button"
+          id="reset"
+          class="btn btn-outline-danger crop-btn"
+          title="Reiniciar"
+        >
+          <i class="bi bi-arrow-counterclockwise"></i>
+        </button>
+
+        <button type="button" id="applyCrop" class="btn btn-success">
+          <i class="bi bi-check-circle-fill"></i>
+
+          Aplicar
+        </button>
+      </div>
+      <hr />
+
+      <button type="submit" class="btn btn-success">
+        <i class="bi bi-check-circle"></i>
+
+        Guardar Equipo
+      </button>
+
+      <a href="{{ url_for('equipos.index') }}" class="btn btn-secondary">
+        <i class="bi bi-x-circle"></i>
+
+        Cancelar
+      </a>
+    </form>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='js/cropper.js') }}"></script>
+{% endblock %}

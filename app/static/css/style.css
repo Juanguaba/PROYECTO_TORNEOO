@@ -1,82 +1,21 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+@import url("variables.css");
 
-body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#f4f6f9;
-}
+@import url("base.css");
 
-header{
-    background:#169b37;
-    color:white;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:18px 40px;
-}
+@import url("layout.css");
 
-.logo{
-    font-size:22px;
-    font-weight:bold;
-}
+@import url("navbar.css");
 
-nav{
-    display:flex;
-    gap:20px;
-    align-items:center;
-}
+@import url("sidebar.css");
 
-nav a{
-    color:white;
-    text-decoration:none;
-    font-weight:bold;
-}
+@import url("cards.css");
 
-nav a:hover{
-    opacity:.8;
-}
+@import url("buttons.css");
 
-.user{
-    background:white;
-    color:#169b37;
-    padding:8px 15px;
-    border-radius:20px;
-    font-weight:bold;
-}
+@import url("tables.css");
 
-main{
-    width:90%;
-    max-width:1200px;
-    margin:40px auto;
-}
+@import url("forms.css");
 
-.flash{
-    padding:15px;
-    border-radius:8px;
-    margin-bottom:20px;
-}
+@import url("alerts.css");
 
-.success{
-    background:#d1e7dd;
-    color:#0f5132;
-}
-
-.danger{
-    background:#f8d7da;
-    color:#842029;
-}
-
-.warning{
-    background:#fff3cd;
-    color:#664d03;
-}
-
-.card{
-    background:white;
-    padding:25px;
-    border-radius:10px;
-    box-shadow:0 3px 10px rgba(0,0,0,.1);
-}
+@import url("dashboard.css");

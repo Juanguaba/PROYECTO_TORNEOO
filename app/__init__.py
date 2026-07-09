@@ -29,4 +29,7 @@ def create_app():
     from app.admin import admin_bp
     app.register_blueprint(admin_bp)
 
+    from app.equipos import equipos_bp
+    app.register_blueprint(equipos_bp)
+
     return app

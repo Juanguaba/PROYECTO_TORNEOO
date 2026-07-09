@@ -5,50 +5,126 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>{% block title %}Sistema de Gestión de Torneos{% endblock %}</title>
+    <title>
+      {% block title %} Sistema de Gestión de Torneos {% endblock %}
+    </title>
+
+    <!-- Bootstrap -->
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
 
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}"
     />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css"
+    />
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/cropper.css') }}"
+    />
   </head>
 
   <body>
-    <header>
-      <div class="logo">⚽ Sistema de Gestión de Torneos</div>
+    <div class="wrapper">
+      <!-- Sidebar -->
 
-      <nav>
-        <a href="{{ url_for('main.index') }}">Inicio</a>
+      <aside class="sidebar">
+        <h2>⚽ Torneos</h2>
 
-        {% if session.get("usuario_id") %}
+        <ul>
+          <li>
+            <a href="{{ url_for('main.index') }}"
+              class="{% if request.endpoint == 'main.index' %}active{% endif %}">
+              <i class="bi bi-house"></i>
+              Inicio
+            </a>
+          </li>
 
-        <a href="{{ url_for('auth.profile') }}">Perfil</a>
+          {% if session.get("usuario_id") %}
 
-        {% if session.get("usuario_rol") == "Administrador" %}
-        <a href="{{ url_for('admin.dashboard') }}"> Administración </a>
-        {% endif %}
+          <li>
+            <a href="{{ url_for('admin.dashboard') }}"
+              class="{% if request.endpoint == 'admin.dashboard' %}active{% endif %}">
+              <i class="bi bi-speedometer2"></i>
+              Dashboard
+            </a>
+          </li>
 
-        <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+          <li>
+            <a href="{{ url_for('equipos.index') }}"
+              class="{% if request.endpoint == 'equipos.index' %}active{% endif %}">
+              <i class="bi bi-shield-fill"></i>
+              Equipos
+            </a>
+          </li>
 
-        <span class="user"> {{ session["usuario_nombre"] }} </span>
+          <li>
+            <a href="#">
+          </li>
 
-        {% else %}
+          <li>
+            <a href="#">
+          </li>
 
-        <a href="{{ url_for('auth.login') }}">Login</a>
+          <li>
+            <a href="#">
+          </li>
 
-        <a href="{{ url_for('auth.register') }}">Registro</a>
+          <li>
+            <a href="#">
+          </li>
 
-        {% endif %}
-      </nav>
-    </header>
+          {% endif %}
+        </ul>
+      </aside>
 
-    <main>
-      {% with messages = get_flashed_messages(with_categories=true) %} {% if
-      messages %} {% for category, message in messages %}
+      <!-- Contenido -->
 
-      <div class="flash {{ category }}">{{ message }}</div>
+      <div class="content">
+        <!-- Navbar -->
 
-      {% endfor %} {% endif %} {% endwith %} {% block content %} {% endblock %}
-    </main>
+        <nav class="top-navbar">
+          <div class="logo">Sistema de Gestión de Torneos</div>
+
+          {% if session.get("usuario_id") %}
+
+          <div class="user-info">
+            👤 {{ session["usuario_nombre"] }} | {{ session["usuario_rol"] }} |
+
+            <a href="{{ url_for('auth.logout') }}"> Cerrar sesión </a>
+          </div>
+
+          {% endif %}
+        </nav>
+
+        <!-- Contenido -->
+
+        <main class="main-content">
+          {% with messages=get_flashed_messages(with_categories=true) %} {% if
+          messages %} {% for category,message in messages %}
+
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+
+          {% endfor %} {% endif %} {% endwith %} {% block content %} {% endblock
+          %}
+        </main>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
   </body>
 </html>

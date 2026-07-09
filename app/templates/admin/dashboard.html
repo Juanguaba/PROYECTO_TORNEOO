@@ -1,32 +1,42 @@
-{% extends "base.html" %} {% block title %} Panel de Administración {% endblock
-%} {% block content %}
+{% extends "base.html" %} {% block title %}Dashboard{% endblock %} {% block
+content %}
 
-<div class="card">
-  <h1>⚙️ Panel de Administración</h1>
+<h2 class="mb-4">👋 Bienvenido, {{ session["usuario_nombre"] }}</h2>
 
-  <br />
+<p class="text-muted mb-5">Resumen general del sistema.</p>
 
-  <p>Bienvenido {{ session["usuario_nombre"] }}</p>
+<div class="dashboard-grid">
+  <div class="dashboard-card">
+    <div class="card-icon">👥</div>
 
-  <br />
+    <h3>Usuarios</h3>
 
-  <p>Desde aquí administrarás:</p>
+    <h1>1</h1>
+  </div>
 
-  <ul>
-    <li>Usuarios</li>
+  <div class="dashboard-card">
+    <div class="card-icon">🏆</div>
 
-    <li>Equipos</li>
+    <h3>Equipos</h3>
 
-    <li>Jugadores</li>
+    <h1>0</h1>
+  </div>
 
-    <li>Torneos</li>
+  <div class="dashboard-card">
+    <div class="card-icon">⚽</div>
 
-    <li>Partidos</li>
+    <h3>Jugadores</h3>
 
-    <li>Árbitros</li>
+    <h1>0</h1>
+  </div>
 
-    <li>Estadísticas</li>
-  </ul>
+  <div class="dashboard-card">
+    <div class="card-icon">🏅</div>
+
+    <h3>Torneos</h3>
+
+    <h1>0</h1>
+  </div>
 </div>
 
 {% endblock %}
