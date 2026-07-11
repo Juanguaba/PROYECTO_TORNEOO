@@ -110,11 +110,30 @@ applyButton.addEventListener("click", function () {
     const canvas = cropper.getCroppedCanvas({
 
         width: 300,
-        height: 300
+        height: 300,
+        imageSmoothingQuality: "high"
 
     });
 
     previewImage.src = canvas.toDataURL("image/png");
+
+    canvas.toBlob(function (blob) {
+
+        const archivo = new File(
+            [blob],
+            "escudo.png",
+            {
+                type: "image/png"
+            }
+        );
+
+        const dataTransfer = new DataTransfer();
+
+        dataTransfer.items.add(archivo);
+
+        inputImage.files = dataTransfer.files;
+
+    }, "image/png");
 
     cropper.destroy();
 

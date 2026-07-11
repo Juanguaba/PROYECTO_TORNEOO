@@ -19,7 +19,8 @@ def crear_equipo(
     ciudad,
     entrenador,
     fundacion,
-    estado=True
+    estado=True,
+    escudo="default_team.png"
 ):
 
     equipo = Equipo(
@@ -27,7 +28,8 @@ def crear_equipo(
         ciudad=ciudad,
         entrenador=entrenador,
         fundacion=fundacion,
-        estado=estado
+        estado=estado,
+        escudo=escudo
     )
 
     db.session.add(equipo)
@@ -36,17 +38,32 @@ def crear_equipo(
     return equipo
 
 
-def actualizar_equipo(equipo, nombre, ciudad, entrenador, fundacion):
+def actualizar_equipo(
+    equipo,
+    nombre,
+    ciudad,
+    entrenador,
+    fundacion,
+    estado,
+    escudo
+):
 
     equipo.nombre = nombre
     equipo.ciudad = ciudad
     equipo.entrenador = entrenador
     equipo.fundacion = fundacion
+    equipo.estado = estado
+
+    if escudo:
+        equipo.escudo = escudo
 
     db.session.commit()
+
+    return equipo
 
 
 def eliminar_equipo(equipo):
 
     db.session.delete(equipo)
+
     db.session.commit()

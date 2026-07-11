@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block title %}Editar Equipo{% endblock %} {% block
+content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2>
+      <i class="bi bi-pencil-square text-warning"></i>
+
+      Editar Equipo
+    </h2>
+
+    <p class="text-muted">Modifica la información del equipo.</p>
+  </div>
+
+  <a href="{{ url_for('equipos.index') }}" class="btn btn-outline-secondary">
+    <i class="bi bi-arrow-left"></i>
+
+    Volver
+  </a>
+</div>
+
+{% include "equipos/_form.html" %}
+<script src="{{ url_for('static', filename='js/cropper.js') }}"></script>
+{% endblock %}

@@ -78,13 +78,28 @@ content %}
           </td>
 
           <td>
-            <button class="btn btn-warning btn-sm">
+            <a
+              href="{{ url_for('equipos.editar', id=equipo.id) }}"
+              class="btn btn-warning btn-sm"
+              title="Editar equipo"
+            >
               <i class="bi bi-pencil"></i>
-            </button>
+            </a>
 
-            <button class="btn btn-danger btn-sm">
-              <i class="bi bi-trash"></i>
-            </button>
+            <form
+              action="{{ url_for('equipos.eliminar', id=equipo.id) }}"
+              method="POST"
+              class="d-inline delete-form"
+              data-equipo="{{ equipo.nombre }}"
+            >
+              <button
+                type="submit"
+                class="btn btn-danger btn-sm"
+                title="Eliminar equipo"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </form>
           </td>
         </tr>
 
