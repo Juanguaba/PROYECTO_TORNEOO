@@ -1,0 +1,27 @@
+<div class="dashboard-card">
+  <div class="dashboard-card-header">
+    <div class="dashboard-card-icon">
+      <i class="bi {{ icon }}"></i>
+    </div>
+
+    {% if badge %}
+    <span class="badge bg-success"> {{ badge }} </span>
+    {% endif %}
+  </div>
+
+  <div class="dashboard-card-content">
+    <h5 class="dashboard-card-title">{{ titulo }}</h5>
+
+    <h2 class="dashboard-card-value">{{ valor }}</h2>
+
+    <p class="dashboard-card-description">{{ descripcion }}</p>
+  </div>
+
+  <div class="dashboard-card-footer">
+    <a href="{{ url }}" class="dashboard-card-link">
+      {{ boton }}
+
+      <i class="bi bi-arrow-right"></i>
+    </a>
+  </div>
+</div>

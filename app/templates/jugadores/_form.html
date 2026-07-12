@@ -1,0 +1,30 @@
+{% from "components/forms/form_section.html" import form_section %} {% from
+"components/forms/form_section.html" import form_section %}
+
+<form method="POST" enctype="multipart/form-data">
+  <div class="row">
+    <div class="col-lg-4">{% include "jugadores/partials/_photo.html" %}</div>
+
+    <div class="col-lg-8">
+      {% include "jugadores/partials/_personal.html" %}
+    </div>
+  </div>
+
+  {% include "jugadores/partials/_sport.html" %} {% include
+  "jugadores/partials/_extra.html" %}
+
+  <div class="text-end mt-4">
+    <a
+      href="{{ url_for('jugadores.index', equipo_id=equipo.id) }}"
+      class="btn btn-outline-secondary"
+    >
+      Cancelar
+    </a>
+
+    <button type="submit" class="btn btn-success">
+      <i class="bi bi-check-circle"></i>
+
+      Guardar jugador
+    </button>
+  </div>
+</form>

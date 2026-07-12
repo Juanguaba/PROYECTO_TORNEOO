@@ -9,3 +9,103 @@
     padding:25px;
 
 }
+
+.dashboard-card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+
+    border:1px solid #ececec;
+
+    transition:.3s;
+
+    height:100%;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 18px 35px rgba(0,0,0,.12);
+
+}
+
+.dashboard-card-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+}
+
+.dashboard-card-icon{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:16px;
+
+    background:#19875415;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:28px;
+
+    color:#198754;
+
+}
+
+.dashboard-card-title{
+
+    font-weight:700;
+
+    margin-bottom:10px;
+
+}
+
+.dashboard-card-value{
+
+    font-size:38px;
+
+    font-weight:800;
+
+    color:#198754;
+
+}
+
+.dashboard-card-description{
+
+    color:#6c757d;
+
+    margin-bottom:20px;
+
+}
+
+.dashboard-card-footer{
+
+    margin-top:auto;
+
+}
+
+.dashboard-card-link{
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}

@@ -1,0 +1,33 @@
+{% extends "layouts/team_layout.html" %} {% block team_content %}
+
+<div class="row mt-4">
+  <div class="col-lg-3 col-md-6 mb-4">
+    {% set icon="bi-people-fill" %} {% set titulo="Plantilla" %} {% set
+    valor="0" %} {% set descripcion="Jugadores registrados" %} {% set
+    boton="Administrar" %} {% set url="#" %} {% set badge="" %} {% include
+    "components/cards/dashboard_card.html" %}
+  </div>
+
+  <div class="col-lg-3 col-md-6 mb-4">
+    {% set icon="bi-calendar-event-fill" %} {% set titulo="Partidos" %} {% set
+    valor="0" %} {% set descripcion="Partidos disputados" %} {% set
+    boton="Administrar" %} {% set url="#" %} {% set badge="" %} {% include
+    "components/cards/dashboard_card.html" %}
+  </div>
+
+  <div class="col-lg-3 col-md-6 mb-4">
+    {% set icon="bi-trophy-fill" %} {% set titulo="Torneos" %} {% set valor="0"
+    %} {% set descripcion="Torneos inscritos" %} {% set boton="Administrar" %}
+    {% set url="#" %} {% set badge="" %} {% include
+    "components/cards/dashboard_card.html" %}
+  </div>
+
+  <div class="col-lg-3 col-md-6 mb-4">
+    {% set icon="bi-bar-chart-fill" %} {% set titulo="Estadísticas" %} {% set
+    valor="--" %} {% set descripcion="Próximamente" %} {% set boton="Ver" %} {%
+    set url="#" %} {% set badge="Beta" %} {% include
+    "components/cards/dashboard_card.html" %}
+  </div>
+</div>
+
+{% endblock %}

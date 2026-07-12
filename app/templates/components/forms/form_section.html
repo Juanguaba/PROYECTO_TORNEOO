@@ -1,0 +1,15 @@
+{% macro form_section(titulo, icon) %}
+
+<div class="card shadow-sm mb-4">
+  <div class="card-header bg-white">
+    <h5 class="mb-0">
+      <i class="bi {{ icon }} text-success"></i>
+
+      {{ titulo }}
+    </h5>
+  </div>
+
+  <div class="card-body">{{ caller() }}</div>
+</div>
+
+{% endmacro %}

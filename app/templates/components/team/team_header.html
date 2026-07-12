@@ -1,0 +1,69 @@
+<div class="card shadow-sm">
+  <div class="card-body">
+    <div class="row align-items-center">
+      <div class="col-md-3 text-center">
+        {% if equipo.escudo == "default_team.png" %}
+
+        <img
+          src="{{ url_for('static', filename='img/default_team.png') }}"
+          class="team-logo"
+          style="width: 160px; height: 160px"
+        />
+
+        {% else %}
+
+        <img
+          src="{{ url_for('static', filename='uploads/equipos/' + equipo.escudo) }}"
+          class="team-logo"
+          style="width: 160px; height: 160px"
+        />
+
+        {% endif %}
+      </div>
+
+      <div class="col-md-9">
+        <h3>{{ equipo.nombre }}</h3>
+
+        <hr />
+
+        <div class="row">
+          <div class="col-md-6">
+            <p>
+              <strong>📍 Ciudad:</strong>
+
+              {{ equipo.ciudad }}
+            </p>
+
+            <p>
+              <strong>👨‍🏫 Entrenador:</strong>
+
+              {{ equipo.entrenador }}
+            </p>
+          </div>
+
+          <div class="col-md-6">
+            <p>
+              <strong>📅 Fundación:</strong>
+
+              {{ equipo.fundacion }}
+            </p>
+
+            <p>
+              <strong>Estado:</strong>
+
+              {% if equipo.estado %}
+
+              <span class="badge bg-success"> Activo </span>
+
+              {% else %}
+
+              <span class="badge bg-danger"> Inactivo </span>
+
+              {% endif %}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

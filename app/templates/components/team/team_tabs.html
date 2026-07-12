@@ -1,0 +1,58 @@
+<div class="team-tabs-container">
+  <ul class="nav team-tabs">
+    <li class="nav-item">
+      <a
+        class="nav-link {% if active_tab == 'info' %}active{% endif %}"
+        href="{{ url_for('equipos.detalle', id=equipo.id) }}"
+      >
+        <i class="bi bi-info-circle-fill"></i>
+
+        Información
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link {% if active_tab == 'plantilla' %}active{% endif %}"
+        href="{{ url_for('jugadores.index', equipo_id=equipo.id) }}"
+      >
+        <i class="bi bi-people-fill"></i>
+
+        Plantilla
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link {% if active_tab == 'partidos' %}active{% endif %}"
+        href="#"
+      >
+        <i class="bi bi-calendar-event-fill"></i>
+
+        Partidos
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link {% if active_tab == 'torneos' %}active{% endif %}"
+        href="#"
+      >
+        <i class="bi bi-trophy-fill"></i>
+
+        Torneos
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link {% if active_tab == 'estadisticas' %}active{% endif %}"
+        href="#"
+      >
+        <i class="bi bi-bar-chart-fill"></i>
+
+        Estadísticas
+      </a>
+    </li>
+  </ul>
+</div>

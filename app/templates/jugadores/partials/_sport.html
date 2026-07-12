@@ -1,0 +1,83 @@
+{% from "components/forms/form_section.html" import form_section %} {% call
+form_section( "Información Deportiva", "bi-trophy-fill" ) %}
+
+<div class="row">
+  <div class="col-md-4 mb-3">
+    <label class="form-label"> Número </label>
+
+    <input
+      type="number"
+      name="numero"
+      class="form-control"
+      min="1"
+      max="99"
+      required
+    />
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <label class="form-label"> Posición </label>
+
+    <select name="posicion" class="form-select" required>
+      <option value="">Seleccionar</option>
+
+      <option>Portero</option>
+      <option>Defensa</option>
+      <option>Lateral</option>
+      <option>Mediocampista</option>
+      <option>Extremo</option>
+      <option>Delantero</option>
+    </select>
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <label class="form-label"> Pie hábil </label>
+
+    <select name="pie_habil" class="form-select" required>
+      <option value="">Seleccionar</option>
+
+      <option>Derecho</option>
+      <option>Izquierdo</option>
+      <option>Ambidiestro</option>
+    </select>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4 mb-3">
+    <label class="form-label"> Altura (m) </label>
+
+    <input
+      type="number"
+      step="0.01"
+      name="altura"
+      class="form-control"
+      placeholder="1.80"
+    />
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <label class="form-label"> Peso (kg) </label>
+
+    <input
+      type="number"
+      step="0.1"
+      name="peso"
+      class="form-control"
+      placeholder="75"
+    />
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <label class="form-label"> Estado </label>
+
+    <select name="estado" class="form-select">
+      <option>Activo</option>
+      <option>Lesionado</option>
+      <option>Suspendido</option>
+      <option>No convocado</option>
+    </select>
+  </div>
+</div>
+
+{% endcall %}

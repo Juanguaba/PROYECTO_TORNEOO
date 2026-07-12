@@ -38,5 +38,12 @@ class Equipo(db.Model):
         default=True
     )
 
+    jugadores = db.relationship(
+        "Jugador",
+        back_populates="equipo",
+        cascade="all, delete-orphan",
+        lazy=True
+    )
+
     def __repr__(self):
         return f"<Equipo {self.nombre}>"

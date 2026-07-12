@@ -59,7 +59,14 @@ content %}
             {% endif %}
           </td>
 
-          <td>{{ equipo.nombre }}</td>
+          <td>
+            <a
+              href="{{ url_for('equipos.detalle', id=equipo.id) }}"
+              class="text-decoration-none fw-semibold"
+            >
+              {{ equipo.nombre }}
+            </a>
+          </td>
 
           <td>{{ equipo.ciudad }}</td>
 

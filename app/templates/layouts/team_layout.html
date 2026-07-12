@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block title %} {{ equipo.nombre }} {% endblock %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2>
+      <i class="bi bi-shield-fill text-success"></i>
+
+      {{ equipo.nombre }}
+    </h2>
+
+    <p class="text-muted">Centro de gestión del equipo.</p>
+  </div>
+
+  <a href="{{ url_for('equipos.index') }}" class="btn btn-outline-secondary">
+    <i class="bi bi-arrow-left"></i>
+
+    Volver
+  </a>
+</div>
+
+{% include "components/team/team_header.html" %} {% include
+"components/team/team_tabs.html" %} {% block team_content %} {% endblock %} {%
+endblock %}

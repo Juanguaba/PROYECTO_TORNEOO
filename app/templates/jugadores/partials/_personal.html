@@ -1,0 +1,38 @@
+{% from "components/forms/form_section.html" import form_section %} {% call
+form_section( "Información Personal", "bi-person-fill" ) %}
+
+<div class="row">
+  <div class="col-md-6 mb-3">
+    <label class="form-label"> Nombre </label>
+
+    <input type="text" name="nombre" class="form-control" required />
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <label class="form-label"> Apellidos </label>
+
+    <input type="text" name="apellido" class="form-control" required />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6 mb-3">
+    <label class="form-label"> Fecha de nacimiento </label>
+
+    <input type="date" name="fecha_nacimiento" class="form-control" required />
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <label class="form-label"> Nacionalidad </label>
+
+    <input
+      type="text"
+      name="nacionalidad"
+      class="form-control"
+      placeholder="Ej: Colombia"
+      required
+    />
+  </div>
+</div>
+
+{% endcall %}

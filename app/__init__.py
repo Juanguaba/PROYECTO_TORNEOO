@@ -32,4 +32,7 @@ def create_app():
     from app.equipos import equipos_bp
     app.register_blueprint(equipos_bp)
 
+    from app.jugadores import jugadores_bp
+    app.register_blueprint(jugadores_bp)
+
     return app

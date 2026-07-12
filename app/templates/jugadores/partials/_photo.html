@@ -1,0 +1,48 @@
+{% from "components/forms/form_section.html" import form_section %} {% call
+form_section( "Fotografía", "bi-camera-fill" ) %}
+
+<div class="upload-box">
+  <input type="file" id="inputImage" name="foto" accept="image/*" hidden />
+
+  <label for="inputImage" class="upload-area">
+    <div>
+      <i class="bi bi-cloud-arrow-up fs-1"></i>
+
+      <h5>Selecciona una fotografía</h5>
+
+      <p>JPG, PNG o WEBP</p>
+    </div>
+  </label>
+</div>
+
+<img
+  id="previewImage"
+  style="display: none; max-width: 100%; margin-top: 20px"
+/>
+
+<div
+  class="preview border rounded mt-3"
+  style="width: 220px; height: 220px; overflow: hidden; margin: auto"
+></div>
+
+<div id="toolbar" class="cropper-toolbar">
+  <button type="button" id="zoomIn" class="btn btn-outline-success crop-btn">
+    <i class="bi bi-zoom-in"></i>
+  </button>
+
+  <button type="button" id="zoomOut" class="btn btn-outline-success crop-btn">
+    <i class="bi bi-zoom-out"></i>
+  </button>
+
+  <button type="button" id="rotate" class="btn btn-outline-primary crop-btn">
+    <i class="bi bi-arrow-clockwise"></i>
+  </button>
+
+  <button type="button" id="reset" class="btn btn-outline-danger crop-btn">
+    <i class="bi bi-arrow-counterclockwise"></i>
+  </button>
+
+  <button type="button" id="applyCrop" class="btn btn-success">Aplicar</button>
+</div>
+
+{% endcall %}

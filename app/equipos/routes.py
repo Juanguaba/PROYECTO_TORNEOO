@@ -204,3 +204,21 @@ def eliminar(id):
     )
 
     return redirect(url_for("equipos.index"))
+
+
+@equipos_bp.route("/<int:id>")
+def detalle(id):
+
+    equipo = obtener_equipo_por_id(id)
+
+    if not equipo:
+
+        flash("Equipo no encontrado.", "danger")
+
+        return redirect(url_for("equipos.index"))
+
+    return render_template(
+        "equipos/informacion.html",
+        equipo=equipo,
+        active_tab="info"
+    )

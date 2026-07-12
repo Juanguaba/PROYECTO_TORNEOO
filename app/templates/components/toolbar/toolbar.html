@@ -1,0 +1,32 @@
+<div class="toolbar">
+  <div class="toolbar-left">
+    <div class="search-box">
+      <i class="bi bi-search"></i>
+
+      <input type="text" placeholder="Buscar..." />
+    </div>
+
+    <select class="form-select">
+      <option>Todas las posiciones</option>
+    </select>
+
+    <select class="form-select">
+      <option>Todos los estados</option>
+    </select>
+
+    <select class="form-select">
+      <option>Ordenar</option>
+    </select>
+  </div>
+
+  <div class="toolbar-right">
+    <a
+      href="{{ url_for('jugadores.nuevo', equipo_id=equipo.id) }}"
+      class="btn btn-success"
+    >
+      <i class="bi bi-plus-circle"></i>
+
+      Nuevo Jugador
+    </a>
+  </div>
+</div>

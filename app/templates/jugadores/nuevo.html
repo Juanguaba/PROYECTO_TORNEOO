@@ -1,0 +1,15 @@
+{% extends "layouts/team_layout.html" %} {% block team_content %}
+
+<div class="page-header">
+  <div>
+    <h2>
+      <i class="bi bi-person-plus-fill text-success"></i>
+
+      Nuevo Jugador
+    </h2>
+
+    <p class="text-muted">Registra un nuevo jugador para la plantilla.</p>
+  </div>
+</div>
+
+{% include "jugadores/_form.html" %} {% endblock %}
