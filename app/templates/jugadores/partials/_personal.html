@@ -3,35 +3,92 @@ form_section( "Información Personal", "bi-person-fill" ) %}
 
 <div class="row">
   <div class="col-md-6 mb-3">
-    <label class="form-label"> Nombre </label>
+    <label class="form-label">
+      <i class="bi bi-person"></i>
 
-    <input type="text" name="nombre" class="form-control" required />
+      Nombre <span class="text-danger">*</span>
+    </label>
+
+    <input
+      type="text"
+      name="nombre"
+      class="form-control"
+      placeholder="Ej: Juan"
+      required
+    />
   </div>
 
   <div class="col-md-6 mb-3">
-    <label class="form-label"> Apellidos </label>
+    <label class="form-label">
+      <i class="bi bi-person-vcard"></i>
 
-    <input type="text" name="apellido" class="form-control" required />
+      Apellidos <span class="text-danger">*</span>
+    </label>
+
+    <input
+      type="text"
+      name="apellido"
+      class="form-control"
+      placeholder="Ej: Pérez Gómez"
+      required
+    />
   </div>
 </div>
 
 <div class="row">
-  <div class="col-md-6 mb-3">
-    <label class="form-label"> Fecha de nacimiento </label>
+  <div class="col-md-4 mb-3">
+    <label class="form-label">
+      <i class="bi bi-calendar-event"></i>
 
-    <input type="date" name="fecha_nacimiento" class="form-control" required />
+      Fecha de nacimiento
+    </label>
+
+    <input
+      id="fechaNacimiento"
+      type="date"
+      name="fecha_nacimiento"
+      class="form-control"
+      required
+    />
+  </div>
+
+  <div class="col-md-2 mb-3">
+    <label class="form-label">
+      <i class="bi bi-hourglass-split"></i>
+
+      Edad
+    </label>
+
+    <input
+      id="edadJugador"
+      type="text"
+      class="form-control"
+      placeholder="--"
+      readonly
+    />
   </div>
 
   <div class="col-md-6 mb-3">
-    <label class="form-label"> Nacionalidad </label>
+    <label class="form-label">
+      <i class="bi bi-globe-americas"></i>
 
-    <input
-      type="text"
-      name="nacionalidad"
-      class="form-control"
-      placeholder="Ej: Colombia"
-      required
-    />
+      Nacionalidad
+    </label>
+
+    <select name="nacionalidad" class="form-select" required>
+      <option value="">Seleccione...</option>
+
+      <option>🇨🇴 Colombia</option>
+      <option>🇧🇷 Brasil</option>
+      <option>🇦🇷 Argentina</option>
+      <option>🇺🇾 Uruguay</option>
+      <option>🇪🇸 España</option>
+      <option>🇵🇹 Portugal</option>
+      <option>🇫🇷 Francia</option>
+      <option>🇲🇽 México</option>
+      <option>🇨🇱 Chile</option>
+      <option>🇪🇨 Ecuador</option>
+    </select>
   </div>
 </div>
 

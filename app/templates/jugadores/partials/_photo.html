@@ -1,44 +1,53 @@
 {% from "components/forms/form_section.html" import form_section %} {% call
-form_section( "Fotografía", "bi-camera-fill" ) %}
+form_section("Fotografía", "bi-camera-fill") %}
 
-<div class="upload-box">
+<div class="text-center">
+  <img
+    id="playerAvatar"
+    src="{{ url_for('static', filename='img/default_player.png') }}"
+    class="player-photo-preview rounded-circle shadow-sm mb-3"
+    alt="Jugador"
+  />
+
+  <img id="cropperImage" style="display: none; max-width: 100%" />
+
   <input type="file" id="inputImage" name="foto" accept="image/*" hidden />
 
-  <label for="inputImage" class="upload-area">
-    <div>
-      <i class="bi bi-cloud-arrow-up fs-1"></i>
+  <label for="inputImage" class="btn btn-outline-success w-100">
+    <i class="bi bi-upload"></i>
 
-      <h5>Selecciona una fotografía</h5>
-
-      <p>JPG, PNG o WEBP</p>
-    </div>
+    Seleccionar fotografía
   </label>
+
+  <small class="text-muted d-block mt-2"> JPG, PNG o WEBP </small>
 </div>
 
-<img
-  id="previewImage"
-  style="display: none; max-width: 100%; margin-top: 20px"
-/>
-
 <div
-  class="preview border rounded mt-3"
-  style="width: 220px; height: 220px; overflow: hidden; margin: auto"
+  id="cropPreview"
+  class="preview border rounded mt-4"
+  style="
+    display: none;
+    width: 220px;
+    height: 220px;
+    overflow: hidden;
+    margin: auto;
+  "
 ></div>
 
-<div id="toolbar" class="cropper-toolbar">
-  <button type="button" id="zoomIn" class="btn btn-outline-success crop-btn">
+<div id="toolbar" class="cropper-toolbar mt-3">
+  <button type="button" id="zoomIn" class="btn btn-outline-success">
     <i class="bi bi-zoom-in"></i>
   </button>
 
-  <button type="button" id="zoomOut" class="btn btn-outline-success crop-btn">
+  <button type="button" id="zoomOut" class="btn btn-outline-success">
     <i class="bi bi-zoom-out"></i>
   </button>
 
-  <button type="button" id="rotate" class="btn btn-outline-primary crop-btn">
+  <button type="button" id="rotate" class="btn btn-outline-primary">
     <i class="bi bi-arrow-clockwise"></i>
   </button>
 
-  <button type="button" id="reset" class="btn btn-outline-danger crop-btn">
+  <button type="button" id="reset" class="btn btn-outline-danger">
     <i class="bi bi-arrow-counterclockwise"></i>
   </button>
 

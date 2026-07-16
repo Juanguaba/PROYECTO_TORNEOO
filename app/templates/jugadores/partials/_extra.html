@@ -3,29 +3,49 @@ form_section( "Información Adicional", "bi-chat-left-text-fill" ) %}
 
 <div class="row">
   <div class="col-md-6">
-    <div class="form-check mb-3">
-      <input class="form-check-input" type="checkbox" name="capitan" />
+    <div class="form-check form-switch mb-4">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="capitan"
+        name="capitan"
+      />
 
-      <label class="form-check-label"> Capitán del equipo </label>
+      <label class="form-check-label" for="capitan">
+        ⭐ Capitán del equipo
+      </label>
     </div>
   </div>
 
   <div class="col-md-6">
-    <div class="form-check mb-3">
-      <input class="form-check-input" type="checkbox" name="lesionado" />
+    <div class="form-check form-switch mb-4">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="lesionado"
+        name="lesionado"
+      />
 
-      <label class="form-check-label"> Jugador lesionado </label>
+      <label class="form-check-label" for="lesionado">
+        🩺 Jugador lesionado
+      </label>
     </div>
   </div>
 </div>
 
-<label class="form-label"> Observaciones </label>
+<div class="mb-3">
+  <label class="form-label">
+    <i class="bi bi-chat-left-text"></i>
 
-<textarea
-  name="observaciones"
-  rows="4"
-  class="form-control"
-  placeholder="Información adicional sobre el jugador..."
-></textarea>
+    Observaciones
+  </label>
+
+  <textarea
+    class="form-control"
+    name="observaciones"
+    rows="5"
+    placeholder="Escribe aquí información adicional sobre el jugador..."
+  ></textarea>
+</div>
 
 {% endcall %}

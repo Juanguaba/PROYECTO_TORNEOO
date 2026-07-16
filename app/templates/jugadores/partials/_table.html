@@ -1,0 +1,89 @@
+<div class="card shadow-sm border-0 table-card">
+  <!-- Header de la tabla -->
+
+  <div class="table-header">
+    <div>
+      <h5 class="mb-1">
+        <i class="bi bi-people-fill text-success"></i>
+
+        Plantilla
+      </h5>
+
+      <small class="text-muted">
+        {{ jugadores|length }} jugadores registrados
+      </small>
+    </div>
+
+    <a
+      href="{{ url_for('jugadores.nuevo', equipo_id=equipo.id) }}"
+      class="btn btn-success"
+    >
+      <i class="bi bi-plus-circle"></i>
+
+      Nuevo jugador
+    </a>
+  </div>
+
+  <!-- Toolbar -->
+
+  {% include "jugadores/partials/_toolbar.html" %}
+
+  <!-- Tabla -->
+
+  <div class="table-responsive">
+    <table class="table align-middle mb-0 players-table">
+      <thead>
+        <tr>
+          <th width="80">
+            <i class="bi bi-image"></i>
+
+            Foto
+          </th>
+
+          <th width="70">#</th>
+
+          <th>
+            <i class="bi bi-person-fill"></i>
+
+            Jugador
+          </th>
+
+          <th>
+            <i class="bi bi-hourglass-split"></i>
+
+            Edad
+          </th>
+
+          <th>
+            <i class="bi bi-globe-americas"></i>
+
+            Nacionalidad
+          </th>
+
+          <th>
+            <i class="bi bi-dribbble"></i>
+
+            Posición
+          </th>
+
+          <th>
+            <i class="bi bi-check-circle-fill"></i>
+
+            Estado
+          </th>
+
+          <th class="text-center">
+            <i class="bi bi-gear-fill"></i>
+
+            Acciones
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for jugador in jugadores %} {% include "jugadores/partials/_row.html"
+        %} {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>

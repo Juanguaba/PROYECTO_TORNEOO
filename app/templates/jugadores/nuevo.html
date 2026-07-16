@@ -12,4 +12,7 @@
   </div>
 </div>
 
-{% include "jugadores/_form.html" %} {% endblock %}
+{% include "jugadores/_form.html" %}
+<script src="{{ url_for('static', filename='js/components/player_form.js') }}"></script>
+<script src="{{ url_for('static', filename='js/cropper/player_cropper.js') }}"></script>
+{% endblock %}

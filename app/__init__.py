@@ -35,4 +35,7 @@ def create_app():
     from app.jugadores import jugadores_bp
     app.register_blueprint(jugadores_bp)
 
+    from app.utils.date import calcular_edad
+    app.jinja_env.globals["calcular_edad"] = calcular_edad
+
     return app

@@ -2,8 +2,12 @@
 form_section( "Información Deportiva", "bi-trophy-fill" ) %}
 
 <div class="row">
-  <div class="col-md-4 mb-3">
-    <label class="form-label"> Número </label>
+  <div class="col-md-3 mb-3">
+    <label class="form-label">
+      <i class="bi bi-hash"></i>
+
+      Número <span class="text-danger">*</span>
+    </label>
 
     <input
       type="number"
@@ -11,30 +15,44 @@ form_section( "Información Deportiva", "bi-trophy-fill" ) %}
       class="form-control"
       min="1"
       max="99"
+      placeholder="10"
       required
     />
+
+    <small class="text-muted"> Entre 1 y 99 </small>
   </div>
 
-  <div class="col-md-4 mb-3">
-    <label class="form-label"> Posición </label>
+  <div class="col-md-5 mb-3">
+    <label class="form-label">
+      <i class="bi bi-diagram-3"></i>
+
+      Posición
+    </label>
 
     <select name="posicion" class="form-select" required>
-      <option value="">Seleccionar</option>
+      <option value="">Seleccione...</option>
 
-      <option>Portero</option>
-      <option>Defensa</option>
-      <option>Lateral</option>
-      <option>Mediocampista</option>
-      <option>Extremo</option>
-      <option>Delantero</option>
+      <option>🥅 Portero</option>
+      <option>🛡 Defensa Central</option>
+      <option>🏃 Lateral Derecho</option>
+      <option>🏃 Lateral Izquierdo</option>
+      <option>⚙ Mediocentro</option>
+      <option>🎯 Mediapunta</option>
+      <option>⚡ Extremo Derecho</option>
+      <option>⚡ Extremo Izquierdo</option>
+      <option>🎯 Delantero Centro</option>
     </select>
   </div>
 
   <div class="col-md-4 mb-3">
-    <label class="form-label"> Pie hábil </label>
+    <label class="form-label">
+      <i class="bi bi-signpost-2"></i>
+
+      Pie hábil
+    </label>
 
     <select name="pie_habil" class="form-select" required>
-      <option value="">Seleccionar</option>
+      <option value="">Seleccione...</option>
 
       <option>Derecho</option>
       <option>Izquierdo</option>
@@ -43,33 +61,53 @@ form_section( "Información Deportiva", "bi-trophy-fill" ) %}
   </div>
 </div>
 
+<hr />
+
 <div class="row">
   <div class="col-md-4 mb-3">
-    <label class="form-label"> Altura (m) </label>
+    <label class="form-label">
+      <i class="bi bi-arrows-vertical"></i>
+
+      Altura (m)
+    </label>
 
     <input
       type="number"
       step="0.01"
+      min="1.00"
+      max="2.50"
       name="altura"
       class="form-control"
       placeholder="1.80"
+      required
     />
   </div>
 
   <div class="col-md-4 mb-3">
-    <label class="form-label"> Peso (kg) </label>
+    <label class="form-label">
+      <i class="bi bi-speedometer2"></i>
+
+      Peso (kg)
+    </label>
 
     <input
       type="number"
       step="0.1"
+      min="20"
+      max="200"
       name="peso"
       class="form-control"
-      placeholder="75"
+      placeholder="75.0"
+      required
     />
   </div>
 
   <div class="col-md-4 mb-3">
-    <label class="form-label"> Estado </label>
+    <label class="form-label">
+      <i class="bi bi-check-circle"></i>
+
+      Estado
+    </label>
 
     <select name="estado" class="form-select">
       <option>Activo</option>

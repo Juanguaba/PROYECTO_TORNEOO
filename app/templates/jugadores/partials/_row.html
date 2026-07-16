@@ -1,0 +1,82 @@
+<tr>
+  <td>
+    {% if jugador.foto == "default_player.png" %}
+    <img
+      src="{{ url_for('static', filename='img/default_player.png') }}"
+      class="player-table-photo"
+    />
+    {% else %}
+    <img
+      src="{{ url_for('static', filename='uploads/jugadores/' ~ jugador.foto) }}"
+      class="player-table-photo"
+    />
+    {% endif %}
+  </td>
+
+  <td>
+    <div class="player-number">{{ jugador.numero }}</div>
+  </td>
+
+  <td>
+    <div class="player-name">
+      <div class="player-fullname">{{ jugador.nombre }}</div>
+
+      <div class="player-lastname">{{ jugador.apellido }}</div>
+    </div>
+  </td>
+
+  <td>
+    <span class="player-age">
+      {{ calcular_edad(jugador.fecha_nacimiento) }} años
+    </span>
+  </td>
+  <td>{{ jugador.nacionalidad }}</td>
+
+  <td>
+    {% if jugador.posicion == "Portero" %}
+
+    <span class="badge badge-portero"> {{ jugador.posicion }} </span>
+
+    {% elif "Defensa" in jugador.posicion %}
+
+    <span class="badge badge-defensa"> {{ jugador.posicion }} </span>
+
+    {% elif "Mediocampo" in jugador.posicion %}
+
+    <span class="badge badge-mediocampo"> {{ jugador.posicion }} </span>
+
+    {% elif jugador.posicion in ["Delantero", "DC"] %}
+
+    <span class="badge badge-delantero"> {{ jugador.posicion }} </span>
+
+    {% elif jugador.posicion == "Extremo" %}
+
+    <span class="badge badge-extremo"> {{ jugador.posicion }} </span>
+
+    {% else %}
+
+    <span class="badge bg-secondary"> {{ jugador.posicion }} </span>
+
+    {% endif %}
+  </td>
+
+  <td>
+    <span class="badge bg-success px-3 py-2"> {{ jugador.estado }} </span>
+  </td>
+
+  <td>
+    <div class="action-buttons">
+      <button class="btn-action btn-view" title="Ver jugador">
+        <i class="bi bi-eye"></i>
+      </button>
+
+      <button class="btn-action btn-edit" title="Editar jugador">
+        <i class="bi bi-pencil"></i>
+      </button>
+
+      <button class="btn-action btn-delete" title="Eliminar jugador">
+        <i class="bi bi-trash"></i>
+      </button>
+    </div>
+  </td>
+</tr>

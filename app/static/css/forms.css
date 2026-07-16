@@ -31,3 +31,56 @@ background:#f8f9fa;
 margin:auto;
 
 }
+
+/* ---------- FORMULARIO NUEVO JUGADOR ---------- */
+
+.form-label {
+    font-weight: 600;
+}
+
+.form-check-input {
+    cursor: pointer;
+}
+
+textarea {
+    resize: none;
+}
+
+/* ---------- FOTOGRAFÍA DEL JUGADOR ---------- */
+
+.player-photo-preview{
+
+    width:220px;
+    height:220px;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:6px solid #e9ecef;
+
+    transition:.3s;
+
+    display:block;
+
+    margin:auto;
+
+}
+
+.player-photo-preview:hover{
+
+    transform:scale(1.03);
+
+}
+
+.cropper-toolbar{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+}

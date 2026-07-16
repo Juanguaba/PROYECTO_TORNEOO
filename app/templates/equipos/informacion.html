@@ -2,9 +2,10 @@
 
 <div class="row mt-4">
   <div class="col-lg-3 col-md-6 mb-4">
-    {% set icon="bi-people-fill" %} {% set titulo="Plantilla" %} {% set
-    valor="0" %} {% set descripcion="Jugadores registrados" %} {% set
-    boton="Administrar" %} {% set url="#" %} {% set badge="" %} {% include
+    {% set icon="bi-people-fill" %} {% set titulo="Plantilla" %} {% set valor =
+    equipo.jugadores|length %} {% set descripcion="Jugadores registrados" %}
+    {%set boton="Administrar" %} {% set url = url_for('jugadores.index',
+    equipo_id=equipo.id) %} {% set badge="" %} {% include
     "components/cards/dashboard_card.html" %}
   </div>
 
