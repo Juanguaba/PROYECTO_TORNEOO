@@ -1,121 +1,204 @@
-{% from "components/forms/form_section.html" import form_section %} {% call
-form_section( "Información Deportiva", "bi-trophy-fill" ) %}
+{% from "components/forms/form_section.html" import form_section %}
+
+{% call form_section("Información Deportiva", "bi-trophy-fill") %}
 
 <div class="row">
-  <div class="col-md-3 mb-3">
-    <label class="form-label">
-      <i class="bi bi-hash"></i>
 
-      Número <span class="text-danger">*</span>
-    </label>
+    <div class="col-md-3 mb-3">
 
-    <input
-      type="number"
-      name="numero"
-      class="form-control"
-      min="1"
-      max="99"
-      placeholder="10"
-      required
-    />
+        <label class="form-label">
+            <i class="bi bi-hash"></i>
+            Número <span class="text-danger">*</span>
+        </label>
 
-    <small class="text-muted"> Entre 1 y 99 </small>
-  </div>
+        <input
+            type="number"
+            name="numero"
+            class="form-control"
+            min="1"
+            max="99"
+            placeholder="10"
+            value="{{ jugador.numero if jugador is defined else '' }}"
+            required
+        >
 
-  <div class="col-md-5 mb-3">
-    <label class="form-label">
-      <i class="bi bi-diagram-3"></i>
+        <small class="text-muted">
+            Entre 1 y 99
+        </small>
 
-      Posición
-    </label>
+    </div>
 
-    <select name="posicion" class="form-select" required>
-      <option value="">Seleccione...</option>
+    <div class="col-md-5 mb-3">
 
-      <option>🥅 Portero</option>
-      <option>🛡 Defensa Central</option>
-      <option>🏃 Lateral Derecho</option>
-      <option>🏃 Lateral Izquierdo</option>
-      <option>⚙ Mediocentro</option>
-      <option>🎯 Mediapunta</option>
-      <option>⚡ Extremo Derecho</option>
-      <option>⚡ Extremo Izquierdo</option>
-      <option>🎯 Delantero Centro</option>
-    </select>
-  </div>
+        <label class="form-label">
+            <i class="bi bi-diagram-3"></i>
+            Posición
+        </label>
 
-  <div class="col-md-4 mb-3">
-    <label class="form-label">
-      <i class="bi bi-signpost-2"></i>
+        <select name="posicion" class="form-select" required>
 
-      Pie hábil
-    </label>
+            <option value="">Seleccione...</option>
 
-    <select name="pie_habil" class="form-select" required>
-      <option value="">Seleccione...</option>
+            <option value="🥅 Portero"
+                {% if jugador is defined and jugador.posicion == "🥅 Portero" %}selected{% endif %}>
+                🥅 Portero
+            </option>
 
-      <option>Derecho</option>
-      <option>Izquierdo</option>
-      <option>Ambidiestro</option>
-    </select>
-  </div>
+            <option value="🛡 Defensa Central"
+                {% if jugador is defined and jugador.posicion == "🛡 Defensa Central" %}selected{% endif %}>
+                🛡 Defensa Central
+            </option>
+
+            <option value="🏃 Lateral Derecho"
+                {% if jugador is defined and jugador.posicion == "🏃 Lateral Derecho" %}selected{% endif %}>
+                🏃 Lateral Derecho
+            </option>
+
+            <option value="🏃 Lateral Izquierdo"
+                {% if jugador is defined and jugador.posicion == "🏃 Lateral Izquierdo" %}selected{% endif %}>
+                🏃 Lateral Izquierdo
+            </option>
+
+            <option value="⚙ Mediocentro"
+                {% if jugador is defined and jugador.posicion == "⚙ Mediocentro" %}selected{% endif %}>
+                ⚙ Mediocentro
+            </option>
+
+            <option value="🎯 Mediapunta"
+                {% if jugador is defined and jugador.posicion == "🎯 Mediapunta" %}selected{% endif %}>
+                🎯 Mediapunta
+            </option>
+
+            <option value="⚡ Extremo Derecho"
+                {% if jugador is defined and jugador.posicion == "⚡ Extremo Derecho" %}selected{% endif %}>
+                ⚡ Extremo Derecho
+            </option>
+
+            <option value="⚡ Extremo Izquierdo"
+                {% if jugador is defined and jugador.posicion == "⚡ Extremo Izquierdo" %}selected{% endif %}>
+                ⚡ Extremo Izquierdo
+            </option>
+
+            <option value="🎯 Delantero Centro"
+                {% if jugador is defined and jugador.posicion == "🎯 Delantero Centro" %}selected{% endif %}>
+                🎯 Delantero Centro
+            </option>
+
+        </select>
+
+    </div>
+
+    <div class="col-md-4 mb-3">
+
+        <label class="form-label">
+            <i class="bi bi-signpost-2"></i>
+            Pie hábil
+        </label>
+
+        <select name="pie_habil" class="form-select" required>
+
+            <option value="">Seleccione...</option>
+
+            <option value="Derecho"
+                {% if jugador is defined and jugador.pie_habil == "Derecho" %}selected{% endif %}>
+                Derecho
+            </option>
+
+            <option value="Izquierdo"
+                {% if jugador is defined and jugador.pie_habil == "Izquierdo" %}selected{% endif %}>
+                Izquierdo
+            </option>
+
+            <option value="Ambidiestro"
+                {% if jugador is defined and jugador.pie_habil == "Ambidiestro" %}selected{% endif %}>
+                Ambidiestro
+            </option>
+
+        </select>
+
+    </div>
+
 </div>
 
-<hr />
+<hr>
 
 <div class="row">
-  <div class="col-md-4 mb-3">
-    <label class="form-label">
-      <i class="bi bi-arrows-vertical"></i>
 
-      Altura (m)
-    </label>
+    <div class="col-md-4 mb-3">
 
-    <input
-      type="number"
-      step="0.01"
-      min="1.00"
-      max="2.50"
-      name="altura"
-      class="form-control"
-      placeholder="1.80"
-      required
-    />
-  </div>
+        <label class="form-label">
+            <i class="bi bi-arrows-vertical"></i>
+            Altura (m)
+        </label>
 
-  <div class="col-md-4 mb-3">
-    <label class="form-label">
-      <i class="bi bi-speedometer2"></i>
+        <input
+            type="number"
+            step="0.01"
+            min="1.00"
+            max="2.50"
+            name="altura"
+            class="form-control"
+            placeholder="1.80"
+            value="{{ jugador.altura if jugador is defined else '' }}"
+            required
+        >
 
-      Peso (kg)
-    </label>
+    </div>
 
-    <input
-      type="number"
-      step="0.1"
-      min="20"
-      max="200"
-      name="peso"
-      class="form-control"
-      placeholder="75.0"
-      required
-    />
-  </div>
+    <div class="col-md-4 mb-3">
 
-  <div class="col-md-4 mb-3">
-    <label class="form-label">
-      <i class="bi bi-check-circle"></i>
+        <label class="form-label">
+            <i class="bi bi-speedometer2"></i>
+            Peso (kg)
+        </label>
 
-      Estado
-    </label>
+        <input
+            type="number"
+            step="0.1"
+            min="20"
+            max="200"
+            name="peso"
+            class="form-control"
+            placeholder="75.0"
+            value="{{ jugador.peso if jugador is defined else '' }}"
+            required
+        >
 
-    <select name="estado" class="form-select">
-      <option>Activo</option>
-      <option>Lesionado</option>
-      <option>Suspendido</option>
-      <option>No convocado</option>
-    </select>
-  </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+
+        <label class="form-label">
+            <i class="bi bi-check-circle"></i>
+            Estado
+        </label>
+
+        <select name="estado" class="form-select">
+
+            <option value="Activo"
+                {% if jugador is defined and jugador.estado == "Activo" %}selected{% endif %}>
+                Activo
+            </option>
+
+            <option value="Lesionado"
+                {% if jugador is defined and jugador.estado == "Lesionado" %}selected{% endif %}>
+                Lesionado
+            </option>
+
+            <option value="Suspendido"
+                {% if jugador is defined and jugador.estado == "Suspendido" %}selected{% endif %}>
+                Suspendido
+            </option>
+
+            <option value="No convocado"
+                {% if jugador is defined and jugador.estado == "No convocado" %}selected{% endif %}>
+                No convocado
+            </option>
+
+        </select>
+
+    </div>
+
 </div>
 
 {% endcall %}

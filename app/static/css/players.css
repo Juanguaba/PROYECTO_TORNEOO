@@ -360,3 +360,31 @@
     box-shadow:0 6px 15px rgba(0,0,0,.15);
 
 }
+
+/* ---------- PERFIL JUGADOR ---------- */
+
+.player-profile-photo{
+
+    width:180px;
+
+    height:180px;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:5px solid #f1f5f9;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.12);
+
+}
+
+.player-number-large{
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    color:#198754;
+
+}

@@ -65,18 +65,32 @@
   </td>
 
   <td>
-    <div class="action-buttons">
-      <button class="btn-action btn-view" title="Ver jugador">
+    <div class="d-flex justify-content-center gap-2">
+      <a
+        href="{{ url_for('jugadores.detalle', jugador_id=jugador.id) }}"
+        class="btn-action btn-view"
+        title="Ver"
+      >
         <i class="bi bi-eye"></i>
-      </button>
+      </a>
 
-      <button class="btn-action btn-edit" title="Editar jugador">
+      <a
+        href="{{ url_for('jugadores.editar', jugador_id=jugador.id) }}"
+        class="btn-action btn-edit"
+        title="Editar"
+      >
         <i class="bi bi-pencil"></i>
-      </button>
+      </a>
 
-      <button class="btn-action btn-delete" title="Eliminar jugador">
-        <i class="bi bi-trash"></i>
-      </button>
+      <form
+        action="{{ url_for('jugadores.eliminar', jugador_id=jugador.id) }}"
+        method="POST"
+        class="form-eliminar d-inline"
+      >
+        <button type="submit" class="btn-action btn-delete" title="Eliminar">
+          <i class="bi bi-trash"></i>
+        </button>
+      </form>
     </div>
   </td>
 </tr>

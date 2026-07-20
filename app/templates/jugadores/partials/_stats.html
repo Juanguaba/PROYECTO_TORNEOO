@@ -1,0 +1,71 @@
+<div class="card shadow-sm border-0">
+  <div class="card-header bg-white">
+    <h5 class="mb-0">
+      <i class="bi bi-trophy-fill text-success"></i>
+
+      Información Deportiva
+    </h5>
+  </div>
+
+  <div class="card-body">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <small class="text-muted d-block">Posición</small>
+
+        <strong>{{ jugador.posicion }}</strong>
+      </div>
+
+      <div class="col-md-6">
+        <small class="text-muted d-block">Número</small>
+
+        <strong>#{{ jugador.numero }}</strong>
+      </div>
+
+      <div class="col-md-6">
+        <small class="text-muted d-block">Pie hábil</small>
+
+        <strong>{{ jugador.pie_habil }}</strong>
+      </div>
+
+      <div class="col-md-6">
+        <small class="text-muted d-block">Altura</small>
+
+        <strong>{{ jugador.altura }} cm</strong>
+      </div>
+
+      <div class="col-md-6">
+        <small class="text-muted d-block">Peso</small>
+
+        <strong>{{ jugador.peso }} kg</strong>
+      </div>
+
+      <div class="col-md-6">
+        <small class="text-muted d-block">Capitán</small>
+
+        <span
+          class="badge {{ 'bg-warning text-dark' if jugador.capitan else 'bg-secondary' }}"
+        >
+          {{ "Sí" if jugador.capitan else "No" }}
+        </span>
+      </div>
+
+      <div class="col-md-6">
+        <small class="text-muted d-block">Lesionado</small>
+
+        <span
+          class="badge {{ 'bg-danger' if jugador.lesionado else 'bg-success' }}"
+        >
+          {{ "Sí" if jugador.lesionado else "No" }}
+        </span>
+      </div>
+
+      <div class="col-12">
+        <small class="text-muted d-block">Observaciones</small>
+
+        <p class="mb-0">
+          {{ jugador.observaciones or "Sin observaciones registradas." }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

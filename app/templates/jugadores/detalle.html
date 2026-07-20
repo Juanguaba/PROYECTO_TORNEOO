@@ -1,0 +1,14 @@
+{% extends "layouts/team_layout.html" %} {% block team_content %}  {% set modo = "detalle" %}
+{% include "jugadores/partials/_header.html" %}
+
+<div class="row mt-4">
+  <div class="col-lg-4">{% include "jugadores/partials/_profile.html" %}</div>
+
+  <div class="col-lg-8">
+    {% include "jugadores/partials/_info.html" %}
+
+    <div class="mt-4">{% include "jugadores/partials/_stats.html" %}</div>
+  </div>
+</div>
+
+{% endblock %}

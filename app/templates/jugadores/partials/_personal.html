@@ -14,6 +14,7 @@ form_section( "Información Personal", "bi-person-fill" ) %}
       name="nombre"
       class="form-control"
       placeholder="Ej: Juan"
+      value="{{ jugador.nombre if jugador is defined else '' }}"
       required
     />
   </div>
@@ -30,6 +31,7 @@ form_section( "Información Personal", "bi-person-fill" ) %}
       name="apellido"
       class="form-control"
       placeholder="Ej: Pérez Gómez"
+      value="{{ jugador.apellido if jugador is defined else '' }}"
       required
     />
   </div>
@@ -48,6 +50,7 @@ form_section( "Información Personal", "bi-person-fill" ) %}
       type="date"
       name="fecha_nacimiento"
       class="form-control"
+      value="{{ jugador.fecha_nacimiento.strftime('%Y-%m-%d') if jugador is defined else '' }}"
       required
     />
   </div>
@@ -64,6 +67,7 @@ form_section( "Información Personal", "bi-person-fill" ) %}
       type="text"
       class="form-control"
       placeholder="--"
+      value="{{ calcular_edad(jugador.fecha_nacimiento) if jugador is defined else '' }}"
       readonly
     />
   </div>
@@ -75,20 +79,60 @@ form_section( "Información Personal", "bi-person-fill" ) %}
       Nacionalidad
     </label>
 
-    <select name="nacionalidad" class="form-select" required>
-      <option value="">Seleccione...</option>
+<select name="nacionalidad" class="form-select" required>
+    <option value="">Seleccione...</option>
 
-      <option>🇨🇴 Colombia</option>
-      <option>🇧🇷 Brasil</option>
-      <option>🇦🇷 Argentina</option>
-      <option>🇺🇾 Uruguay</option>
-      <option>🇪🇸 España</option>
-      <option>🇵🇹 Portugal</option>
-      <option>🇫🇷 Francia</option>
-      <option>🇲🇽 México</option>
-      <option>🇨🇱 Chile</option>
-      <option>🇪🇨 Ecuador</option>
-    </select>
+    <option value="Colombia"
+        {% if jugador is defined and jugador.nacionalidad == "Colombia" %}selected{% endif %}>
+        Colombia
+    </option>
+
+    <option value="Brasil"
+        {% if jugador is defined and jugador.nacionalidad == "Brasil" %}selected{% endif %}>
+        Brasil
+    </option>
+
+    <option value="Argentina"
+        {% if jugador is defined and jugador.nacionalidad == "Argentina" %}selected{% endif %}>
+        Argentina
+    </option>
+
+    <option value="Uruguay"
+        {% if jugador is defined and jugador.nacionalidad == "Uruguay" %}selected{% endif %}>
+        Uruguay
+    </option>
+
+    <option value="España"
+        {% if jugador is defined and jugador.nacionalidad == "España" %}selected{% endif %}>
+        España
+    </option>
+
+    <option value="Portugal"
+        {% if jugador is defined and jugador.nacionalidad == "Portugal" %}selected{% endif %}>
+        Portugal
+    </option>
+
+    <option value="Francia"
+        {% if jugador is defined and jugador.nacionalidad == "Francia" %}selected{% endif %}>
+        Francia
+    </option>
+
+    <option value="México"
+        {% if jugador is defined and jugador.nacionalidad == "México" %}selected{% endif %}>
+        México
+    </option>
+
+    <option value="Chile"
+        {% if jugador is defined and jugador.nacionalidad == "Chile" %}selected{% endif %}>
+        Chile
+    </option>
+
+    <option value="Ecuador"
+        {% if jugador is defined and jugador.nacionalidad == "Ecuador" %}selected{% endif %}>
+        Ecuador
+    </option>
+
+</select>
   </div>
 </div>
 

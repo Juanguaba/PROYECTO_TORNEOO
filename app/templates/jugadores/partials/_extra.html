@@ -1,51 +1,65 @@
-{% from "components/forms/form_section.html" import form_section %} {% call
-form_section( "Información Adicional", "bi-chat-left-text-fill" ) %}
+{% from "components/forms/form_section.html" import form_section %}
+
+{% call form_section("Información Adicional", "bi-chat-left-text-fill") %}
 
 <div class="row">
-  <div class="col-md-6">
-    <div class="form-check form-switch mb-4">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        id="capitan"
-        name="capitan"
-      />
 
-      <label class="form-check-label" for="capitan">
-        ⭐ Capitán del equipo
-      </label>
+    <div class="col-md-6">
+
+        <div class="form-check form-switch mb-4">
+
+            <input
+                class="form-check-input"
+                type="checkbox"
+                id="capitan"
+                name="capitan"
+                {% if jugador is defined and jugador.capitan %}checked{% endif %}
+            >
+
+            <label class="form-check-label" for="capitan">
+                ⭐ Capitán del equipo
+            </label>
+
+        </div>
+
     </div>
-  </div>
 
-  <div class="col-md-6">
-    <div class="form-check form-switch mb-4">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        id="lesionado"
-        name="lesionado"
-      />
+    <div class="col-md-6">
 
-      <label class="form-check-label" for="lesionado">
-        🩺 Jugador lesionado
-      </label>
+        <div class="form-check form-switch mb-4">
+
+            <input
+                class="form-check-input"
+                type="checkbox"
+                id="lesionado"
+                name="lesionado"
+                {% if jugador is defined and jugador.lesionado %}checked{% endif %}
+            >
+
+            <label class="form-check-label" for="lesionado">
+                🩺 Jugador lesionado
+            </label>
+
+        </div>
+
     </div>
-  </div>
+
 </div>
 
 <div class="mb-3">
-  <label class="form-label">
-    <i class="bi bi-chat-left-text"></i>
 
-    Observaciones
-  </label>
+    <label class="form-label">
+        <i class="bi bi-chat-left-text"></i>
+        Observaciones
+    </label>
 
-  <textarea
-    class="form-control"
-    name="observaciones"
-    rows="5"
-    placeholder="Escribe aquí información adicional sobre el jugador..."
-  ></textarea>
+    <textarea
+        class="form-control"
+        name="observaciones"
+        rows="5"
+        placeholder="Escribe aquí información adicional sobre el jugador..."
+    >{{ jugador.observaciones if jugador is defined else '' }}</textarea>
+
 </div>
 
 {% endcall %}

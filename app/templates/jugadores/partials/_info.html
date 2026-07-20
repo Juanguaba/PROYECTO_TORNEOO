@@ -1,0 +1,51 @@
+<div class="card shadow-sm border-0 mb-4">
+  <div class="card-header bg-white">
+    <h5 class="mb-0">
+      <i class="bi bi-person-lines-fill text-success"></i>
+
+      Información Personal
+    </h5>
+  </div>
+
+  <div class="card-body">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <small class="text-muted d-block">Nombre</small>
+
+        <strong>{{ jugador.nombre }}</strong>
+      </div>
+
+      <div class="col-md-6">
+        <small class="text-muted d-block">Apellido</small>
+
+        <strong>{{ jugador.apellido }}</strong>
+      </div>
+
+      <div class="col-md-6">
+        <small class="text-muted d-block">Edad</small>
+
+        <strong>{{ calcular_edad(jugador.fecha_nacimiento) }} años</strong>
+      </div>
+
+      <div class="col-md-6">
+        <small class="text-muted d-block">Fecha de nacimiento</small>
+
+        <strong>{{ jugador.fecha_nacimiento.strftime("%d/%m/%Y") }}</strong>
+      </div>
+
+      <div class="col-md-6">
+        <small class="text-muted d-block">Nacionalidad</small>
+
+        <strong>{{ jugador.nacionalidad }}</strong>
+      </div>
+
+      <div class="col-md-6">
+        <small class="text-muted d-block">Estado</small>
+
+        <span class="badge bg-success">
+          {{ "Activo" if jugador.estado else "Inactivo" }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

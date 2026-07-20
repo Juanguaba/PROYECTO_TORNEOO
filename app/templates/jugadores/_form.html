@@ -1,5 +1,4 @@
-{% from "components/forms/form_section.html" import form_section %} {% from
-"components/forms/form_section.html" import form_section %}
+{% from "components/forms/form_section.html" import form_section %}
 
 <form method="POST" enctype="multipart/form-data">
   <div class="row">
@@ -24,7 +23,7 @@
     <button type="submit" class="btn btn-success">
       <i class="bi bi-check-circle"></i>
 
-      Guardar jugador
+      {{ "Actualizar jugador" if jugador is defined else "Guardar jugador" }}
     </button>
   </div>
 </form>
