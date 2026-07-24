@@ -1,52 +1,21 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.querySelectorAll(".form-eliminar").forEach(form => {
 
-    const formularios = document.querySelectorAll(".delete-form");
+    form.addEventListener("submit", function (e) {
 
-    formularios.forEach(formulario => {
+        e.preventDefault();
 
-        formulario.addEventListener("submit", function (e) {
-
-            e.preventDefault();
-
-            const nombre = formulario.dataset.equipo;
-
-            Swal.fire({
-
-                title: "¿Eliminar equipo?",
-
-                html: `
-                    <p>Se eliminará el equipo:</p>
-                    <h4><strong>${nombre}</strong></h4>
-                    <br>
-                    <p class="text-danger">
-                        Esta acción no se puede deshacer.
-                    </p>
-                `,
-
-                icon: "warning",
-
-                showCancelButton: true,
-
-                confirmButtonColor: "#dc3545",
-
-                cancelButtonColor: "#6c757d",
-
-                confirmButtonText: "🗑 Eliminar",
-
-                cancelButtonText: "Cancelar",
-
-                reverseButtons: true
-
-            }).then((result) => {
-
-                if (result.isConfirmed) {
-
-                    formulario.submit();
-
-                }
-
-            });
-
+        Swal.fire({
+            title: "¿Eliminar jugador?",
+            text: "Esta acción no se puede deshacer.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#dc3545"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
         });
 
     });

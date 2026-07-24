@@ -2,13 +2,29 @@ from datetime import datetime
 
 from app import db
 from app.models.jugador import Jugador
+from sqlalchemy import or_
 
 
-def obtener_jugadores(equipo_id):
+def obtener_jugadores(equipo_id, buscar=None):
 
-    return (
+    query = (
         Jugador.query
         .filter_by(equipo_id=equipo_id)
+    )
+
+    if buscar:
+
+        query = query.filter(
+            or_(
+                Jugador.nombre.ilike(f"%{buscar}%"),
+                Jugador.apellido.ilike(f"%{buscar}%"),
+                Jugador.posicion.ilike(f"%{buscar}%"),
+                Jugador.numero.cast(db.String).ilike(f"%{buscar}%")
+            )
+        )
+
+    return (
+        query
         .order_by(Jugador.numero)
         .all()
     )

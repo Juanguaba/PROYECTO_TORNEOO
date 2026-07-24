@@ -23,7 +23,20 @@ def index(equipo_id):
 
     equipo = obtener_equipo_por_id(equipo_id)
 
-    jugadores = obtener_jugadores(equipo_id)
+    buscar = request.args.get("buscar", "").strip()
+
+    jugadores = obtener_jugadores(
+        equipo_id=equipo_id,
+        buscar=buscar
+    )
+
+    if request.args.get("partial"):
+
+        return render_template(
+            "jugadores/partials/_table.html",
+            jugadores=jugadores,
+            equipo=equipo
+        )
 
     return render_template(
         "jugadores/index.html",

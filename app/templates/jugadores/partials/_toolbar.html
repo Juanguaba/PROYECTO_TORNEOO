@@ -1,31 +1,40 @@
-<div class="toolbar mb-4">
-  <div class="toolbar-left">
-    <div class="search-box">
-      <i class="bi bi-search"></i>
+<form id="players-toolbar" method="GET">
+  <div class="toolbar mb-4">
+    <div class="toolbar-left">
+      <div class="search-box">
+        <i class="bi bi-search"></i>
 
-      <input type="text" class="form-control" placeholder="Buscar jugador..." />
+        <input
+          id="search-player"
+          type="text"
+          class="form-control"
+          name="buscar"
+          placeholder="Buscar jugador..."
+          autocomplete="off"
+          value="{{ request.args.get('buscar', '') }}"
+        />
+      </div>
+
+      <select id="filter-position" class="form-select" name="posicion">
+        <option value="">Todas las posiciones</option>
+        <option value="Portero">Portero</option>
+        <option value="Defensa">Defensa</option>
+        <option value="Mediocampo">Mediocampo</option>
+        <option value="Delantero">Delantero</option>
+      </select>
+
+      <select id="filter-status" class="form-select" name="estado">
+        <option value="">Todos los estados</option>
+        <option value="Activo">Activo</option>
+        <option value="Lesionado">Lesionado</option>
+        <option value="Inactivo">Inactivo</option>
+      </select>
+
+      <select id="sort-players" class="form-select" name="orden">
+        <option value="numero">Número</option>
+        <option value="nombre">Nombre</option>
+        <option value="edad">Edad</option>
+      </select>
     </div>
-
-    <select class="form-select">
-      <option>Todas las posiciones</option>
-      <option>Portero</option>
-      <option>Defensa</option>
-      <option>Mediocampo</option>
-      <option>Delantero</option>
-    </select>
-
-    <select class="form-select">
-      <option>Todos los estados</option>
-      <option>Activo</option>
-      <option>Lesionado</option>
-      <option>Inactivo</option>
-    </select>
-
-    <select class="form-select">
-      <option>Ordenar</option>
-      <option>Número</option>
-      <option>Nombre</option>
-      <option>Edad</option>
-    </select>
   </div>
-</div>
+</form>
