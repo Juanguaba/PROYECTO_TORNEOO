@@ -4,7 +4,13 @@ form_section("Fotografía", "bi-camera-fill") %}
 <div class="text-center">
   <img
     id="playerAvatar"
-    src="{{ url_for('static', filename='img/default_player.png') }}"
+    src="{{ url_for(
+        'static',
+        filename='uploads/jugadores/' + jugador.foto
+    ) if jugador is defined else url_for(
+        'static',
+        filename='img/default_player.png'
+    ) }}"
     class="player-photo-preview rounded-circle shadow-sm mb-3"
     alt="Jugador"
   />

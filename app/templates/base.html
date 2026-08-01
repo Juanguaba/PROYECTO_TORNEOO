@@ -124,19 +124,24 @@
       </div>
     </div>
 
+<!-- Librerías -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Base -->
+<script src="{{ url_for('static', filename='js/cropper/BaseCropper.js') }}"></script>
 
 <!-- Componentes -->
 <script src="{{ url_for('static', filename='js/components/delete.js') }}"></script>
 
-<!-- Páginas -->
+<!-- Página -->
 <script src="{{ url_for('static', filename='js/pages/jugadores.js') }}"></script>
 
-<!-- Inicializador -->
+<!-- Cropper -->
+<script src="{{ url_for('static', filename='js/cropper/player_cropper.js') }}"></script>
+
+<!-- App -->
 <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
 </body>

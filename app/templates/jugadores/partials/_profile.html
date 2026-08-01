@@ -1,7 +1,12 @@
 <div class="card shadow-sm border-0">
   <div class="card-body text-center">
     <img
-      src="{{ url_for('static', filename='img/default_player.png') }}"
+      src="{{ url_for(
+        'static',
+        filename='uploads/jugadores/' + jugador.foto
+        if jugador.foto
+        else 'img/default_player.png'
+    ) }}"
       class="player-profile-photo mb-3"
       alt="Jugador"
     />

@@ -1,170 +1,33 @@
-let cropper = null;
+document.addEventListener("DOMContentLoaded", () => {
 
-const inputImage = document.getElementById("inputImage");
-const avatar = document.getElementById("playerAvatar");
-const cropperImage = document.getElementById("cropperImage");
-const toolbar = document.getElementById("toolbar");
-const applyButton = document.getElementById("applyCrop");
+    new BaseCropper({
 
-if (inputImage && avatar && cropperImage) {
+        inputId: "inputImage",
 
-    inputImage.addEventListener("change", function (e) {
+        imageId: "cropperImage",
 
-        const file = e.target.files[0];
+        previewId: "cropPreview",
 
-        if (!file) return;
+        avatarId: "playerAvatar",
 
-        const reader = new FileReader();
+        toolbarId: "toolbar",
 
-        reader.onload = function (event) {
+        applyId: "applyCrop",
 
-            cropperImage.src = event.target.result;
+        zoomInId: "zoomIn",
 
-            cropperImage.style.display = "block";
+        zoomOutId: "zoomOut",
 
-            document.getElementById("cropPreview").style.display = "block";
+        rotateId: "rotate",
 
-            avatar.style.display = "none";
-
-            if (cropper) {
-
-                cropper.destroy();
-
-            }
-
-            cropper = new Cropper(cropperImage, {
-
-                aspectRatio: 1,
-
-                viewMode: 1,
-
-                preview: ".preview",
-
-                autoCropArea: 1,
-
-                movable: true,
-
-                zoomable: true,
-
-                scalable: true,
-
-                rotatable: true,
-
-                responsive: true
-
-            });
-
-            toolbar.classList.add("active");
-
-        };
-
-        reader.readAsDataURL(file);
-
-    });
-
-}
-
-
-document.getElementById("zoomIn").addEventListener("click", function () {
-
-    if (cropper) {
-
-        cropper.zoom(0.1);
-
-    }
-
-});
-
-
-document.getElementById("zoomOut").addEventListener("click", function () {
-
-    if (cropper) {
-
-        cropper.zoom(-0.1);
-
-    }
-
-});
-
-
-document.getElementById("rotate").addEventListener("click", function () {
-
-    if (cropper) {
-
-        cropper.rotate(90);
-
-    }
-
-});
-
-
-document.getElementById("reset").addEventListener("click", function () {
-
-    if (cropper) {
-
-        cropper.reset();
-
-    }
-
-});
-
-
-applyButton.addEventListener("click", function () {
-
-    if (!cropper) return;
-
-    const canvas = cropper.getCroppedCanvas({
+        resetId: "reset",
 
         width: 300,
 
         height: 300,
 
-        imageSmoothingQuality: "high"
+        fileName: "jugador.png"
 
     });
-
-    avatar.src = canvas.toDataURL("image/png");
-
-    avatar.style.display = "block";
-
-    cropperImage.style.display = "none";
-
-    document.getElementById("cropPreview").style.display = "none";
-
-    document.querySelector(".preview").style.display = "none";
-
-    avatar.style.display = "block";
-
-    cropperImage.style.display = "none";
-
-    canvas.toBlob(function (blob) {
-
-        const archivo = new File(
-
-            [blob],
-
-            "jugador.png",
-
-            {
-
-                type: "image/png"
-
-            }
-
-        );
-
-        const dataTransfer = new DataTransfer();
-
-        dataTransfer.items.add(archivo);
-
-        inputImage.files = dataTransfer.files;
-
-    }, "image/png");
-
-    cropper.destroy();
-
-    cropper = null;
-
-    toolbar.classList.remove("active");
 
 });

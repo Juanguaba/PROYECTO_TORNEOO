@@ -1,14 +1,23 @@
+import os
+
 from flask import (
     render_template,
     request,
     redirect,
     url_for,
-    flash
+    flash,
+    current_app
 )
 
 from app.equipos.services import obtener_equipo_por_id
 
+from app.utils.image import (
+    guardar_imagen,
+    eliminar_imagen
+)
+
 from . import jugadores_bp
+
 from .services import (
     obtener_jugadores,
     obtener_jugador_por_id,
@@ -53,7 +62,25 @@ def nuevo(equipo_id):
 
     if request.method == "POST":
 
-        crear_jugador(request.form, equipo_id)
+        archivo = request.files.get("foto")
+
+        carpeta = os.path.join(
+            current_app.static_folder,
+            "uploads",
+            "jugadores"
+        )
+
+        foto = guardar_imagen(
+            archivo,
+            carpeta,
+            "default_player.png"
+        )
+
+        crear_jugador(
+            request.form,
+            equipo_id,
+            foto
+        )
 
         flash(
             "Jugador registrado correctamente.",
@@ -97,9 +124,41 @@ def editar(jugador_id):
 
     if request.method == "POST":
 
+        archivo = request.files.get("foto")
+
+        print("=" * 50)
+        print("ARCHIVO:", archivo)
+        print("FILES:", request.files)
+
+        if archivo:
+            print("Nombre:", archivo.filename)
+
+        nueva_foto = None
+
+        if archivo and archivo.filename:
+
+            carpeta = os.path.join(
+                current_app.static_folder,
+                "uploads",
+                "jugadores"
+            )
+
+            eliminar_imagen(
+                jugador.foto,
+                carpeta,
+                "default_player.png"
+            )
+
+            nueva_foto = guardar_imagen(
+                archivo,
+                carpeta,
+                "default_player.png"
+            )
+
         actualizar_jugador(
             jugador,
-            request.form
+            request.form,
+            nueva_foto
         )
 
         flash(
@@ -124,12 +183,29 @@ def editar(jugador_id):
 
 @jugadores_bp.route("/eliminar/<int:jugador_id>", methods=["POST"])
 def eliminar(jugador_id):
+
     jugador = obtener_jugador_por_id(jugador_id)
+
     equipo_id = jugador.equipo.id
+
+    carpeta = os.path.join(
+        current_app.static_folder,
+        "uploads",
+        "jugadores"
+    )
+
+    eliminar_imagen(
+        jugador.foto,
+        carpeta,
+        "default_player.png"
+    )
 
     eliminar_jugador(jugador)
 
-    flash("Jugador eliminado correctamente.", "success")
+    flash(
+        "Jugador eliminado correctamente.",
+        "success"
+    )
 
     return redirect(
         url_for(

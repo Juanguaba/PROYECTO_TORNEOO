@@ -363,28 +363,30 @@
 
 /* ---------- PERFIL JUGADOR ---------- */
 
-.player-profile-photo{
+.player-profile-photo {
 
-    width:180px;
+    width: 180px;
 
-    height:180px;
+    height: 180px;
 
-    object-fit:cover;
+    object-fit: cover;
 
-    border-radius:50%;
+    border-radius: 50%;
 
-    border:5px solid #f1f5f9;
+    border: 5px solid #fff;
 
-    box-shadow:0 10px 25px rgba(0,0,0,.12);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .15);
 
 }
 
-.player-number-large{
+/* ---------- NUMERO JUGADOR ---------- */
 
-    font-size:2rem;
+.player-number-large {
 
-    font-weight:700;
+    font-size: 2rem;
 
-    color:#198754;
+    font-weight: 700;
+
+    color: #198754;
 
 }

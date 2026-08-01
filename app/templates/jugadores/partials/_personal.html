@@ -132,6 +132,17 @@ form_section( "Información Personal", "bi-person-fill" ) %}
         Ecuador
     </option>
 
+    <option value="Perú"
+        {% if jugador is defined and jugador.nacionalidad == "Perú" %}selected{% endif %}>
+        Perú
+    </option>
+
+    <option value="Noruega"
+        {% if jugador is defined and jugador.nacionalidad == "Noruega" %}selected{% endif %}>
+        Noruega
+    </option>
+
+
 </select>
   </div>
 </div>

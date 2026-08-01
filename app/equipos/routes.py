@@ -8,8 +8,8 @@ from flask import (
 from . import equipos_bp
 from .forms import EquipoForm
 from app.utils.image import (
-    guardar_escudo,
-    eliminar_escudo
+    guardar_imagen,
+    eliminar_imagen
 )
 from .services import (
     crear_equipo,
@@ -64,10 +64,11 @@ def nuevo():
             "equipos"
         )
 
-        escudo = guardar_escudo(
+        escudo = guardar_imagen(
             archivo,
-            carpeta
-        ) if archivo else "default_team.png"
+            carpeta,
+            "default_team.png"
+        )
 
         crear_equipo(
             nombre=form.nombre,
@@ -141,14 +142,16 @@ def editar(id):
                 "equipos"
             )
 
-            eliminar_escudo(
+            eliminar_imagen(
                 equipo.escudo,
-                carpeta
+                carpeta,
+                "default_team.png"
             )
 
-            nuevo_escudo = guardar_escudo(
+            nuevo_escudo = guardar_imagen(
                 archivo,
-                carpeta
+                carpeta,
+                "default_team.png"
             )
 
         actualizar_equipo(
@@ -191,9 +194,10 @@ def eliminar(id):
         "equipos"
     )
 
-    eliminar_escudo(
+    eliminar_imagen(
         equipo.escudo,
-        carpeta
+        carpeta,
+        "default_team.png"
     )
 
     eliminar_equipo(equipo)

@@ -22,10 +22,16 @@ def extension_permitida(nombre_archivo):
     )
 
 
-def guardar_escudo(archivo, carpeta_destino):
+def guardar_imagen(
+    archivo,
+    carpeta_destino,
+    imagen_por_defecto,
+    ancho=300,
+    alto=300
+):
 
-    if archivo.filename == "":
-        return "default_team.png"
+    if not archivo or archivo.filename == "":
+        return imagen_por_defecto
 
     if not extension_permitida(archivo.filename):
         return None
@@ -40,7 +46,7 @@ def guardar_escudo(archivo, carpeta_destino):
 
     imagen = imagen.convert("RGBA")
 
-    imagen = imagen.resize((300, 300))
+    imagen = imagen.resize((ancho, alto))
 
     imagen.save(
         ruta,
@@ -51,12 +57,16 @@ def guardar_escudo(archivo, carpeta_destino):
     return nombre
 
 
-def eliminar_escudo(nombre_archivo, carpeta):
+def eliminar_imagen(
+    nombre_archivo,
+    carpeta,
+    imagen_por_defecto
+):
 
     if not nombre_archivo:
         return
 
-    if nombre_archivo == "default_team.png":
+    if nombre_archivo == imagen_por_defecto:
         return
 
     ruta = os.path.join(carpeta, nombre_archivo)

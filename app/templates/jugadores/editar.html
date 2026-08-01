@@ -1,6 +1,3 @@
-{% extends "layouts/team_layout.html" %} {% block team_content %} {% set modo = "editar" %}
-{% include "jugadores/partials/_header.html" %}
-
-<form method="POST">{% include "jugadores/_form.html" %}</form>
-
-{% endblock %}
+{% extends "layouts/team_layout.html" %} {% block team_content %} {% set modo =
+"editar" %} {% include "jugadores/partials/_header.html" %} {% include
+"jugadores/_form.html" %} {% endblock %}
