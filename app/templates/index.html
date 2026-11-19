@@ -1,9 +1,112 @@
+
 {% extends "base.html" %}
 
-{% block title %}Inicio{% endblock %}
+{% block title %}Inicio | Sistema de Gestión de Torneos{% endblock %}
 
 {% block content %}
-<h1>⚽ Sistema de Gestión de Torneos</h1>
 
-<p>Bienvenido al sistema.</p>
+<section class="welcome-section">
+
+    <div class="welcome-content">
+        <span class="welcome-label">
+            <i class="bi bi-circle-fill"></i>
+            SISTEMA DE GESTIÓN DEPORTIVA
+        </span>
+
+        <h1>Bienvenido al Sistema de Gestión de Torneos</h1>
+
+        <p>
+            Administra equipos, jugadores y competiciones desde una
+            plataforma centralizada, diseñada para facilitar la
+            organización y gestión deportiva.
+        </p>
+
+        <div class="welcome-actions">
+            <a href="{{ url_for('equipos.index') }}" class="btn btn-success">
+                <i class="bi bi-shield-fill me-2"></i>
+                Gestionar equipos
+            </a>
+
+            <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-success">
+                <i class="bi bi-speedometer2 me-2"></i>
+                Ver dashboard
+            </a>
+        </div>
+    </div>
+
+    <div class="welcome-icon">
+        <i class="bi bi-trophy-fill"></i>
+    </div>
+
+</section>
+
+
+<section class="home-section">
+
+    <div class="section-heading">
+        <div>
+            <h2>Gestión deportiva</h2>
+            <p>Accede rápidamente a las principales funcionalidades.</p>
+        </div>
+    </div>
+
+    <div class="home-modules">
+
+        <a href="{{ url_for('equipos.index') }}" class="module-card">
+            <div class="module-icon">
+                <i class="bi bi-shield-fill"></i>
+            </div>
+
+            <div>
+                <h3>Equipos</h3>
+                <p>Consulta y administra los equipos registrados.</p>
+            </div>
+
+            <i class="bi bi-arrow-up-right module-arrow"></i>
+        </a>
+
+
+        <a href="{{ url_for('equipos.index') }}" class="module-card">
+            <div class="module-icon">
+                <i class="bi bi-people-fill"></i>
+            </div>
+
+            <div>
+                <h3>Jugadores</h3>
+                <p>Accede a las plantillas de cada equipo.</p>
+            </div>
+
+            <i class="bi bi-arrow-up-right module-arrow"></i>
+        </a>
+
+
+        <div class="module-card module-disabled">
+            <div class="module-icon">
+                <i class="bi bi-trophy-fill"></i>
+            </div>
+
+            <div>
+                <h3>Torneos</h3>
+                <p>Organización y seguimiento de competiciones.</p>
+                <span class="module-status">Próximamente</span>
+            </div>
+        </div>
+
+
+        <div class="module-card module-disabled">
+            <div class="module-icon">
+                <i class="bi bi-calendar-event"></i>
+            </div>
+
+            <div>
+                <h3>Partidos</h3>
+                <p>Programación y gestión de encuentros.</p>
+                <span class="module-status">Próximamente</span>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
 {% endblock %}

@@ -1,148 +1,205 @@
+
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>
-      {% block title %} Sistema de Gestión de Torneos {% endblock %}
+      {% block title %}Sistema de Gestión de Torneos{% endblock %}
     </title>
 
     <!-- Bootstrap -->
-
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
 
     <!-- Bootstrap Icons -->
-
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
     />
 
+    <!-- Estilos -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}"
     />
+
+    <!-- Cropper -->
     <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css"
     />
     <link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='css/cropper.css') }}"
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/cropper.css') }}"
     />
   </head>
 
   <body>
     <div class="wrapper">
-      <!-- Sidebar -->
 
+      <!-- Sidebar -->
       <aside class="sidebar">
+
         <h2>⚽ Torneos</h2>
 
         <ul>
+
+          <!-- GENERAL -->
+          <li class="sidebar-section">GENERAL</li>
+
           <li>
-            <a href="{{ url_for('main.index') }}"
-              class="{% if request.endpoint == 'main.index' %}active{% endif %}">
+            <a
+              href="{{ url_for('main.index') }}"
+              class="{% if request.endpoint == 'main.index' %}active{% endif %}"
+            >
               <i class="bi bi-house"></i>
               Inicio
             </a>
           </li>
 
-          {% if session.get("usuario_id") %}
-
           <li>
-            <a href="{{ url_for('admin.dashboard') }}"
-              class="{% if request.endpoint == 'admin.dashboard' %}active{% endif %}">
+            <a
+              href="{{ url_for('admin.dashboard') }}"
+              class="{% if request.endpoint == 'admin.dashboard' %}active{% endif %}"
+            >
               <i class="bi bi-speedometer2"></i>
               Dashboard
             </a>
           </li>
 
+          <!-- GESTIÓN DEPORTIVA -->
+          <li class="sidebar-section">GESTIÓN DEPORTIVA</li>
+
           <li>
-            <a href="{{ url_for('equipos.index') }}"
-              class="{% if request.endpoint == 'equipos.index' %}active{% endif %}">
+            <a
+              href="{{ url_for('equipos.index') }}"
+              class="{% if request.endpoint and request.endpoint.startswith('equipos.') %}active{% endif %}"
+            >
               <i class="bi bi-shield-fill"></i>
               Equipos
             </a>
           </li>
 
           <li>
-            <a href="#">
+            <a href="{{ url_for('equipos.index') }}">
+              <i class="bi bi-people"></i>
+              Jugadores
+            </a>
           </li>
 
-          <li>
-            <a href="#">
+          <!-- MÓDULOS PENDIENTES -->
+          <li class="disabled">
+            <a href="javascript:void(0)">
+              <i class="bi bi-trophy"></i>
+              Torneos
+              <span class="soon">Próximamente</span>
+            </a>
           </li>
 
-          <li>
-            <a href="#">
+          <li class="disabled">
+            <a href="javascript:void(0)">
+              <i class="bi bi-calendar-event"></i>
+              Partidos
+              <span class="soon">Próximamente</span>
+            </a>
           </li>
 
-          <li>
-            <a href="#">
+          <li class="disabled">
+            <a href="javascript:void(0)">
+              <i class="bi bi-person-badge"></i>
+              Árbitros
+              <span class="soon">Próximamente</span>
+            </a>
           </li>
 
-          {% endif %}
+          <li class="disabled">
+            <a href="javascript:void(0)">
+              <i class="bi bi-building"></i>
+              Estadios
+              <span class="soon">Próximamente</span>
+            </a>
+          </li>
+
+          <li class="disabled">
+            <a href="javascript:void(0)">
+              <i class="bi bi-bar-chart"></i>
+              Estadísticas
+              <span class="soon">Próximamente</span>
+            </a>
+          </li>
+
+          <!-- ADMINISTRACIÓN -->
+          <li class="sidebar-section">ADMINISTRACIÓN</li>
+
+          <li class="disabled">
+            <a href="javascript:void(0)">
+              <i class="bi bi-people-fill"></i>
+              Usuarios
+              <span class="soon">Próximamente</span>
+            </a>
+          </li>
+
+          <li class="disabled">
+            <a href="javascript:void(0)">
+              <i class="bi bi-gear"></i>
+              Configuración
+              <span class="soon">Próximamente</span>
+            </a>
+          </li>
+
         </ul>
       </aside>
 
       <!-- Contenido -->
-
       <div class="content">
-        <!-- Navbar -->
 
+        <!-- Navbar -->
         <nav class="top-navbar">
           <div class="logo">Sistema de Gestión de Torneos</div>
-
-          {% if session.get("usuario_id") %}
-
-          <div class="user-info">
-            👤 {{ session["usuario_nombre"] }} | {{ session["usuario_rol"] }} |
-
-            <a href="{{ url_for('auth.logout') }}"> Cerrar sesión </a>
-          </div>
-
-          {% endif %}
         </nav>
 
-        <!-- Contenido -->
-
+        <!-- Contenido principal -->
         <main class="main-content">
-          {% with messages=get_flashed_messages(with_categories=true) %} {% if
-          messages %} {% for category,message in messages %}
 
-          <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
 
-          {% endfor %} {% endif %} {% endwith %} {% block content %} {% endblock
-          %}
+          {% block content %}{% endblock %}
+
         </main>
       </div>
     </div>
 
-<!-- Librerías -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Librerías -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- Base -->
-<script src="{{ url_for('static', filename='js/cropper/BaseCropper.js') }}"></script>
+    <!-- Base -->
+    <script src="{{ url_for('static', filename='js/cropper/BaseCropper.js') }}"></script>
 
-<!-- Componentes -->
-<script src="{{ url_for('static', filename='js/components/delete.js') }}"></script>
+    <!-- Componentes -->
+    <script src="{{ url_for('static', filename='js/components/delete.js') }}"></script>
 
-<!-- Página -->
-<script src="{{ url_for('static', filename='js/pages/jugadores.js') }}"></script>
+    <!-- Página -->
+    <script src="{{ url_for('static', filename='js/pages/jugadores.js') }}"></script>
 
-<!-- Cropper -->
-<script src="{{ url_for('static', filename='js/cropper/player_cropper.js') }}"></script>
+    <!-- Cropper -->
+    <script src="{{ url_for('static', filename='js/cropper/player_cropper.js') }}"></script>
 
-<!-- App -->
-<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <!-- App -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
-</body>
+  </body>
 </html>
