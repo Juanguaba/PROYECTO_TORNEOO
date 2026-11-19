@@ -1,12 +1,6 @@
 # Entorno virtual
 .venv/
 
-# Variables de entorno
-.env
-
-# Base de datos
-instance/
-
 # Migraciones compiladas
 __pycache__/
 *.pyc
