@@ -1,32 +1,71 @@
-:root{
 
-    /* Colores */
+:root {
+    /* Identidad institucional */
+    --primary: #126B48;
+    --primary-dark: #0B4934;
+    --primary-light: #E8F3ED;
+    --primary-accent: #28A477;
 
-    --primary:#198754;
-    --primary-dark:#146c43;
+    /* Fondos y superficies */
+    --background: #F4F7F5;
+    --surface: #FFFFFF;
+    --surface-secondary: #F8FAF9;
 
-    --secondary:#0d6efd;
+    /* Tipografía */
+    --text-primary: #1D3027;
+    --text-secondary: #687970;
+    --text-muted: #98A69F;
+    --text-white: #FFFFFF;
 
-    --danger:#dc3545;
+    /* Bordes */
+    --border: #E5EBE7;
+    --border-strong: #D5DFD9;
 
-    --warning:#ffc107;
+    /* Estados */
+    --success: #198754;
+    --success-light: #E8F5ED;
+    --warning: #D99A32;
+    --warning-light: #FFF5DF;
+    --danger: #C94C4C;
+    --danger-light: #FCECEC;
+    --info: #3685B5;
+    --info-light: #EAF4FA;
 
-    --success:#20c997;
+    /* Tipografía */
+    --font-primary: "Inter", "Segoe UI", Arial, sans-serif;
+    --font-size-xs: 11px;
+    --font-size-sm: 13px;
+    --font-size-md: 14px;
+    --font-size-lg: 17px;
+    --font-size-xl: 22px;
+    --font-size-2xl: 30px;
 
-    --dark:#212529;
+    /* Espaciado */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 40px;
 
-    --gray:#6c757d;
+    /* Bordes */
+    --radius-sm: 7px;
+    --radius-md: 11px;
+    --radius-lg: 15px;
+    --radius-xl: 20px;
+    --radius-full: 999px;
 
-    --light:#f8f9fa;
+    /* Sombras */
+    --shadow-sm: 0 2px 8px rgba(20, 50, 35, .04);
+    --shadow-md: 0 6px 18px rgba(20, 50, 35, .06);
+    --shadow-lg: 0 14px 35px rgba(20, 50, 35, .09);
 
-    --white:#ffffff;
+    /* Transiciones */
+    --transition-fast: .15s ease;
+    --transition-normal: .25s ease;
+    --transition-slow: .35s ease;
 
-    /* Diseño */
-
-    --radius:14px;
-
-    --shadow:0 10px 25px rgba(0,0,0,.08);
-
-    --transition:.3s ease;
-
+    /* Estructura */
+    --sidebar-width: 255px;
+    --navbar-height: 70px;
 }

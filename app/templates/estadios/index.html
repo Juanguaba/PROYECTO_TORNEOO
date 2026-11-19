@@ -1,0 +1,284 @@
+
+{% extends "base.html" %}
+
+{% block title %}Estadios | Gestión Deportiva{% endblock %}
+
+{% block content %}
+
+<div class="module-page">
+
+    <!-- ENCABEZADO -->
+    <div class="module-header">
+        <div>
+            <span class="module-eyebrow">INFRAESTRUCTURA DEPORTIVA</span>
+            <h1>Gestión de estadios</h1>
+            <p>Administra los escenarios deportivos y su disponibilidad.</p>
+        </div>
+
+        <a href="{{ url_for('estadios.nuevo') }}" class="module-primary-btn">
+            <i class="bi bi-plus-lg"></i>
+            Nuevo estadio
+        </a>
+    </div>
+
+    <!-- INDICADORES -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="premium-stat-card">
+                <div class="premium-stat-icon">
+                    <i class="bi bi-buildings"></i>
+                </div>
+                <span>Total de estadios</span>
+                <strong>{{ total_estadios }}</strong>
+                <small>Escenarios registrados</small>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="premium-stat-card">
+                <div class="premium-stat-icon success">
+                    <i class="bi bi-check-circle"></i>
+                </div>
+                <span>Estadios activos</span>
+                <strong>{{ estadios_activos }}</strong>
+                <small>Disponibles para asignación</small>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="premium-stat-card">
+                <div class="premium-stat-icon warning">
+                    <i class="bi bi-pause-circle"></i>
+                </div>
+                <span>Estadios inactivos</span>
+                <strong>{{ estadios_inactivos }}</strong>
+                <small>Fuera de servicio</small>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="premium-stat-card">
+                <div class="premium-stat-icon info">
+                    <i class="bi bi-people"></i>
+                </div>
+                <span>Capacidad total</span>
+                <strong>{{ "{:,.0f}".format(total_capacidad).replace(",", ".") }}</strong>
+                <small>Personas en conjunto</small>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RESUMEN -->
+    <div class="premium-info-banner mb-4">
+        <div class="premium-info-banner-icon">
+            <i class="bi bi-calendar2-check"></i>
+        </div>
+        <div>
+            <strong>Infraestructura deportiva</strong>
+            <p>{{ total_partidos }} partidos registrados con un estadio asignado.</p>
+        </div>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="premium-table-card">
+
+        <div class="premium-table-toolbar">
+
+            <div>
+                <h3>Escenarios registrados</h3>
+                <p>Consulta y administra los estadios del sistema.</p>
+            </div>
+
+            <form method="GET" class="premium-filter-form">
+
+                <div class="premium-search-box">
+                    <i class="bi bi-search"></i>
+                    <input
+                        type="search"
+                        name="q"
+                        placeholder="Buscar estadio o ciudad..."
+                        value="{{ busqueda }}"
+                    >
+                </div>
+
+                <select name="estado" class="form-select premium-input">
+                    <option value="">Todos los estados</option>
+                    <option value="activo" {% if filtro_estado == "activo" %}selected{% endif %}>
+                        Activos
+                    </option>
+                    <option value="inactivo" {% if filtro_estado == "inactivo" %}selected{% endif %}>
+                        Inactivos
+                    </option>
+                </select>
+
+                <button type="submit" class="btn premium-filter-btn">
+                    Filtrar
+                </button>
+
+                {% if busqueda or filtro_estado %}
+                <a href="{{ url_for('estadios.index') }}" class="premium-clear-filter">
+                    Limpiar
+                </a>
+                {% endif %}
+
+            </form>
+
+        </div>
+
+        <!-- TABLA -->
+        <div class="table-responsive">
+
+            <table class="premium-table">
+
+                <thead>
+                    <tr>
+                        <th>ESTADIO</th>
+                        <th>UBICACIÓN</th>
+                        <th>CAPACIDAD</th>
+                        <th>PARTIDOS</th>
+                        <th>ESTADO</th>
+                        <th class="text-end">ACCIONES</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for estadio in estadios %}
+
+                    <tr>
+
+                        <td>
+                            <div class="premium-entity-cell">
+                                <div class="premium-entity-avatar stadium-avatar">
+                                    <i class="bi bi-building"></i>
+                                </div>
+
+                                <div>
+                                    <strong>{{ estadio.nombre }}</strong>
+                                    <small>Estadio #{{ estadio.id }}</small>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="stadium-location">
+                                <strong>{{ estadio.ciudad }}</strong>
+                                <small>{{ estadio.direccion or "Dirección no registrada" }}</small>
+                            </div>
+                        </td>
+
+                        <td>
+                            <strong>{{ "{:,.0f}".format(estadio.capacidad).replace(",", ".") }}</strong>
+                            <small class="stadium-subtext">Personas</small>
+                        </td>
+
+                        <td>
+                            <span class="stadium-match-count">
+                                <i class="bi bi-calendar-event"></i>
+                                {{ estadio.partidos|length }}
+                            </span>
+                        </td>
+
+                        <td>
+                            {% if estadio.estado %}
+                                <span class="premium-status-badge status-active">
+                                    <span></span> Activo
+                                </span>
+                            {% else %}
+                                <span class="premium-status-badge status-inactive">
+                                    <span></span> Inactivo
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            <div class="stadium-actions">
+
+                                <a
+                                    href="{{ url_for('estadios.editar', id=estadio.id) }}"
+                                    class="premium-action-btn"
+                                    title="Editar estadio"
+                                >
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+
+                                <form
+                                    method="POST"
+                                    action="{{ url_for('estadios.cambiar_estado', id=estadio.id) }}"
+                                >
+                                    <button
+                                        type="submit"
+                                        class="premium-action-btn"
+                                        title="{{ 'Desactivar' if estadio.estado else 'Activar' }}"
+                                    >
+                                        <i class="bi {{ 'bi-toggle-on' if estadio.estado else 'bi-toggle-off' }}"></i>
+                                    </button>
+                                </form>
+
+                                {% if not estadio.partidos %}
+                                <form
+                                    method="POST"
+                                    action="{{ url_for('estadios.eliminar', id=estadio.id) }}"
+                                    class="delete-form"
+                                    data-name="{{ estadio.nombre }}"
+                                >
+                                    <button
+                                        type="submit"
+                                        class="premium-action-btn danger"
+                                        title="Eliminar estadio"
+                                    >
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
+                                </form>
+                                {% endif %}
+
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+                        <td colspan="6">
+                            <div class="premium-empty-state">
+                                <i class="bi bi-buildings"></i>
+                                <h3>No hay estadios registrados</h3>
+                                <p>
+                                    {% if busqueda or filtro_estado %}
+                                        No encontramos estadios con esos filtros.
+                                    {% else %}
+                                        Comienza registrando el primer escenario deportivo.
+                                    {% endif %}
+                                </p>
+
+                                {% if not busqueda and not filtro_estado %}
+                                <a href="{{ url_for('estadios.nuevo') }}" class="module-primary-btn">
+                                    <i class="bi bi-plus-lg"></i>
+                                    Registrar estadio
+                                </a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="premium-table-footer">
+            <span>Mostrando {{ estadios|length }} estadios</span>
+            <span>Gestión de infraestructura deportiva</span>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

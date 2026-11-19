@@ -1,0 +1,321 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="module-page">
+
+    <!-- ENCABEZADO -->
+    <div class="module-header">
+        <div>
+            <span class="module-eyebrow">GESTIÓN DE COMPETICIÓN</span>
+            <h1>Árbitros</h1>
+            <p>Administra el equipo arbitral y consulta su información.</p>
+        </div>
+
+        <a href="{{ url_for('arbitros.nuevo') }}"
+           class="module-primary-btn">
+            <i class="bi bi-plus-lg"></i>
+            Registrar árbitro
+        </a>
+    </div>
+
+    <!-- ESTADÍSTICAS -->
+    <div class="dashboard-grid">
+
+        <div class="premium-stat-card">
+            <div class="premium-stat-icon">
+                <i class="bi bi-person-badge"></i>
+            </div>
+            <div>
+                <span>Total de árbitros</span>
+                <h3>{{ total_arbitros }}</h3>
+                <small>Registrados en el sistema</small>
+            </div>
+        </div>
+
+        <div class="premium-stat-card">
+            <div class="premium-stat-icon">
+                <i class="bi bi-person-check"></i>
+            </div>
+            <div>
+                <span>Árbitros activos</span>
+                <h3>{{ arbitros_activos }}</h3>
+                <small>Disponibles en el sistema</small>
+            </div>
+        </div>
+
+        <div class="premium-stat-card">
+            <div class="premium-stat-icon">
+                <i class="bi bi-person-x"></i>
+            </div>
+            <div>
+                <span>Árbitros inactivos</span>
+                <h3>{{ arbitros_inactivos }}</h3>
+                <small>Actualmente deshabilitados</small>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- INFORMACIÓN -->
+    <div class="premium-info-banner">
+        <i class="bi bi-info-circle"></i>
+        <div>
+            <strong>Control del equipo arbitral</strong>
+            <p>
+                Mantén actualizada la información de los árbitros
+                que participan en los encuentros del torneo.
+            </p>
+        </div>
+    </div>
+
+    <!-- TABLA -->
+    <div class="premium-table-card">
+
+        <div class="premium-table-toolbar">
+            <div>
+                <h3>Directorio de árbitros</h3>
+                <p>Consulta y administra los árbitros registrados.</p>
+            </div>
+        </div>
+
+        <!-- FILTROS -->
+        <form method="GET"
+              action="{{ url_for('arbitros.index') }}"
+              class="premium-filter-form">
+
+            <div class="premium-search-box">
+                <i class="bi bi-search"></i>
+                <input
+                    type="text"
+                    name="q"
+                    class="premium-input"
+                    placeholder="Buscar por nombre, documento o correo..."
+                    value="{{ busqueda }}"
+                >
+            </div>
+
+            <select name="categoria" class="premium-input">
+                <option value="">Todas las categorías</option>
+
+                {% for categoria in categorias %}
+                    <option value="{{ categoria }}"
+                        {% if filtro_categoria == categoria %}selected{% endif %}>
+                        {{ categoria }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <select name="estado" class="premium-input">
+                <option value="">Todos los estados</option>
+                <option value="activo"
+                    {% if filtro_estado == 'activo' %}selected{% endif %}>
+                    Activos
+                </option>
+                <option value="inactivo"
+                    {% if filtro_estado == 'inactivo' %}selected{% endif %}>
+                    Inactivos
+                </option>
+            </select>
+
+            <button type="submit" class="premium-filter-btn">
+                <i class="bi bi-funnel"></i>
+                Filtrar
+            </button>
+
+            {% if busqueda or filtro_categoria or filtro_estado %}
+                <a href="{{ url_for('arbitros.index') }}"
+                   class="premium-clear-filter">
+                    Limpiar
+                </a>
+            {% endif %}
+
+        </form>
+
+        <!-- CONTENIDO DE LA TABLA -->
+        <div class="table-responsive">
+            <table class="premium-table">
+
+                <thead>
+                    <tr>
+                        <th>ÁRBITRO</th>
+                        <th>DOCUMENTO</th>
+                        <th>CONTACTO</th>
+                        <th>CATEGORÍA</th>
+                        <th>PARTIDOS</th>
+                        <th>ESTADO</th>
+                        <th>ACCIONES</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for arbitro in arbitros %}
+
+                    <tr>
+
+                        <!-- ÁRBITRO -->
+                        <td>
+                            <div class="premium-entity-cell">
+                                <div class="premium-entity-avatar referee-avatar">
+                                    {{ arbitro.nombre[0]|upper }}{{ arbitro.apellido[0]|upper }}
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        {{ arbitro.nombre }} {{ arbitro.apellido }}
+                                    </strong>
+                                    <small>Árbitro #{{ arbitro.id }}</small>
+                                </div>
+                            </div>
+                        </td>
+
+                        <!-- DOCUMENTO -->
+                        <td>
+                            <span>{{ arbitro.documento }}</span>
+                        </td>
+
+                        <!-- CONTACTO -->
+                        <td>
+                            <div class="referee-contact">
+                                {% if arbitro.email %}
+                                    <span>
+                                        <i class="bi bi-envelope"></i>
+                                        {{ arbitro.email }}
+                                    </span>
+                                {% endif %}
+
+                                {% if arbitro.telefono %}
+                                    <span>
+                                        <i class="bi bi-telephone"></i>
+                                        {{ arbitro.telefono }}
+                                    </span>
+                                {% endif %}
+
+                                {% if not arbitro.email and not arbitro.telefono %}
+                                    <span class="text-muted">Sin contacto</span>
+                                {% endif %}
+                            </div>
+                        </td>
+
+                        <!-- CATEGORÍA -->
+                        <td>
+                            <span class="referee-category">
+                                {{ arbitro.categoria }}
+                            </span>
+                        </td>
+
+                        <!-- PARTIDOS -->
+                        <td>
+                            <div class="referee-match-count">
+                                <i class="bi bi-whistle"></i>
+                                {{ arbitro.partidos|length }}
+                            </div>
+                        </td>
+
+                        <!-- ESTADO -->
+                        <td>
+                            {% if arbitro.estado %}
+                                <span class="premium-status-badge status-active">
+                                    Activo
+                                </span>
+                            {% else %}
+                                <span class="premium-status-badge status-inactive">
+                                    Inactivo
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <!-- ACCIONES -->
+                        <td>
+                            <div class="stadium-actions">
+
+                                <a href="{{ url_for('arbitros.editar', id=arbitro.id) }}"
+                                   class="premium-action-btn"
+                                   title="Editar árbitro">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+
+                                <form method="POST"
+                                      action="{{ url_for('arbitros.cambiar_estado', id=arbitro.id) }}"
+                                      onsubmit="return confirm('¿Deseas cambiar el estado de este árbitro?');">
+
+                                    <button type="submit"
+                                            class="premium-action-btn"
+                                            title="Cambiar estado">
+                                        <i class="bi bi-arrow-repeat"></i>
+                                    </button>
+
+                                </form>
+
+                                <form method="POST"
+                                      action="{{ url_for('arbitros.eliminar', id=arbitro.id) }}"
+                                      onsubmit="return confirm('¿Estás seguro de eliminar este árbitro? Esta acción no se puede deshacer.');">
+
+                                    <button type="submit"
+                                            class="premium-action-btn"
+                                            title="Eliminar árbitro">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
+
+                                </form>
+
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+                        <td colspan="7">
+                            <div class="premium-empty-state">
+                                <i class="bi bi-person-badge"></i>
+
+                                <h4>
+                                    {% if busqueda or filtro_categoria or filtro_estado %}
+                                        No se encontraron resultados
+                                    {% else %}
+                                        Aún no hay árbitros registrados
+                                    {% endif %}
+                                </h4>
+
+                                <p>
+                                    {% if busqueda or filtro_categoria or filtro_estado %}
+                                        Intenta modificar los filtros de búsqueda.
+                                    {% else %}
+                                        Comienza registrando el primer árbitro del sistema.
+                                    {% endif %}
+                                </p>
+
+                                {% if not busqueda and not filtro_categoria and not filtro_estado %}
+                                    <a href="{{ url_for('arbitros.nuevo') }}"
+                                       class="module-primary-btn">
+                                        <i class="bi bi-plus-lg"></i>
+                                        Registrar árbitro
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+        <!-- PIE DE TABLA -->
+        <div class="premium-table-footer">
+            <span>
+                Mostrando <strong>{{ arbitros|length }}</strong>
+                árbitros
+            </span>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

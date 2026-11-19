@@ -1,230 +1,195 @@
-<div class="card shadow-sm">
-  <div class="card-body p-4">
+
+<div class="premium-form-card">
     <form method="POST" enctype="multipart/form-data">
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label class="form-label"> Nombre del Equipo </label>
 
-          <input
-            type="text"
-            class="form-control"
-            name="nombre"
-            value="{{ equipo.nombre if equipo else '' }}"
-            required
-          />
+        <div class="form-section-heading">
+            <div class="form-section-icon">
+                <i class="bi bi-info-circle"></i>
+            </div>
+            <div>
+                <h3>Información del equipo</h3>
+                <p>Datos generales e identificación del club.</p>
+            </div>
         </div>
 
-        <div class="col-md-6 mb-3">
-          <label class="form-label"> Ciudad </label>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <label class="premium-form-label">Nombre del equipo *</label>
+                <input
+                    type="text"
+                    class="form-control premium-input"
+                    name="nombre"
+                    placeholder="Ej. Atlético Nacional"
+                    value="{{ request.form.get('nombre', equipo.nombre if equipo else '') }}"
+                    maxlength="100"
+                    required
+                >
+            </div>
 
-          <input
-            type="text"
-            class="form-control"
-            name="ciudad"
-            value="{{ equipo.ciudad if equipo else '' }}"
-            required
-          />
+            <div class="col-md-6">
+                <label class="premium-form-label">Ciudad *</label>
+                <input
+                    type="text"
+                    class="form-control premium-input"
+                    name="ciudad"
+                    placeholder="Ej. Bogotá"
+                    value="{{ request.form.get('ciudad', equipo.ciudad if equipo else '') }}"
+                    maxlength="100"
+                    required
+                >
+            </div>
+
+            <div class="col-md-6">
+                <label class="premium-form-label">Entrenador *</label>
+                <input
+                    type="text"
+                    class="form-control premium-input"
+                    name="entrenador"
+                    placeholder="Nombre del entrenador"
+                    value="{{ request.form.get('entrenador', equipo.entrenador if equipo else '') }}"
+                    maxlength="100"
+                    required
+                >
+            </div>
+
+            <div class="col-md-6">
+                <label class="premium-form-label">Año de fundación *</label>
+                <input
+                    type="number"
+                    class="form-control premium-input"
+                    name="fundacion"
+                    min="1800"
+                    max="2100"
+                    placeholder="Ej. 1990"
+                    value="{{ request.form.get('fundacion', equipo.fundacion if equipo else '') }}"
+                    required
+                >
+            </div>
+
+            <div class="col-md-6">
+                <label class="premium-form-label">Estado del equipo</label>
+                <select class="form-select premium-input" name="estado">
+                    <option value="1"
+                        {% if request.form.get('estado', '1' if not equipo or equipo.estado else '0') == '1' %}selected{% endif %}>
+                        Activo
+                    </option>
+                    <option value="0"
+                        {% if request.form.get('estado', '1' if not equipo or equipo.estado else '0') == '0' %}selected{% endif %}>
+                        Inactivo
+                    </option>
+                </select>
+            </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label class="form-label"> Entrenador </label>
+        <div class="premium-form-divider"></div>
 
-          <input
-            type="text"
-            class="form-control"
-            name="entrenador"
-            value="{{ equipo.entrenador if equipo else '' }}"
-            required
-          />
+        <div class="form-section-heading">
+            <div class="form-section-icon">
+                <i class="bi bi-image"></i>
+            </div>
+            <div>
+                <h3>Identidad visual</h3>
+                <p>Personaliza el perfil del equipo con su escudo institucional.</p>
+            </div>
         </div>
 
-        <div class="col-md-6 mb-3">
-          <label class="form-label"> Año de Fundación </label>
-
-          <input
-            type="number"
-            class="form-control"
-            name="fundacion"
-            min="1800"
-            max="2100"
-            value="{{ equipo.fundacion if equipo else '' }}"
-            required
-          />
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6 mb-4">
-          <label class="form-label"> Estado </label>
-
-          <select class="form-select" name="estado">
-            <option
-              value="1"
-              {%
-              if
-              not
-              equipo
-              or
-              equipo.estado
-              %}
-              selected
-              {%
-              endif
-              %}
-            >
-              Activo
-            </option>
-
-            <option
-              value="0"
-              {%
-              if
-              equipo
-              and
-              not
-              equipo.estado
-              %}
-              selected
-              {%
-              endif
-              %}
-            >
-              Inactivo
-            </option>
-          </select>
-        </div>
-      </div>
-      <div class="mb-4">
         {% if equipo %}
+        <div class="current-team-crest">
+            <div>
+                <strong>Escudo actual</strong>
+                <p>Esta es la imagen que identifica actualmente al equipo.</p>
+            </div>
 
-        <label class="form-label fw-bold"> Escudo actual </label>
-
-        <div class="mb-4 text-center">
-          <img
-            src="{% if equipo.escudo == 'default_team.png' %}
-                {{ url_for('static', filename='img/default_team.png') }}
-             {% else %}
-                {{ url_for('static', filename='uploads/equipos/' + equipo.escudo) }}
-             {% endif %}"
-            class="team-logo"
-            style="width: 120px; height: 120px"
-          />
-
-          <p class="text-muted small">
-            Selecciona una nueva imagen si deseas reemplazar el escudo.
-          </p>
+            {% if equipo.escudo == "default_team.png" %}
+            <img
+                src="{{ url_for('static', filename='img/default_team.png') }}"
+                alt="Escudo predeterminado"
+                class="team-current-logo"
+            >
+            {% else %}
+            <img
+                src="{{ url_for('static', filename='uploads/equipos/' + equipo.escudo) }}"
+                alt="Escudo de {{ equipo.nombre }}"
+                class="team-current-logo"
+            >
+            {% endif %}
         </div>
-
-        <hr />
-
-        <label class="form-label fw-bold"> Cambiar escudo </label>
-
-        {% else %}
-
-        <label class="form-label fw-bold"> Escudo </label>
-
         {% endif %}
 
-        <div class="upload-box">
-          <input
-            type="file"
-            id="inputImage"
-            name="escudo"
-            accept="image/*"
-            hidden
-          />
+        <div class="upload-area premium-upload-area">
+            <input
+                type="file"
+                id="inputImage"
+                name="escudo"
+                accept="image/*"
+                hidden
+            >
 
-          <label for="inputImage" class="upload-area">
-            <div>
-              <i class="bi bi-cloud-arrow-up fs-1"></i>
+            <label for="inputImage" class="upload-area-label">
+                <span class="upload-icon">
+                    <i class="bi bi-cloud-arrow-up"></i>
+                </span>
+                <strong>
+                    {% if equipo %}Seleccionar nuevo escudo{% else %}Subir escudo del equipo{% endif %}
+                </strong>
+                <span>Arrastra una imagen aquí o haz clic para seleccionarla.</span>
+                <small>Formatos de imagen compatibles: JPG, PNG y WEBP.</small>
+            </label>
+        </div>
 
-              <h5>Arrastra una imagen</h5>
+        <div class="cropper-workspace">
+            <div class="row g-4 align-items-start">
+                <div class="col-lg-7">
+                    <div class="cropper-preview-container">
+                        <span class="cropper-preview-label">Área de edición</span>
+                        <img
+                            id="previewImage"
+                            alt="Imagen para recortar"
+                            style="max-width:100%; display:none;"
+                        >
+                    </div>
+                </div>
 
-              <p>o haz clic para seleccionar</p>
+                <div class="col-lg-5">
+                    <span class="cropper-preview-label">Vista previa del escudo</span>
+                    <div class="preview premium-crop-preview"></div>
+                </div>
             </div>
-          </label>
+
+            <div id="toolbar" class="cropper-toolbar premium-cropper-toolbar">
+                <button type="button" id="zoomIn" class="crop-btn" title="Acercar">
+                    <i class="bi bi-zoom-in"></i>
+                </button>
+
+                <button type="button" id="zoomOut" class="crop-btn" title="Alejar">
+                    <i class="bi bi-zoom-out"></i>
+                </button>
+
+                <button type="button" id="rotate" class="crop-btn" title="Rotar">
+                    <i class="bi bi-arrow-clockwise"></i>
+                </button>
+
+                <button type="button" id="reset" class="crop-btn" title="Reiniciar">
+                    <i class="bi bi-arrow-counterclockwise"></i>
+                </button>
+
+                <button type="button" id="applyCrop" class="btn btn-success premium-apply-crop">
+                    <i class="bi bi-check-lg"></i>
+                    Aplicar recorte
+                </button>
+            </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-8">
-          <img id="previewImage" style="max-width: 100%; display: none" />
+
+        <div class="premium-form-footer">
+            <a href="{{ url_for('equipos.index') }}" class="btn premium-cancel-btn">
+                Cancelar
+            </a>
+
+            <button type="submit" class="module-primary-btn">
+                <i class="bi bi-check-lg"></i>
+                {% if equipo %}Guardar cambios{% else %}Registrar equipo{% endif %}
+            </button>
         </div>
 
-        <div class="col-lg-4">
-          <div
-            class="preview border rounded"
-            style="width: 250px; height: 250px; overflow: hidden"
-          ></div>
-        </div>
-      </div>
-      <div id="toolbar" class="cropper-toolbar">
-        <button
-          type="button"
-          id="zoomIn"
-          class="btn btn-outline-success crop-btn"
-          title="Acercar"
-        >
-          <i class="bi bi-zoom-in"></i>
-        </button>
-
-        <button
-          type="button"
-          id="zoomOut"
-          class="btn btn-outline-success crop-btn"
-          title="Alejar"
-        >
-          <i class="bi bi-zoom-out"></i>
-        </button>
-
-        <button
-          type="button"
-          id="rotate"
-          class="btn btn-outline-primary crop-btn"
-          title="Rotar"
-        >
-          <i class="bi bi-arrow-clockwise"></i>
-        </button>
-
-        <button
-          type="button"
-          id="reset"
-          class="btn btn-outline-danger crop-btn"
-          title="Reiniciar"
-        >
-          <i class="bi bi-arrow-counterclockwise"></i>
-        </button>
-
-        <button type="button" id="applyCrop" class="btn btn-success">
-          <i class="bi bi-check-circle-fill"></i>
-
-          Aplicar
-        </button>
-      </div>
-      <hr />
-
-      {% if equipo %}
-
-      <button type="submit" class="btn btn-success">
-        <i class="bi bi-floppy-fill"></i>
-        Guardar Cambios
-      </button>
-
-      {% else %}
-
-      <button type="submit" class="btn btn-success">
-        <i class="bi bi-check-circle"></i>
-        Guardar Equipo
-      </button>
-
-      {% endif %}
-
-      <a href="{{ url_for('equipos.index') }}" class="btn btn-secondary">
-        <i class="bi bi-x-circle"></i>
-
-        Cancelar
-      </a>
     </form>
-  </div>
 </div>

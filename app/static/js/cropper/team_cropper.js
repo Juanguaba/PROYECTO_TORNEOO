@@ -1,146 +1,169 @@
-let cropper;
 
-const inputImage = document.getElementById("inputImage");
-const previewImage = document.getElementById("previewImage");
+document.addEventListener("DOMContentLoaded", function () {
 
-inputImage.addEventListener("change", function (e) {
+    let cropper = null;
 
-    const file = e.target.files[0];
+    const inputImage = document.getElementById("inputImage");
+    const previewImage = document.getElementById("previewImage");
+    const previewContainer = document.querySelector(".preview");
+    const toolbar = document.getElementById("toolbar");
 
-    if (!file) return;
+    const zoomIn = document.getElementById("zoomIn");
+    const zoomOut = document.getElementById("zoomOut");
+    const rotate = document.getElementById("rotate");
+    const reset = document.getElementById("reset");
+    const applyButton = document.getElementById("applyCrop");
 
-    const reader = new FileReader();
+    // Comprobar que los elementos existen
+    if (
+        !inputImage ||
+        !previewImage ||
+        !previewContainer ||
+        !toolbar
+    ) {
+        console.error("No se encontraron los elementos del editor de escudos.");
+        return;
+    }
 
-    reader.onload = function (event) {
+    // Seleccionar imagen
+    inputImage.addEventListener("change", function (event) {
 
-        previewImage.src = event.target.result;
+        const file = event.target.files[0];
 
-        previewImage.style.display = "block";
+        if (!file) return;
 
-        if (cropper) {
-            cropper.destroy();
+        if (!file.type.startsWith("image/")) {
+            alert("Selecciona un archivo de imagen válido.");
+            inputImage.value = "";
+            return;
         }
 
-        cropper = new Cropper(previewImage, {
+        const reader = new FileReader();
 
-            aspectRatio: 1,
+        reader.onload = function (e) {
 
-            viewMode: 1,
+            // Destruir instancia anterior
+            if (cropper) {
+                cropper.destroy();
+                cropper = null;
+            }
 
-            preview: ".preview",
+            // Mostrar imagen seleccionada
+            previewImage.style.display = "block";
+            previewImage.src = e.target.result;
 
-            autoCropArea: 1,
+            previewImage.onload = function () {
 
-            movable: true,
+                // Inicializar Cropper cuando la imagen ya cargó
+                cropper = new Cropper(previewImage, {
 
-            zoomable: true,
+                    aspectRatio: 1,
+                    viewMode: 1,
+                    preview: ".preview",
+                    autoCropArea: 1,
 
-            scalable: true,
+                    movable: true,
+                    zoomable: true,
+                    scalable: true,
+                    rotatable: true,
 
-            rotatable: true
+                    responsive: true,
+                    background: false,
 
-        });
+                    ready: function () {
+                        toolbar.classList.add("active");
+                    }
 
-        document.getElementById("toolbar").classList.add("active");
+                });
 
-    };
+            };
 
-    reader.readAsDataURL(file);
+        };
 
-});
-
-
-document.getElementById("zoomIn").onclick = function () {
-
-    if (cropper) {
-
-        cropper.zoom(0.1);
-
-    }
-
-};
-
-
-document.getElementById("zoomOut").onclick = function () {
-
-    if (cropper) {
-
-        cropper.zoom(-0.1);
-
-    }
-
-};
-
-
-document.getElementById("rotate").onclick = function () {
-
-    if (cropper) {
-
-        cropper.rotate(90);
-
-    }
-
-};
-
-
-document.getElementById("reset").onclick = function () {
-
-    if (cropper) {
-
-        cropper.reset();
-
-    }
-
-};
-
-document
-.getElementById("toolbar")
-.classList.add("active");
-
-document
-.getElementById("toolbar")
-.classList.remove("active");
-
-const applyButton = document.getElementById("applyCrop");
-
-applyButton.addEventListener("click", function () {
-
-    if (!cropper) return;
-
-    const canvas = cropper.getCroppedCanvas({
-
-        width: 300,
-        height: 300,
-        imageSmoothingQuality: "high"
+        reader.readAsDataURL(file);
 
     });
 
-    previewImage.src = canvas.toDataURL("image/png");
+    // Acercar
+    zoomIn?.addEventListener("click", function () {
+        if (cropper) cropper.zoom(0.1);
+    });
 
-    canvas.toBlob(function (blob) {
+    // Alejar
+    zoomOut?.addEventListener("click", function () {
+        if (cropper) cropper.zoom(-0.1);
+    });
 
-        const archivo = new File(
-            [blob],
-            "escudo.png",
-            {
-                type: "image/png"
+    // Rotar
+    rotate?.addEventListener("click", function () {
+        if (cropper) cropper.rotate(90);
+    });
+
+    // Restablecer
+    reset?.addEventListener("click", function () {
+        if (cropper) cropper.reset();
+    });
+
+    // Aplicar recorte
+    applyButton?.addEventListener("click", function () {
+
+        if (!cropper) return;
+
+        const canvas = cropper.getCroppedCanvas({
+            width: 300,
+            height: 300,
+            imageSmoothingEnabled: true,
+            imageSmoothingQuality: "high"
+        });
+
+        if (!canvas) return;
+
+        // Mostrar imagen recortada en la vista previa
+        const croppedImage = canvas.toDataURL("image/png");
+
+        previewContainer.innerHTML = "";
+
+        const img = document.createElement("img");
+        img.src = croppedImage;
+        img.alt = "Escudo recortado";
+
+        img.style.width = "100%";
+        img.style.height = "100%";
+        img.style.objectFit = "contain";
+
+        previewContainer.appendChild(img);
+
+        // Convertir el recorte a archivo para enviarlo al servidor
+        canvas.toBlob(function (blob) {
+
+            if (!blob) {
+                alert("No se pudo procesar el recorte.");
+                return;
             }
-        );
 
-        const dataTransfer = new DataTransfer();
+            const archivo = new File(
+                [blob],
+                "escudo.png",
+                { type: "image/png" }
+            );
 
-        dataTransfer.items.add(archivo);
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(archivo);
 
-        inputImage.files = dataTransfer.files;
+            inputImage.files = dataTransfer.files;
 
-    }, "image/png");
+        }, "image/png");
 
-    cropper.destroy();
+        // Destruir Cropper
+        cropper.destroy();
+        cropper = null;
 
-    cropper = null;
+        // Ocultar herramientas
+        toolbar.classList.remove("active");
 
-    document
-        .getElementById("toolbar")
-        .classList.remove("active");
+        // Ocultar imagen de edición
+        previewImage.style.display = "none";
+
+    });
 
 });

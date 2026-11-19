@@ -1,0 +1,87 @@
+
+/* ==========================================
+   ALERTS
+   PREMIUM SPORTS MANAGEMENT
+========================================== */
+
+.alert {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 15px 18px;
+    margin-bottom: 20px;
+
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+
+    font-size: 13px;
+    font-weight: 550;
+    line-height: 1.5;
+
+    box-shadow: var(--shadow-sm);
+}
+
+/* Éxito */
+
+.alert-success {
+    color: #17633F;
+    background: #EAF5EE;
+    border-color: #D0E9D9;
+}
+
+/* Error */
+
+.alert-danger {
+    color: #A83232;
+    background: #FCEEEE;
+    border-color: #F2D4D4;
+}
+
+/* Advertencia */
+
+.alert-warning {
+    color: #875D16;
+    background: #FFF6E5;
+    border-color: #F3E3BC;
+}
+
+/* Información */
+
+.alert-info {
+    color: #28658B;
+    background: #EDF6FC;
+    border-color: #D4E8F5;
+}
+
+/* Alertas secundarias */
+
+.alert-primary {
+    color: var(--primary-dark);
+    background: var(--primary-light);
+    border-color: #D3E8DC;
+}
+
+/* Enlaces dentro de alertas */
+
+.alert a {
+    color: inherit;
+    font-weight: 750;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* Último elemento sin margen */
+
+.alert:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+    .alert {
+        padding: 12px 14px;
+        font-size: 12px;
+    }
+}

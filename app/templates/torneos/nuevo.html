@@ -1,0 +1,217 @@
+
+{% extends "base.html" %}
+
+{% block title %}Nuevo torneo | Gestión Deportiva{% endblock %}
+
+{% block content %}
+
+<div class="form-page-header">
+    <a href="{{ url_for('torneos.index') }}" class="module-back-link">
+        <i class="bi bi-arrow-left"></i>
+        Volver a torneos
+    </a>
+
+    <span class="module-eyebrow">GESTIÓN DEPORTIVA</span>
+    <h1>Crear torneo</h1>
+    <p>Configura una nueva competición y selecciona sus equipos participantes.</p>
+</div>
+
+<div class="premium-form-card tournament-form-card">
+
+    <form method="POST">
+
+        <!-- INFORMACIÓN GENERAL -->
+        <div class="form-section-heading">
+            <div class="form-section-icon">
+                <i class="bi bi-trophy"></i>
+            </div>
+
+            <div>
+                <h3>Información del torneo</h3>
+                <p>Define la identidad y las características de la competición.</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-12">
+                <label class="premium-form-label">Nombre del torneo *</label>
+
+                <input
+                    type="text"
+                    name="nombre"
+                    class="form-control premium-input"
+                    placeholder="Ej. Copa Metropolitana"
+                    value="{{ request.form.get('nombre', '') }}"
+                    maxlength="100"
+                    required
+                >
+            </div>
+
+            <div class="col-12">
+                <label class="premium-form-label">Descripción</label>
+
+                <textarea
+                    name="descripcion"
+                    class="form-control premium-input"
+                    rows="4"
+                    placeholder="Describe brevemente el torneo, sus objetivos o características..."
+                >{{ request.form.get('descripcion', '') }}</textarea>
+            </div>
+
+        </div>
+
+        <div class="premium-form-divider"></div>
+
+        <!-- PROGRAMACIÓN -->
+        <div class="form-section-heading">
+            <div class="form-section-icon">
+                <i class="bi bi-calendar-range"></i>
+            </div>
+
+            <div>
+                <h3>Programación y modalidad</h3>
+                <p>Establece las fechas y el sistema de competición.</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+                <label class="premium-form-label">Fecha de inicio *</label>
+
+                <input
+                    type="date"
+                    name="fecha_inicio"
+                    class="form-control premium-input"
+                    value="{{ request.form.get('fecha_inicio', '') }}"
+                    required
+                >
+            </div>
+
+            <div class="col-md-6">
+                <label class="premium-form-label">Fecha de finalización *</label>
+
+                <input
+                    type="date"
+                    name="fecha_fin"
+                    class="form-control premium-input"
+                    value="{{ request.form.get('fecha_fin', '') }}"
+                    required
+                >
+            </div>
+
+            <div class="col-md-6">
+                <label class="premium-form-label">Formato de competición *</label>
+
+                <select name="formato" class="form-select premium-input" required>
+                    <option value="">Seleccionar formato</option>
+
+                    {% for formato in ["Liga", "Eliminación directa", "Grupos"] %}
+                    <option
+                        value="{{ formato }}"
+                        {% if request.form.get('formato') == formato %}selected{% endif %}
+                    >
+                        {{ formato }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label class="premium-form-label">Estado del torneo *</label>
+
+                <select name="estado" class="form-select premium-input" required>
+                    {% for estado in ["Pendiente", "En curso", "Finalizado"] %}
+                    <option
+                        value="{{ estado }}"
+                        {% if request.form.get('estado', 'Pendiente') == estado %}selected{% endif %}
+                    >
+                        {{ estado }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+        </div>
+
+        <div class="premium-form-divider"></div>
+
+        <!-- EQUIPOS -->
+        <div class="form-section-heading">
+            <div class="form-section-icon">
+                <i class="bi bi-shield-fill"></i>
+            </div>
+
+            <div>
+                <h3>Equipos participantes</h3>
+                <p>Selecciona los clubes que harán parte de esta competición.</p>
+            </div>
+        </div>
+
+        <div class="tournament-selection-card">
+
+            <label class="premium-form-label">
+                Seleccionar equipos
+            </label>
+
+            {% if equipos %}
+
+            <select
+                name="equipos"
+                class="form-select premium-input tournament-team-select"
+                multiple
+                size="7"
+            >
+                {% for equipo in equipos %}
+                <option
+                    value="{{ equipo.id }}"
+                    {% if equipo.id|string in request.form.getlist('equipos') %}selected{% endif %}
+                >
+                    {{ equipo.nombre }} - {{ equipo.ciudad }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <div class="tournament-selection-help">
+                <i class="bi bi-info-circle"></i>
+                Mantén presionada la tecla Ctrl para seleccionar varios equipos.
+            </div>
+
+            {% else %}
+
+            <div class="tournament-no-teams">
+                <i class="bi bi-shield-exclamation"></i>
+
+                <div>
+                    <strong>No hay equipos disponibles</strong>
+                    <p>Primero debes registrar equipos para poder agregarlos al torneo.</p>
+
+                    <a href="{{ url_for('equipos.nuevo') }}">
+                        Registrar equipo
+                        <i class="bi bi-arrow-up-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        <!-- ACCIONES -->
+        <div class="premium-form-footer">
+            <a href="{{ url_for('torneos.index') }}" class="btn premium-cancel-btn">
+                Cancelar
+            </a>
+
+            <button type="submit" class="module-primary-btn">
+                <i class="bi bi-check-lg"></i>
+                Registrar torneo
+            </button>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

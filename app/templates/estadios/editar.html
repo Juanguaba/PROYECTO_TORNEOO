@@ -1,0 +1,242 @@
+
+{% extends "base.html" %}
+
+{% block title %}Editar estadio | Gestión Deportiva{% endblock %}
+
+{% block content %}
+
+<div class="form-page-header">
+
+    <a href="{{ url_for('estadios.index') }}" class="module-back-link">
+        <i class="bi bi-arrow-left"></i>
+        Volver a estadios
+    </a>
+
+    <span class="module-eyebrow">INFRAESTRUCTURA DEPORTIVA</span>
+
+    <h1>Editar estadio</h1>
+
+    <p>Actualiza la información y disponibilidad del escenario deportivo.</p>
+
+</div>
+
+<div class="premium-form-card stadium-form-card">
+
+    <form method="POST" id="stadiumForm">
+
+        <!-- IDENTIFICACIÓN -->
+
+        <div class="form-section-heading">
+
+            <div class="form-section-icon">
+                <i class="bi bi-building"></i>
+            </div>
+
+            <div>
+                <h3>Información del estadio</h3>
+                <p>Modifica los datos de identificación y ubicación.</p>
+            </div>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+
+                <label for="nombre" class="premium-form-label">
+                    Nombre del estadio *
+                </label>
+
+                <input
+                    type="text"
+                    name="nombre"
+                    id="nombre"
+                    class="form-control premium-input"
+                    value="{{ request.form.get('nombre', estadio.nombre) }}"
+                    placeholder="Nombre del estadio"
+                    maxlength="100"
+                    required
+                >
+
+            </div>
+
+            <div class="col-md-6">
+
+                <label for="ciudad" class="premium-form-label">
+                    Ciudad *
+                </label>
+
+                <input
+                    type="text"
+                    name="ciudad"
+                    id="ciudad"
+                    class="form-control premium-input"
+                    value="{{ request.form.get('ciudad', estadio.ciudad) }}"
+                    placeholder="Ciudad"
+                    maxlength="100"
+                    required
+                >
+
+            </div>
+
+            <div class="col-12">
+
+                <label for="direccion" class="premium-form-label">
+                    Dirección
+                </label>
+
+                <input
+                    type="text"
+                    name="direccion"
+                    id="direccion"
+                    class="form-control premium-input"
+                    value="{{ request.form.get('direccion', estadio.direccion or '') }}"
+                    placeholder="Dirección del estadio"
+                    maxlength="200"
+                >
+
+                <small class="stadium-field-help">
+                    <i class="bi bi-info-circle"></i>
+                    Puedes dejar este campo vacío si no tienes la dirección.
+                </small>
+
+            </div>
+
+        </div>
+
+        <div class="premium-form-divider"></div>
+
+        <!-- CAPACIDAD -->
+
+        <div class="form-section-heading">
+
+            <div class="form-section-icon">
+                <i class="bi bi-people"></i>
+            </div>
+
+            <div>
+                <h3>Capacidad del escenario</h3>
+                <p>Actualiza el aforo máximo permitido.</p>
+            </div>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+
+                <label for="capacidad" class="premium-form-label">
+                    Capacidad máxima *
+                </label>
+
+                <div class="stadium-capacity-wrapper">
+
+                    <i class="bi bi-person-fill"></i>
+
+                    <input
+                        type="number"
+                        name="capacidad"
+                        id="capacidad"
+                        class="form-control premium-input"
+                        value="{{ request.form.get('capacidad', estadio.capacidad) }}"
+                        min="1"
+                        step="1"
+                        required
+                    >
+
+                    <span>Personas</span>
+
+                </div>
+
+                <small class="stadium-field-help">
+                    Ingresa un número entero mayor que cero.
+                </small>
+
+            </div>
+
+        </div>
+
+        <div class="premium-form-divider"></div>
+
+        <!-- ESTADO -->
+
+        <div class="form-section-heading">
+
+            <div class="form-section-icon">
+                <i class="bi bi-toggles"></i>
+            </div>
+
+            <div>
+                <h3>Disponibilidad del estadio</h3>
+                <p>Controla si el escenario puede asignarse a nuevos partidos.</p>
+            </div>
+
+        </div>
+
+        <div class="stadium-status-field">
+
+            <div>
+                <strong>Estado del escenario</strong>
+                <p>Los estadios inactivos no estarán disponibles para nuevas asignaciones.</p>
+            </div>
+
+            <select
+                name="estado"
+                id="estado"
+                class="form-select premium-input"
+                required
+            >
+
+                <option
+                    value="activo"
+                    {% if request.form.get('estado', 'activo' if estadio.estado else 'inactivo') == 'activo' %}selected{% endif %}
+                >
+                    Activo
+                </option>
+
+                <option
+                    value="inactivo"
+                    {% if request.form.get('estado', 'activo' if estadio.estado else 'inactivo') == 'inactivo' %}selected{% endif %}
+                >
+                    Inactivo
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- INFORMACIÓN ADICIONAL -->
+
+        <div class="stadium-status-preview">
+
+            <div class="stadium-status-preview-icon">
+                <i class="bi bi-info-circle"></i>
+            </div>
+
+            <div>
+                <strong>Partidos asociados</strong>
+                <p>Este estadio tiene {{ estadio.partidos|length }} partido(s) relacionado(s).</p>
+            </div>
+
+        </div>
+
+        <!-- ACCIONES -->
+
+        <div class="premium-form-footer">
+
+            <a href="{{ url_for('estadios.index') }}" class="btn premium-cancel-btn">
+                Cancelar
+            </a>
+
+            <button type="submit" class="module-primary-btn">
+                <i class="bi bi-check-lg"></i>
+                Guardar cambios
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

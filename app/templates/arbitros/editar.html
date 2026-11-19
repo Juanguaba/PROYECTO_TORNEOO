@@ -1,0 +1,163 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="module-page">
+
+    <div class="module-header">
+        <div>
+            <span class="module-eyebrow">GESTIÓN DE COMPETICIÓN</span>
+            <h1>Editar árbitro</h1>
+            <p>Actualiza la información del integrante del equipo arbitral.</p>
+        </div>
+
+        <a href="{{ url_for('arbitros.index') }}" class="premium-clear-filter">
+            <i class="bi bi-arrow-left"></i>
+            Volver al directorio
+        </a>
+    </div>
+
+    <div class="premium-form-card referee-form-card">
+
+        <div class="form-section-heading">
+            <div class="referee-form-icon">
+                <i class="bi bi-person-gear"></i>
+            </div>
+            <div>
+                <h3>Información del árbitro</h3>
+                <p>Modifica los datos registrados en el sistema.</p>
+            </div>
+        </div>
+
+        <form method="POST">
+
+            <div class="referee-form-section">
+                <h4><i class="bi bi-person"></i> Datos personales</h4>
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label class="premium-form-label">Nombre <span>*</span></label>
+                        <input type="text"
+                               name="nombre"
+                               class="premium-input"
+                               maxlength="100"
+                               value="{{ request.form.get('nombre', arbitro.nombre) }}"
+                               required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="premium-form-label">Apellido <span>*</span></label>
+                        <input type="text"
+                               name="apellido"
+                               class="premium-input"
+                               maxlength="100"
+                               value="{{ request.form.get('apellido', arbitro.apellido) }}"
+                               required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="premium-form-label">Documento <span>*</span></label>
+                        <input type="text"
+                               name="documento"
+                               class="premium-input"
+                               maxlength="30"
+                               value="{{ request.form.get('documento', arbitro.documento) }}"
+                               required>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="referee-form-section">
+                <h4><i class="bi bi-telephone"></i> Información de contacto</h4>
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label class="premium-form-label">Correo electrónico</label>
+                        <input type="email"
+                               name="email"
+                               class="premium-input"
+                               maxlength="120"
+                               value="{{ request.form.get('email', arbitro.email or '') }}">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="premium-form-label">Teléfono</label>
+                        <input type="tel"
+                               name="telefono"
+                               class="premium-input"
+                               maxlength="30"
+                               value="{{ request.form.get('telefono', arbitro.telefono or '') }}">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="referee-form-section">
+                <h4><i class="bi bi-award"></i> Información profesional</h4>
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label class="premium-form-label">
+                            Categoría arbitral <span>*</span>
+                        </label>
+                        <input type="text"
+                               name="categoria"
+                               class="premium-input"
+                               maxlength="50"
+                               value="{{ request.form.get('categoria', arbitro.categoria) }}"
+                               required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="premium-form-label">Estado</label>
+                        <select name="estado" class="premium-input" required>
+                            <option value="activo"
+                                {% if request.form.get('estado', 'activo' if arbitro.estado else 'inactivo') == 'activo' %}selected{% endif %}>
+                                Activo
+                            </option>
+                            <option value="inactivo"
+                                {% if request.form.get('estado', 'activo' if arbitro.estado else 'inactivo') == 'inactivo' %}selected{% endif %}>
+                                Inactivo
+                            </option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="referee-associated-info">
+                <i class="bi bi-whistle"></i>
+                <div>
+                    <strong>Partidos asociados</strong>
+                    <p>
+                        Este árbitro tiene
+                        <strong>{{ arbitro.partidos|length }}</strong>
+                        partidos registrados.
+                    </p>
+                </div>
+            </div>
+
+            <div class="referee-form-footer">
+                <a href="{{ url_for('arbitros.index') }}"
+                   class="premium-cancel-btn">
+                    Cancelar
+                </a>
+
+                <button type="submit" class="module-primary-btn">
+                    <i class="bi bi-check-lg"></i>
+                    Guardar cambios
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

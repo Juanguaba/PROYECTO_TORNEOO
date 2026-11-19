@@ -1,0 +1,545 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="control-center">
+
+    <!-- ENCABEZADO -->
+    <header class="control-header">
+        <div>
+            <span class="control-eyebrow">
+                ADMINISTRACIÓN / PREFERENCIAS
+            </span>
+
+            <h1>Centro de control</h1>
+
+            <p>
+                Administra la identidad, el comportamiento y las
+                preferencias de tu plataforma.
+            </p>
+        </div>
+
+        <div class="control-header-status">
+            <span class="control-status-dot"></span>
+            Sistema disponible
+        </div>
+    </header>
+
+    <!-- BANNER PRINCIPAL -->
+    <section class="control-hero">
+
+        <div class="control-hero-content">
+            <span>CONFIGURACIÓN DEL SISTEMA</span>
+
+            <h2>Tu plataforma.<br>Tu control.</h2>
+
+            <p>
+                Personaliza la experiencia y adapta el sistema
+                a las necesidades de tu organización.
+            </p>
+
+            <div class="control-hero-meta">
+                <i class="bi bi-shield-check"></i>
+                Administración centralizada
+            </div>
+        </div>
+
+        <div class="control-hero-decoration">
+            <div class="control-orbit orbit-one"></div>
+            <div class="control-orbit orbit-two"></div>
+            <div class="control-orbit orbit-three"></div>
+
+            <div class="control-hero-symbol">
+                <i class="bi bi-sliders"></i>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="control-overview">
+
+        <div class="control-overview-card">
+            <div class="overview-icon">
+                <i class="bi bi-building"></i>
+            </div>
+            <div>
+                <span>Identidad</span>
+                <strong>Organización</strong>
+                <small>Datos institucionales</small>
+            </div>
+        </div>
+
+        <div class="control-overview-card">
+            <div class="overview-icon">
+                <i class="bi bi-trophy"></i>
+            </div>
+            <div>
+                <span>Competición</span>
+                <strong>Reglas deportivas</strong>
+                <small>Parámetros de juego</small>
+            </div>
+        </div>
+
+        <div class="control-overview-card">
+            <div class="overview-icon">
+                <i class="bi bi-palette"></i>
+            </div>
+            <div>
+                <span>Personalización</span>
+                <strong>Apariencia</strong>
+                <small>Identidad visual</small>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- PANEL PRINCIPAL -->
+    <div class="control-workspace">
+
+        <!-- NAVEGACIÓN INTERNA -->
+        <aside class="control-navigation">
+
+            <span class="control-nav-label">PREFERENCIAS</span>
+
+            <a href="#identidad" class="control-nav-item active">
+                <i class="bi bi-building"></i>
+                <span>Identidad general</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+
+            <a href="#contacto" class="control-nav-item">
+                <i class="bi bi-envelope"></i>
+                <span>Contacto</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+
+            <a href="#competicion" class="control-nav-item">
+                <i class="bi bi-trophy"></i>
+                <span>Competición</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+
+            <a href="#apariencia" class="control-nav-item">
+                <i class="bi bi-palette"></i>
+                <span>Apariencia</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+
+            <div class="control-nav-divider"></div>
+
+            <span class="control-nav-label">INFORMACIÓN</span>
+
+            <a href="#sistema" class="control-nav-item">
+                <i class="bi bi-cpu"></i>
+                <span>Información del sistema</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+
+            <div class="control-nav-note">
+                <i class="bi bi-lightbulb"></i>
+                <strong>Consejo</strong>
+                <p>
+                    Guarda los cambios después de modificar
+                    las preferencias de tu plataforma.
+                </p>
+            </div>
+
+        </aside>
+
+        <!-- CONTENIDO -->
+        <main class="control-main">
+
+            <form method="POST"
+                  action="{{ url_for('configuracion.guardar') }}">
+
+                <!-- IDENTIDAD -->
+                <section class="control-section" id="identidad">
+
+                    <div class="control-section-heading">
+                        <div>
+                            <span>01 / IDENTIDAD</span>
+                            <h2>Información general</h2>
+                            <p>
+                                Define cómo se identifica tu plataforma.
+                            </p>
+                        </div>
+
+                        <div class="control-section-icon">
+                            <i class="bi bi-building"></i>
+                        </div>
+                    </div>
+
+                    <div class="control-fields-grid">
+
+                        <div class="control-field full-width">
+                            <label>Nombre del sistema <span>*</span></label>
+                            <input type="text"
+                                   name="nombre_sistema"
+                                   maxlength="120"
+                                   value="{{ configuracion.nombre_sistema }}"
+                                   placeholder="Nombre de la plataforma"
+                                   required>
+                            <small>Nombre principal de la aplicación.</small>
+                        </div>
+
+                        <div class="control-field full-width">
+                            <label>Descripción</label>
+                            <textarea name="descripcion"
+                                      maxlength="300"
+                                      rows="3"
+                                      placeholder="Describe brevemente la plataforma...">{{ configuracion.descripcion or '' }}</textarea>
+                        </div>
+
+                        <div class="control-field full-width">
+                            <label>Organización</label>
+                            <input type="text"
+                                   name="organizacion"
+                                   maxlength="150"
+                                   value="{{ configuracion.organizacion or '' }}"
+                                   placeholder="Nombre de la organización">
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <div class="control-section-divider"></div>
+
+                <!-- CONTACTO -->
+                <section class="control-section" id="contacto">
+
+                    <div class="control-section-heading">
+                        <div>
+                            <span>02 / CONTACTO</span>
+                            <h2>Información de contacto</h2>
+                            <p>
+                                Datos institucionales de comunicación.
+                            </p>
+                        </div>
+
+                        <div class="control-section-icon">
+                            <i class="bi bi-envelope"></i>
+                        </div>
+                    </div>
+
+                    <div class="control-fields-grid">
+
+                        <div class="control-field">
+                            <label>Correo electrónico</label>
+                            <input type="email"
+                                   name="email_contacto"
+                                   maxlength="120"
+                                   value="{{ configuracion.email_contacto or '' }}"
+                                   placeholder="contacto@organizacion.com">
+                        </div>
+
+                        <div class="control-field">
+                            <label>Teléfono</label>
+                            <input type="tel"
+                                   name="telefono_contacto"
+                                   maxlength="30"
+                                   value="{{ configuracion.telefono_contacto or '' }}"
+                                   placeholder="Número de contacto">
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <div class="control-section-divider"></div>
+
+                <!-- COMPETICIÓN -->
+                <section class="control-section" id="competicion">
+
+                    <div class="control-section-heading">
+                        <div>
+                            <span>03 / REGLAMENTO</span>
+                            <h2>Preferencias deportivas</h2>
+                            <p>
+                                Establece los parámetros generales
+                                de competición.
+                            </p>
+                        </div>
+
+                        <div class="control-section-icon">
+                            <i class="bi bi-trophy"></i>
+                        </div>
+                    </div>
+
+                    <div class="control-fields-grid">
+
+                        <div class="control-field">
+                            <label>Duración del partido</label>
+                            <div class="control-input-suffix">
+                                <input type="number"
+                                       name="duracion_partido"
+                                       min="1"
+                                       max="180"
+                                       value="{{ configuracion.duracion_partido }}"
+                                       required>
+                                <span>MIN</span>
+                            </div>
+                            <small>Duración total establecida.</small>
+                        </div>
+
+                        <div class="control-field">
+                            <label>Descanso entre tiempos</label>
+                            <div class="control-input-suffix">
+                                <input type="number"
+                                       name="descanso"
+                                       min="0"
+                                       max="60"
+                                       value="{{ configuracion.descanso }}"
+                                       required>
+                                <span>MIN</span>
+                            </div>
+                            <small>Tiempo de descanso establecido.</small>
+                        </div>
+
+                    </div>
+
+                    <div class="control-points-panel">
+
+                        <div class="control-points-heading">
+                            <div>
+                                <h3>Sistema de puntuación</h3>
+                                <p>
+                                    Define los puntos asignados
+                                    a cada resultado.
+                                </p>
+                            </div>
+                            <i class="bi bi-award"></i>
+                        </div>
+
+                        <div class="control-points-grid">
+
+                            <div class="control-point-item">
+                                <span class="point-indicator victory"></span>
+                                <label>Victoria</label>
+                                <input type="number"
+                                       name="puntos_victoria"
+                                       min="0"
+                                       max="10"
+                                       value="{{ configuracion.puntos_victoria }}"
+                                       required>
+                            </div>
+
+                            <div class="control-point-item">
+                                <span class="point-indicator draw"></span>
+                                <label>Empate</label>
+                                <input type="number"
+                                       name="puntos_empate"
+                                       min="0"
+                                       max="10"
+                                       value="{{ configuracion.puntos_empate }}"
+                                       required>
+                            </div>
+
+                            <div class="control-point-item">
+                                <span class="point-indicator defeat"></span>
+                                <label>Derrota</label>
+                                <input type="number"
+                                       name="puntos_derrota"
+                                       min="0"
+                                       max="10"
+                                       value="{{ configuracion.puntos_derrota }}"
+                                       required>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <div class="control-section-divider"></div>
+
+                <!-- APARIENCIA -->
+                <section class="control-section" id="apariencia">
+
+                    <div class="control-section-heading">
+                        <div>
+                            <span>04 / PERSONALIZACIÓN</span>
+                            <h2>Identidad visual</h2>
+                            <p>
+                                Personaliza el color institucional
+                                de tu plataforma.
+                            </p>
+                        </div>
+
+                        <div class="control-section-icon">
+                            <i class="bi bi-palette"></i>
+                        </div>
+                    </div>
+
+                    <div class="control-color-panel">
+
+                        <div>
+                            <strong>Color principal</strong>
+                            <p>
+                                Selecciona el color institucional
+                                de referencia.
+                            </p>
+                        </div>
+
+                        <div class="control-color-picker">
+                            <input type="color"
+                                   name="color_principal"
+                                   value="{{ configuracion.color_principal }}"
+                                   id="colorPrincipal">
+
+                            <span id="colorPrincipalTexto">
+                                {{ configuracion.color_principal }}
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="control-color-preview">
+                        <span>VISTA PREVIA</span>
+                        <div class="control-preview-content">
+                            <div class="control-preview-logo" id="previewLogo">
+                                <i class="bi bi-trophy"></i>
+                            </div>
+                            <div>
+                                <strong id="previewNombre">
+                                    {{ configuracion.nombre_sistema }}
+                                </strong>
+                                <small>Gestión deportiva</small>
+                            </div>
+                            <span class="control-preview-tag">
+                                PLATAFORMA
+                            </span>
+                        </div>
+                    </div>
+
+                </section>
+
+                <!-- ACCIONES -->
+                <div class="control-save-bar">
+
+                    <div>
+                        <i class="bi bi-shield-lock"></i>
+                        <span>Los cambios se guardarán permanentemente.</span>
+                    </div>
+
+                    <button type="submit" class="control-save-button">
+                        <i class="bi bi-check2"></i>
+                        Guardar configuración
+                    </button>
+
+                </div>
+
+            </form>
+
+            <!-- INFORMACIÓN DEL SISTEMA -->
+            <section class="control-system-section" id="sistema">
+
+                <div class="control-section-heading">
+                    <div>
+                        <span>05 / INFORMACIÓN TÉCNICA</span>
+                        <h2>Información del sistema</h2>
+                        <p>
+                            Detalles generales de la plataforma.
+                        </p>
+                    </div>
+
+                    <div class="control-section-icon">
+                        <i class="bi bi-cpu"></i>
+                    </div>
+                </div>
+
+                <div class="control-system-grid">
+
+                    <div class="control-system-item">
+                        <span>Aplicación</span>
+                        <strong>Gestión de Torneos</strong>
+                    </div>
+
+                    <div class="control-system-item">
+                        <span>Framework</span>
+                        <strong>Flask</strong>
+                    </div>
+
+                    <div class="control-system-item">
+                        <span>Base de datos</span>
+                        <strong>SQLite</strong>
+                    </div>
+
+                    <div class="control-system-item">
+                        <span>ORM</span>
+                        <strong>SQLAlchemy</strong>
+                    </div>
+
+                    <div class="control-system-item">
+                        <span>Migraciones</span>
+                        <strong>Flask-Migrate</strong>
+                    </div>
+
+                    <div class="control-system-item">
+                        <span>Estado</span>
+                        <strong class="system-operational">
+                            <span></span> Disponible
+                        </strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <footer class="control-footer">
+                <span>Centro de control</span>
+                <span>Administración de la plataforma</span>
+            </footer>
+
+        </main>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block page_scripts %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const colorInput = document.getElementById("colorPrincipal");
+    const colorText = document.getElementById("colorPrincipalTexto");
+    const previewLogo = document.getElementById("previewLogo");
+    const previewNombre = document.getElementById("previewNombre");
+    const nombreInput = document.querySelector(
+        'input[name="nombre_sistema"]'
+    );
+
+    function actualizarColor() {
+        const color = colorInput.value;
+
+        colorText.textContent = color;
+        previewLogo.style.backgroundColor = color;
+    }
+
+    colorInput.addEventListener("input", actualizarColor);
+
+    nombreInput.addEventListener("input", function () {
+        previewNombre.textContent = nombreInput.value || "Nombre del sistema";
+    });
+
+    actualizarColor();
+
+    const enlaces = document.querySelectorAll(".control-nav-item");
+
+    enlaces.forEach(function (enlace) {
+        enlace.addEventListener("click", function () {
+            enlaces.forEach(item => item.classList.remove("active"));
+            enlace.classList.add("active");
+        });
+    });
+
+});
+</script>
+
+{% endblock %}

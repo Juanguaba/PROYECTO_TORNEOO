@@ -1,131 +1,187 @@
-{% extends "base.html" %} {% block title %}Equipos{% endblock %} {% block
-content %}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <div>
-    <h2>🏆 Gestión de Equipos</h2>
+{% extends "base.html" %}
 
-    <p class="text-muted">Administra todos los equipos registrados.</p>
-  </div>
+{% block title %}Equipos | Gestión Deportiva{% endblock %}
 
-  <a href="{{ url_for('equipos.nuevo') }}" class="btn btn-success">
-    <i class="bi bi-plus-circle"></i>
-    Nuevo Equipo
-  </a>
-</div>
+{% block content %}
 
-<div class="card">
-  <div class="card-body">
-    {% if equipos %}
-
-    <table class="table table-hover align-middle">
-      <thead>
-        <tr>
-          <th>Escudo</th>
-
-          <th>Nombre</th>
-
-          <th>Ciudad</th>
-
-          <th>Entrenador</th>
-
-          <th>Estado</th>
-
-          <th>Acciones</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {% for equipo in equipos %}
-
-        <tr>
-          <td class="text-center">
-            {% if equipo.escudo == "default_team.png" %}
-
-            <img
-              src="{{ url_for('static', filename='img/default_team.png') }}"
-              alt="Sin escudo"
-              class="team-logo"
-            />
-
-            {% else %}
-
-            <img
-              src="{{ url_for('static', filename='uploads/equipos/' + equipo.escudo) }}"
-              alt="{{ equipo.nombre }}"
-              class="team-logo"
-            />
-
-            {% endif %}
-          </td>
-
-          <td>
-            <a
-              href="{{ url_for('equipos.detalle', id=equipo.id) }}"
-              class="text-decoration-none fw-semibold"
-            >
-              {{ equipo.nombre }}
-            </a>
-          </td>
-
-          <td>{{ equipo.ciudad }}</td>
-
-          <td>{{ equipo.entrenador }}</td>
-
-          <td>
-            {% if equipo.estado %}
-
-            <span class="badge bg-success"> Activo </span>
-
-            {% else %}
-
-            <span class="badge bg-danger"> Inactivo </span>
-
-            {% endif %}
-          </td>
-
-          <td>
-            <a
-              href="{{ url_for('equipos.editar', id=equipo.id) }}"
-              class="btn btn-warning btn-sm"
-              title="Editar equipo"
-            >
-              <i class="bi bi-pencil"></i>
-            </a>
-
-            <form
-              action="{{ url_for('equipos.eliminar', id=equipo.id) }}"
-              method="POST"
-              class="d-inline delete-form"
-              data-equipo="{{ equipo.nombre }}"
-            >
-              <button
-                type="submit"
-                class="btn btn-danger btn-sm"
-                title="Eliminar equipo"
-              >
-                <i class="bi bi-trash"></i>
-              </button>
-            </form>
-          </td>
-        </tr>
-
-        {% endfor %}
-      </tbody>
-    </table>
-
-    {% else %}
-
-    <div class="text-center py-5">
-      <h5>No hay equipos registrados.</h5>
-
-      <p class="text-muted">
-        Haz clic en <strong>"Nuevo Equipo"</strong> para comenzar.
-      </p>
+<section class="module-header">
+    <div>
+        <span class="section-eyebrow">
+            <i class="bi bi-circle-fill"></i>
+            GESTIÓN DEPORTIVA
+        </span>
+        <h1>Equipos</h1>
+        <p>Administra los clubes, sus entrenadores y su información institucional.</p>
     </div>
 
+    <a href="{{ url_for('equipos.nuevo') }}" class="module-primary-btn">
+        <i class="bi bi-plus-lg"></i>
+        Registrar equipo
+    </a>
+</section>
+
+<section class="module-summary">
+    <div class="module-summary-card">
+        <span class="module-summary-icon"><i class="bi bi-shield-fill"></i></span>
+        <div>
+            <small>TOTAL DE EQUIPOS</small>
+            <strong>{{ equipos|length }}</strong>
+        </div>
+    </div>
+
+    <div class="module-summary-card">
+        <span class="module-summary-icon"><i class="bi bi-check-circle-fill"></i></span>
+        <div>
+            <small>EQUIPOS ACTIVOS</small>
+            <strong>{{ equipos|selectattr('estado')|list|length }}</strong>
+        </div>
+    </div>
+
+    <div class="module-summary-card">
+        <span class="module-summary-icon"><i class="bi bi-pause-circle-fill"></i></span>
+        <div>
+            <small>EQUIPOS INACTIVOS</small>
+            <strong>{{ equipos|rejectattr('estado')|list|length }}</strong>
+        </div>
+    </div>
+</section>
+
+<section class="module-table-card">
+    <div class="module-table-heading">
+        <div>
+            <h2>Directorio de equipos</h2>
+            <p>Consulta y administra los equipos registrados en la plataforma.</p>
+        </div>
+
+        <span class="module-record-count">
+            {{ equipos|length }} registros
+        </span>
+    </div>
+
+    {% if equipos %}
+    <div class="table-responsive">
+        <table class="table premium-table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Equipo</th>
+                    <th>Ciudad</th>
+                    <th>Entrenador</th>
+                    <th>Plantilla</th>
+                    <th>Estado</th>
+                    <th class="text-end">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for equipo in equipos %}
+                <tr>
+                    <td>
+                        <div class="team-cell">
+                            {% if equipo.escudo == "default_team.png" %}
+                            <img
+                                src="{{ url_for('static', filename='img/default_team.png') }}"
+                                alt="Escudo predeterminado"
+                                class="team-table-logo"
+                            >
+                            {% else %}
+                            <img
+                                src="{{ url_for('static', filename='uploads/equipos/' + equipo.escudo) }}"
+                                alt="Escudo de {{ equipo.nombre }}"
+                                class="team-table-logo"
+                            >
+                            {% endif %}
+
+                            <div>
+                                <a href="{{ url_for('equipos.detalle', id=equipo.id) }}" class="team-name">
+                                    {{ equipo.nombre }}
+                                </a>
+                                <small>Equipo #{{ "%03d"|format(equipo.id) }}</small>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <span class="team-city">
+                            <i class="bi bi-geo-alt"></i>
+                            {{ equipo.ciudad }}
+                        </span>
+                    </td>
+
+                    <td>{{ equipo.entrenador }}</td>
+
+                    <td>
+                        <span class="team-roster-count">
+                            <i class="bi bi-people"></i>
+                            {{ equipo.jugadores|length }}
+                        </span>
+                    </td>
+
+                    <td>
+                        {% if equipo.estado %}
+                        <span class="status-pill status-active">
+                            <i class="bi bi-circle-fill"></i> Activo
+                        </span>
+                        {% else %}
+                        <span class="status-pill status-inactive">
+                            <i class="bi bi-circle-fill"></i> Inactivo
+                        </span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <div class="team-actions">
+                            <a
+                                href="{{ url_for('equipos.detalle', id=equipo.id) }}"
+                                class="table-action action-view"
+                                title="Ver equipo"
+                            >
+                                <i class="bi bi-eye"></i>
+                            </a>
+
+                            <a
+                                href="{{ url_for('equipos.editar', id=equipo.id) }}"
+                                class="table-action action-edit"
+                                title="Editar equipo"
+                            >
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+
+                            <form
+                                action="{{ url_for('equipos.eliminar', id=equipo.id) }}"
+                                method="POST"
+                                class="d-inline delete-form"
+                                data-equipo="{{ equipo.nombre }}"
+                            >
+                                <button
+                                    type="submit"
+                                    class="table-action action-delete"
+                                    title="Eliminar equipo"
+                                >
+                                    <i class="bi bi-trash3"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% else %}
+    <div class="module-empty-state">
+        <div class="empty-state-icon">
+            <i class="bi bi-shield-plus"></i>
+        </div>
+        <h3>Aún no tienes equipos registrados</h3>
+        <p>Comienza creando el primer equipo de tu organización deportiva.</p>
+        <a href="{{ url_for('equipos.nuevo') }}" class="module-primary-btn">
+            <i class="bi bi-plus-lg"></i>
+            Registrar primer equipo
+        </a>
+    </div>
     {% endif %}
-  </div>
-</div>
+</section>
 
 {% endblock %}

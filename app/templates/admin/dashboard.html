@@ -1,163 +1,210 @@
 
 {% extends "base.html" %}
 
-{% block title %}Dashboard | Sistema de Gestión de Torneos{% endblock %}
+{% block title %}Dashboard | Gestión Deportiva{% endblock %}
 
 {% block content %}
 
 <section class="dashboard-header">
-
     <div>
-        <span class="welcome-label">
+        <span class="section-eyebrow">
             <i class="bi bi-circle-fill"></i>
-            PANEL DE CONTROL
+            CENTRO DE CONTROL
         </span>
 
         <h1>Dashboard</h1>
 
         <p>
-            Consulta el resumen general y el estado de la gestión deportiva.
+            Consulta el estado general y los principales indicadores
+            de tu gestión deportiva.
         </p>
     </div>
 
-    <a href="{{ url_for('equipos.index') }}" class="btn btn-success">
-        <i class="bi bi-plus-lg me-2"></i>
+    <a href="{{ url_for('equipos.index') }}" class="btn-home-primary">
+        <i class="bi bi-plus-lg"></i>
         Gestionar equipos
     </a>
-
 </section>
-
 
 <section class="dashboard-grid">
 
     <article class="dashboard-card">
-
-        <div class="dashboard-card-top">
-            <div class="dashboard-icon icon-users">
+        <div class="dashboard-card-header">
+            <span class="dashboard-card-icon">
                 <i class="bi bi-people-fill"></i>
-            </div>
+            </span>
 
-            <span class="dashboard-tag">Sistema</span>
+            <span class="dashboard-card-label">SISTEMA</span>
         </div>
 
-        <h3>Usuarios</h3>
-
-        <h2>{{ total_usuarios|default(0) }}</h2>
-
-        <p>Usuarios registrados</p>
-
+        <div>
+            <p class="dashboard-card-title">Usuarios</p>
+            <h2 class="dashboard-card-value">{{ usuarios_count }}</h2>
+            <p class="dashboard-card-description">
+                Usuarios registrados
+            </p>
+        </div>
     </article>
 
-
     <article class="dashboard-card">
-
-        <div class="dashboard-card-top">
-            <div class="dashboard-icon icon-teams">
+        <div class="dashboard-card-header">
+            <span class="dashboard-card-icon">
                 <i class="bi bi-shield-fill"></i>
-            </div>
+            </span>
 
-            <span class="dashboard-tag">Deportivo</span>
+            <span class="dashboard-card-label">DEPORTIVO</span>
         </div>
 
-        <h3>Equipos</h3>
+        <div>
+            <p class="dashboard-card-title">Equipos</p>
+            <h2 class="dashboard-card-value">{{ equipos_count }}</h2>
+            <p class="dashboard-card-description">
+                Equipos registrados
+            </p>
+        </div>
 
-        <h2>{{ total_equipos|default(0) }}</h2>
-
-        <p>Equipos registrados</p>
-
-        <a href="{{ url_for('equipos.index') }}">
-            Ver equipos <i class="bi bi-arrow-right"></i>
+        <a href="{{ url_for('equipos.index') }}" class="dashboard-card-link">
+            Ver equipos <i class="bi bi-arrow-up-right"></i>
         </a>
-
     </article>
 
-
     <article class="dashboard-card">
-
-        <div class="dashboard-card-top">
-            <div class="dashboard-icon icon-players">
+        <div class="dashboard-card-header">
+            <span class="dashboard-card-icon">
                 <i class="bi bi-person-badge-fill"></i>
-            </div>
+            </span>
 
-            <span class="dashboard-tag">Deportivo</span>
+            <span class="dashboard-card-label">DEPORTIVO</span>
         </div>
 
-        <h3>Jugadores</h3>
-
-        <h2>{{ total_jugadores|default(0) }}</h2>
-
-        <p>Jugadores registrados</p>
-
+        <div>
+            <p class="dashboard-card-title">Jugadores</p>
+            <h2 class="dashboard-card-value">{{ jugadores_count }}</h2>
+            <p class="dashboard-card-description">
+                Jugadores registrados
+            </p>
+        </div>
     </article>
 
-
     <article class="dashboard-card">
-
-        <div class="dashboard-card-top">
-            <div class="dashboard-icon icon-tournaments">
+        <div class="dashboard-card-header">
+            <span class="dashboard-card-icon">
                 <i class="bi bi-trophy-fill"></i>
-            </div>
+            </span>
 
-            <span class="dashboard-tag">Competiciones</span>
+            <span class="dashboard-card-label">COMPETICIONES</span>
         </div>
 
-        <h3>Torneos</h3>
+        <div>
+            <p class="dashboard-card-title">Torneos</p>
+            <h2 class="dashboard-card-value">{{ torneos_count }}</h2>
+            <p class="dashboard-card-description">
+                Torneos registrados
+            </p>
+        </div>
 
-        <h2>{{ total_torneos|default(0) }}</h2>
-
-        <p>Torneos registrados</p>
-
+        <a href="{{ url_for('torneos.index') }}" class="dashboard-card-link">
+            Ver torneos <i class="bi bi-arrow-up-right"></i>
+        </a>
     </article>
 
 </section>
 
+<section class="dashboard-lower-grid">
 
-<section class="dashboard-bottom">
-
-    <div class="dashboard-info-card">
-
-        <div class="dashboard-info-heading">
+    <div class="dashboard-panel">
+        <div class="dashboard-panel-heading">
             <div>
+                <span class="section-eyebrow">ACCESOS RÁPIDOS</span>
                 <h3>Gestión del sistema</h3>
-                <p>Accesos directos a las funcionalidades disponibles.</p>
             </div>
 
-            <i class="bi bi-grid-fill"></i>
+            <i class="bi bi-grid dashboard-panel-heading-icon"></i>
         </div>
 
-        <div class="dashboard-quick-links">
-
-            <a href="{{ url_for('equipos.index') }}">
+        <a href="{{ url_for('equipos.index') }}" class="dashboard-action">
+            <span class="dashboard-action-icon">
                 <i class="bi bi-shield-fill"></i>
-                <span>Administrar equipos</span>
-                <i class="bi bi-chevron-right"></i>
-            </a>
+            </span>
 
-            <a href="{{ url_for('main.index') }}">
+            <span>
+                <strong>Administrar equipos</strong>
+                <small>Consultar y gestionar los equipos</small>
+            </span>
+
+            <i class="bi bi-arrow-right"></i>
+        </a>
+
+        <a href="{{ url_for('torneos.index') }}" class="dashboard-action">
+            <span class="dashboard-action-icon">
+                <i class="bi bi-trophy-fill"></i>
+            </span>
+
+            <span>
+                <strong>Administrar torneos</strong>
+                <small>Organizar las competiciones</small>
+            </span>
+
+            <i class="bi bi-arrow-right"></i>
+        </a>
+
+        <a href="{{ url_for('main.index') }}" class="dashboard-action">
+            <span class="dashboard-action-icon">
                 <i class="bi bi-house-fill"></i>
-                <span>Volver al inicio</span>
-                <i class="bi bi-chevron-right"></i>
-            </a>
+            </span>
 
-        </div>
+            <span>
+                <strong>Volver al inicio</strong>
+                <small>Regresar a la página principal</small>
+            </span>
 
+            <i class="bi bi-arrow-right"></i>
+        </a>
     </div>
 
+    <div class="dashboard-panel dashboard-information">
+        <div class="dashboard-panel-heading">
+            <div>
+                <span class="section-eyebrow">PLATAFORMA</span>
+                <h3>Estado del sistema</h3>
+            </div>
 
-    <div class="dashboard-info-card dashboard-message">
-
-        <div class="message-icon">
-            <i class="bi bi-info-circle-fill"></i>
+            <span class="system-status">
+                <i class="bi bi-circle-fill"></i>
+                Operativo
+            </span>
         </div>
 
-        <h3>Información del sistema</h3>
+        <div class="system-information-item">
+            <span class="system-information-icon">
+                <i class="bi bi-database"></i>
+            </span>
 
-        <p>
-            Este panel centraliza los principales indicadores de la
-            gestión deportiva. Los módulos adicionales se incorporarán
-            progresivamente.
-        </p>
+            <div>
+                <strong>Base de datos</strong>
+                <small>Almacenamiento SQLite</small>
+            </div>
 
+            <span class="system-status-text">Disponible</span>
+        </div>
+
+        <div class="system-information-item">
+            <span class="system-information-icon">
+                <i class="bi bi-diagram-3"></i>
+            </span>
+
+            <div>
+                <strong>Módulos principales</strong>
+                <small>Equipos, jugadores y torneos</small>
+            </div>
+
+            <span class="system-status-text">Disponibles</span>
+        </div>
+
+        <div class="dashboard-information-footer">
+            <i class="bi bi-info-circle"></i>
+            Panel informativo del sistema de gestión deportiva.
+        </div>
     </div>
 
 </section>

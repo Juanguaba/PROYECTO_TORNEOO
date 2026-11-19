@@ -1,91 +1,110 @@
+
 .sidebar {
-
-    width: 260px;
+    width: var(--sidebar-width);
     height: 100vh;
-
     position: fixed;
-    left: 0;
     top: 0;
+    left: 0;
+    z-index: 1000;
 
-    background: linear-gradient(180deg, #198754 0%, #146c43 100%);
+    background: linear-gradient(
+        180deg,
+        #14784F 0%,
+        #105B3D 100%
+    );
 
-    color: white;
-
+    color: var(--text-white);
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 
-    box-shadow: 4px 0 20px rgba(0,0,0,.15);
-
+    box-shadow: 5px 0 25px rgba(12, 53, 35, .10);
 }
 
 .sidebar h2 {
-
+    margin: 0;
+    padding: 27px 20px;
     text-align: center;
-
-    padding: 30px 20px;
-
-    font-size: 30px;
-
-    font-weight: bold;
-
-    border-bottom: 1px solid rgba(255,255,255,.15);
-
+    font-size: 25px;
+    font-weight: 750;
+    color: white;
+    border-bottom: 1px solid rgba(255,255,255,.12);
 }
 
 .sidebar ul {
-
-    margin-top: 20px;
-
-    padding: 0;
-
+    list-style: none;
+    padding: 16px 0 25px;
+    margin: 0;
 }
 
 .sidebar li {
+    list-style: none;
+    margin: 5px 13px;
+}
 
-    margin: 8px 15px;
+.sidebar li::marker {
+    content: "";
+}
 
+.sidebar .sidebar-section {
+    margin: 24px 22px 12px;
+    padding: 0;
+    color: rgba(255,255,255,.57);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
 }
 
 .sidebar a {
-
+    min-height: 47px;
     display: flex;
-
     align-items: center;
-
     gap: 12px;
+    padding: 12px 15px;
 
-    color: white;
+    color: rgba(255,255,255,.88);
+    font-size: 13px;
+    font-weight: 600;
 
-    padding: 14px 18px;
-
-    border-radius: 12px;
-
-    transition: .25s;
-
-    font-weight: 500;
-
+    border-radius: 11px;
+    transition: var(--transition-normal);
 }
 
 .sidebar a:hover {
-
-    background: rgba(255,255,255,.15);
-
-    transform: translateX(6px);
-
+    background: rgba(255,255,255,.12);
+    color: white;
+    transform: translateX(3px);
 }
 
 .sidebar a.active {
-
     background: white;
-
-    color: #198754;
-
-    font-weight: bold;
-
+    color: var(--primary);
+    font-weight: 750;
+    box-shadow: 0 4px 14px rgba(0,0,0,.08);
 }
 
 .sidebar i {
+    width: 20px;
+    text-align: center;
+    font-size: 17px;
+}
 
-    font-size: 18px;
+.sidebar li.disabled a {
+    opacity: .58;
+    cursor: not-allowed;
+}
 
+.sidebar li.disabled a:hover {
+    background: transparent;
+    transform: none;
+}
+
+.sidebar .soon {
+    margin-left: auto;
+    padding: 4px 7px;
+    border-radius: 5px;
+    background: rgba(255,255,255,.10);
+    color: rgba(255,255,255,.7);
+    font-size: 9px;
+    white-space: nowrap;
 }

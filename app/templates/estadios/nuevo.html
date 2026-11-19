@@ -1,0 +1,209 @@
+
+{% extends "base.html" %}
+
+{% block title %}Nuevo estadio | Gestión Deportiva{% endblock %}
+
+{% block content %}
+
+<div class="form-page-header">
+
+    <a href="{{ url_for('estadios.index') }}" class="module-back-link">
+        <i class="bi bi-arrow-left"></i>
+        Volver a estadios
+    </a>
+
+    <span class="module-eyebrow">INFRAESTRUCTURA DEPORTIVA</span>
+
+    <h1>Registrar estadio</h1>
+
+    <p>Incorpora un nuevo escenario deportivo al sistema.</p>
+
+</div>
+
+<div class="premium-form-card stadium-form-card">
+
+    <form method="POST" id="stadiumForm">
+
+        <!-- IDENTIFICACIÓN -->
+
+        <div class="form-section-heading">
+
+            <div class="form-section-icon">
+                <i class="bi bi-building"></i>
+            </div>
+
+            <div>
+                <h3>Información del estadio</h3>
+                <p>Registra el nombre y la ubicación del escenario.</p>
+            </div>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+
+                <label for="nombre" class="premium-form-label">
+                    Nombre del estadio *
+                </label>
+
+                <input
+                    type="text"
+                    name="nombre"
+                    id="nombre"
+                    class="form-control premium-input"
+                    placeholder="Ej. Estadio Metropolitano"
+                    value="{{ request.form.get('nombre', '') }}"
+                    maxlength="100"
+                    required
+                >
+
+                <small class="stadium-field-help">
+                    <i class="bi bi-info-circle"></i>
+                    Nombre oficial del escenario deportivo.
+                </small>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <label for="ciudad" class="premium-form-label">
+                    Ciudad *
+                </label>
+
+                <input
+                    type="text"
+                    name="ciudad"
+                    id="ciudad"
+                    class="form-control premium-input"
+                    placeholder="Ej. Bogotá"
+                    value="{{ request.form.get('ciudad', '') }}"
+                    maxlength="100"
+                    required
+                >
+
+                <small class="stadium-field-help">
+                    <i class="bi bi-geo-alt"></i>
+                    Ciudad donde se encuentra ubicado.
+                </small>
+
+            </div>
+
+            <div class="col-12">
+
+                <label for="direccion" class="premium-form-label">
+                    Dirección
+                </label>
+
+                <input
+                    type="text"
+                    name="direccion"
+                    id="direccion"
+                    class="form-control premium-input"
+                    placeholder="Ej. Calle 57 # 30-50"
+                    value="{{ request.form.get('direccion', '') }}"
+                    maxlength="200"
+                >
+
+                <small class="stadium-field-help">
+                    <i class="bi bi-pin-map"></i>
+                    Campo opcional para identificar la ubicación exacta.
+                </small>
+
+            </div>
+
+        </div>
+
+        <div class="premium-form-divider"></div>
+
+        <!-- CAPACIDAD -->
+
+        <div class="form-section-heading">
+
+            <div class="form-section-icon">
+                <i class="bi bi-people"></i>
+            </div>
+
+            <div>
+                <h3>Capacidad del escenario</h3>
+                <p>Define la cantidad máxima de espectadores.</p>
+            </div>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+
+                <label for="capacidad" class="premium-form-label">
+                    Capacidad máxima *
+                </label>
+
+                <div class="stadium-capacity-wrapper">
+
+                    <i class="bi bi-person-fill"></i>
+
+                    <input
+                        type="number"
+                        name="capacidad"
+                        id="capacidad"
+                        class="form-control premium-input"
+                        placeholder="Ej. 40000"
+                        value="{{ request.form.get('capacidad', '') }}"
+                        min="1"
+                        step="1"
+                        required
+                    >
+
+                    <span>Personas</span>
+
+                </div>
+
+                <small class="stadium-field-help">
+                    Ingresa un número entero mayor que cero.
+                </small>
+
+            </div>
+
+        </div>
+
+        <!-- ESTADO INICIAL -->
+
+        <div class="stadium-status-preview">
+
+            <div class="stadium-status-preview-icon">
+                <i class="bi bi-check-circle"></i>
+            </div>
+
+            <div>
+                <strong>Estado inicial: Activo</strong>
+                <p>El estadio quedará disponible para asignarlo a nuevos partidos.</p>
+            </div>
+
+            <span class="premium-status-badge status-active">
+                <span></span>
+                Activo
+            </span>
+
+        </div>
+
+        <!-- ACCIONES -->
+
+        <div class="premium-form-footer">
+
+            <a href="{{ url_for('estadios.index') }}" class="btn premium-cancel-btn">
+                Cancelar
+            </a>
+
+            <button type="submit" class="module-primary-btn">
+                <i class="bi bi-check-lg"></i>
+                Registrar estadio
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

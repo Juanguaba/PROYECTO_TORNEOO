@@ -1,15 +1,27 @@
+
+/* DESIGN SYSTEM */
 @import url("variables.css");
+
+/* BASE */
 @import url("base.css");
+
+/* ESTRUCTURA */
 @import url("layout.css");
-@import url("navbar.css");
 @import url("sidebar.css");
-@import url("cards.css");
-@import url("buttons.css");
-@import url("forms.css");
-@import url("tables.css");
-@import url("alerts.css");
-@import url("cropper.css");
-@import url("dashboard.css");
+@import url("navbar.css");
 @import url("navigation.css");
+
+/* COMPONENTES */
+@import url("buttons.css");
+@import url("cards.css");
+@import url("tables.css");
+@import url("forms.css");
+@import url("alerts.css");
 @import url("toolbar.css");
-@import url("players.css")
+
+/* MÓDULOS */
+@import url("dashboard.css");
+@import url("players.css");
+@import url("cropper.css");
+
+@import url("configuracion.css");

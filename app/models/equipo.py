@@ -47,3 +47,9 @@ class Equipo(db.Model):
 
     def __repr__(self):
         return f"<Equipo {self.nombre}>"
+
+    torneos = db.relationship(
+        "Torneo",
+        secondary="torneo_equipos",
+        back_populates="equipos"
+    )

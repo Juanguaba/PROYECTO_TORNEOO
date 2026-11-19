@@ -1,0 +1,152 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="module-page">
+
+    <div class="module-header">
+        <div>
+            <span class="module-eyebrow">GESTIÓN DE COMPETICIÓN</span>
+            <h1>Registrar árbitro</h1>
+            <p>Agrega un nuevo integrante al equipo arbitral.</p>
+        </div>
+
+        <a href="{{ url_for('arbitros.index') }}" class="premium-clear-filter">
+            <i class="bi bi-arrow-left"></i>
+            Volver al directorio
+        </a>
+    </div>
+
+    <div class="premium-form-card referee-form-card">
+
+        <div class="form-section-heading">
+            <div class="referee-form-icon">
+                <i class="bi bi-person-badge"></i>
+            </div>
+            <div>
+                <h3>Información del árbitro</h3>
+                <p>Completa los datos personales y profesionales.</p>
+            </div>
+        </div>
+
+        <form method="POST">
+
+            <div class="referee-form-section">
+                <h4><i class="bi bi-person"></i> Datos personales</h4>
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label class="premium-form-label">
+                            Nombre <span>*</span>
+                        </label>
+                        <input type="text"
+                               name="nombre"
+                               class="premium-input"
+                               placeholder="Ej. Carlos"
+                               maxlength="100"
+                               value="{{ request.form.get('nombre', '') }}"
+                               required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="premium-form-label">
+                            Apellido <span>*</span>
+                        </label>
+                        <input type="text"
+                               name="apellido"
+                               class="premium-input"
+                               placeholder="Ej. Rodríguez"
+                               maxlength="100"
+                               value="{{ request.form.get('apellido', '') }}"
+                               required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="premium-form-label">
+                            Documento de identidad <span>*</span>
+                        </label>
+                        <input type="text"
+                               name="documento"
+                               class="premium-input"
+                               placeholder="Número de documento"
+                               maxlength="30"
+                               value="{{ request.form.get('documento', '') }}"
+                               required>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="referee-form-section">
+                <h4><i class="bi bi-telephone"></i> Información de contacto</h4>
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label class="premium-form-label">Correo electrónico</label>
+                        <input type="email"
+                               name="email"
+                               class="premium-input"
+                               placeholder="correo@ejemplo.com"
+                               maxlength="120"
+                               value="{{ request.form.get('email', '') }}">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="premium-form-label">Teléfono</label>
+                        <input type="tel"
+                               name="telefono"
+                               class="premium-input"
+                               placeholder="Número de contacto"
+                               maxlength="30"
+                               value="{{ request.form.get('telefono', '') }}">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="referee-form-section">
+                <h4><i class="bi bi-award"></i> Información profesional</h4>
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label class="premium-form-label">
+                            Categoría arbitral <span>*</span>
+                        </label>
+                        <input type="text"
+                               name="categoria"
+                               class="premium-input"
+                               placeholder="Ej. Nacional, Departamental..."
+                               maxlength="50"
+                               value="{{ request.form.get('categoria', '') }}"
+                               required>
+                        <small class="referee-field-help">
+                            Indica la categoría o nivel arbitral del integrante.
+                        </small>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="referee-form-footer">
+                <a href="{{ url_for('arbitros.index') }}"
+                   class="premium-cancel-btn">
+                    Cancelar
+                </a>
+
+                <button type="submit" class="module-primary-btn">
+                    <i class="bi bi-check-lg"></i>
+                    Registrar árbitro
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

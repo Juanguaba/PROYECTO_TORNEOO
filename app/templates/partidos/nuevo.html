@@ -1,0 +1,375 @@
+
+{% extends "base.html" %}
+
+{% block title %}Nuevo partido | Gestión Deportiva{% endblock %}
+
+{% block content %}
+
+<div class="form-page-header">
+    <a href="{{ url_for('partidos.index') }}" class="module-back-link">
+        <i class="bi bi-arrow-left"></i>
+        Volver a partidos
+    </a>
+
+    <span class="module-eyebrow">GESTIÓN DEPORTIVA</span>
+    <h1>Programar partido</h1>
+    <p>Configura un nuevo encuentro y asigna sus participantes.</p>
+</div>
+
+<div class="premium-form-card tournament-form-card">
+
+    <form method="POST">
+
+        <!-- COMPETICIÓN -->
+        <div class="form-section-heading">
+            <div class="form-section-icon">
+                <i class="bi bi-trophy"></i>
+            </div>
+
+            <div>
+                <h3>Competición</h3>
+                <p>Selecciona el torneo al que pertenecerá el encuentro.</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-12">
+                <label class="premium-form-label">Torneo *</label>
+
+                <select
+                    name="torneo_id"
+                    id="torneo_id"
+                    class="form-select premium-input"
+                    required
+                >
+                    <option value="">Seleccionar torneo</option>
+
+                    {% for torneo in torneos %}
+                    <option
+                        value="{{ torneo.id }}"
+                        {% if request.form.get('torneo_id', '') == torneo.id|string %}selected{% endif %}
+                    >
+                        {{ torneo.nombre }}
+                    </option>
+                    {% endfor %}
+                </select>
+
+                {% if not torneos %}
+                <div class="tournament-no-teams mt-3">
+                    <i class="bi bi-exclamation-circle"></i>
+                    <div>
+                        <strong>No hay torneos disponibles</strong>
+                        <p>Primero debes registrar un torneo y sus equipos participantes.</p>
+                        <a href="{{ url_for('torneos.nuevo') }}">
+                            Crear torneo <i class="bi bi-arrow-up-right"></i>
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <div class="premium-form-divider"></div>
+
+        <!-- ENFRENTAMIENTO -->
+        <div class="form-section-heading">
+            <div class="form-section-icon">
+                <i class="bi bi-shield-fill"></i>
+            </div>
+
+            <div>
+                <h3>Enfrentamiento</h3>
+                <p>Define los equipos que disputarán el encuentro.</p>
+            </div>
+        </div>
+
+        <div class="match-selection-grid">
+
+            <div class="match-team-field">
+                <div class="match-team-heading">
+                    <i class="bi bi-house"></i>
+                    Equipo local
+                </div>
+
+                <label class="premium-form-label">Seleccionar equipo *</label>
+
+                <select
+                    name="equipo_local_id"
+                    id="equipo_local_id"
+                    class="form-select premium-input"
+                    required
+                    disabled
+                >
+                    <option value="">Primero selecciona un torneo</option>
+
+                    {% for torneo in torneos %}
+                        {% for equipo in torneo.equipos %}
+                        <option
+                            value="{{ equipo.id }}"
+                            data-torneo="{{ torneo.id }}"
+                            {% if request.form.get('equipo_local_id', '') == equipo.id|string %}selected{% endif %}
+                        >
+                            {{ equipo.nombre }} - {{ equipo.ciudad }}
+                        </option>
+                        {% endfor %}
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="match-vs-divider">
+                VS
+            </div>
+
+            <div class="match-team-field">
+                <div class="match-team-heading">
+                    <i class="bi bi-airplane"></i>
+                    Equipo visitante
+                </div>
+
+                <label class="premium-form-label">Seleccionar equipo *</label>
+
+                <select
+                    name="equipo_visitante_id"
+                    id="equipo_visitante_id"
+                    class="form-select premium-input"
+                    required
+                    disabled
+                >
+                    <option value="">Primero selecciona un torneo</option>
+
+                    {% for torneo in torneos %}
+                        {% for equipo in torneo.equipos %}
+                        <option
+                            value="{{ equipo.id }}"
+                            data-torneo="{{ torneo.id }}"
+                            {% if request.form.get('equipo_visitante_id', '') == equipo.id|string %}selected{% endif %}
+                        >
+                            {{ equipo.nombre }} - {{ equipo.ciudad }}
+                        </option>
+                        {% endfor %}
+                    {% endfor %}
+                </select>
+            </div>
+
+        </div>
+
+        <div class="match-selection-help">
+            <i class="bi bi-info-circle"></i>
+            Solo se mostrarán los equipos inscritos en el torneo seleccionado.
+            Un equipo no puede enfrentarse a sí mismo.
+        </div>
+
+        <div class="premium-form-divider"></div>
+
+        <!-- PROGRAMACIÓN -->
+        <div class="form-section-heading">
+            <div class="form-section-icon">
+                <i class="bi bi-calendar-range"></i>
+            </div>
+
+            <div>
+                <h3>Programación</h3>
+                <p>Establece cuándo se disputará el encuentro.</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+                <label class="premium-form-label">Fecha y hora *</label>
+
+                <input
+                    type="datetime-local"
+                    name="fecha"
+                    class="form-control premium-input"
+                    value="{{ request.form.get('fecha', '') }}"
+                    required
+                >
+            </div>
+
+            <div class="col-md-6">
+                <label class="premium-form-label">Estado del partido *</label>
+
+                <select name="estado" class="form-select premium-input" required>
+                    {% for estado in ["Programado", "En juego", "Finalizado", "Suspendido"] %}
+                    <option
+                        value="{{ estado }}"
+                        {% if request.form.get('estado', 'Programado') == estado %}selected{% endif %}
+                    >
+                        {{ estado }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+        </div>
+
+        <div class="premium-form-divider"></div>
+
+        <!-- ASIGNACIONES -->
+        <div class="form-section-heading">
+            <div class="form-section-icon">
+                <i class="bi bi-clipboard-check"></i>
+            </div>
+
+            <div>
+                <h3>Asignaciones del encuentro</h3>
+                <p>Información adicional para la organización del partido.</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+                <label class="premium-form-label">Estadio</label>
+
+                <select name="estadio_id" class="form-select premium-input">
+                    <option value="">Sin asignar</option>
+
+                    {% for estadio in estadios %}
+                    <option
+                        value="{{ estadio.id }}"
+                        {% if request.form.get('estadio_id') == estadio.id|string %}selected{% endif %}
+                    >
+                        {{ estadio.nombre }} - {{ estadio.ciudad }}
+                    </option>
+                    {% endfor %}
+                </select>
+
+                {% if not estadios %}
+                <small class="tournament-selection-help">
+                    <i class="bi bi-info-circle"></i>
+                    No hay estadios registrados. Puedes asignarlo posteriormente.
+                </small>
+                {% endif %}
+            </div>
+
+            <div class="col-md-6">
+                <label class="premium-form-label">Árbitro</label>
+
+                <select name="arbitro_id" class="form-select premium-input">
+                    <option value="">Sin asignar</option>
+
+                    {% for arbitro in arbitros %}
+                    <option
+                        value="{{ arbitro.id }}"
+                        {% if request.form.get('arbitro_id') == arbitro.id|string %}selected{% endif %}
+                    >
+                        {{ arbitro.nombre }} {{ arbitro.apellido }}
+                    </option>
+                    {% endfor %}
+                </select>
+
+                {% if not arbitros %}
+                <small class="tournament-selection-help">
+                    <i class="bi bi-info-circle"></i>
+                    No hay árbitros registrados. Puedes asignarlo posteriormente.
+                </small>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <!-- ACCIONES -->
+        <div class="premium-form-footer">
+            <a href="{{ url_for('partidos.index') }}" class="btn premium-cancel-btn">
+                Cancelar
+            </a>
+
+            <button
+                type="submit"
+                class="module-primary-btn"
+                {% if not torneos %}disabled{% endif %}
+            >
+                <i class="bi bi-calendar-check"></i>
+                Registrar partido
+            </button>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}
+
+{% block page_scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const torneoSelect = document.getElementById("torneo_id");
+    const localSelect = document.getElementById("equipo_local_id");
+    const visitanteSelect = document.getElementById("equipo_visitante_id");
+
+    if (!torneoSelect || !localSelect || !visitanteSelect) return;
+
+    const initialLocal = localSelect.value;
+    const initialVisitante = visitanteSelect.value;
+
+    function filtrarEquipos() {
+
+        const torneoId = torneoSelect.value;
+
+        [localSelect, visitanteSelect].forEach(select => {
+
+            const selectedValue = select.value;
+
+            select.querySelectorAll("option[data-torneo]").forEach(option => {
+
+                const disponible = option.dataset.torneo === torneoId;
+
+                option.hidden = !disponible;
+                option.disabled = !disponible;
+
+            });
+
+            const selectedOption = select.selectedOptions[0];
+
+            if (
+                !selectedOption ||
+                selectedOption.dataset.torneo !== torneoId
+            ) {
+                select.value = "";
+            }
+
+            select.disabled = !torneoId;
+
+            if (!torneoId) {
+                select.value = "";
+            }
+
+        });
+
+    }
+
+    torneoSelect.addEventListener("change", filtrarEquipos);
+
+    filtrarEquipos();
+
+    localSelect.value = initialLocal;
+    visitanteSelect.value = initialVisitante;
+
+    function validarEnfrentamiento() {
+
+        const mismoEquipo =
+            localSelect.value &&
+            visitanteSelect.value &&
+            localSelect.value === visitanteSelect.value;
+
+        visitanteSelect.setCustomValidity(
+            mismoEquipo
+                ? "El equipo local y visitante deben ser diferentes."
+                : ""
+        );
+
+    }
+
+    localSelect.addEventListener("change", validarEnfrentamiento);
+    visitanteSelect.addEventListener("change", validarEnfrentamiento);
+
+    validarEnfrentamiento();
+
+});
+</script>
+{% endblock %}

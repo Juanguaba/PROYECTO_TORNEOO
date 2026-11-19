@@ -92,36 +92,42 @@
           </li>
 
           <!-- MÓDULOS PENDIENTES -->
-          <li class="disabled">
-            <a href="javascript:void(0)">
-              <i class="bi bi-trophy"></i>
-              Torneos
-              <span class="soon">Próximamente</span>
-            </a>
+          <li>
+              <a
+                  href="{{ url_for('torneos.index') }}"
+                  class="{% if request.endpoint and request.endpoint.startswith('torneos.') %}active{% endif %}"
+              >
+                  <i class="bi bi-trophy"></i>
+                  Torneos
+              </a>
           </li>
 
-          <li class="disabled">
-            <a href="javascript:void(0)">
-              <i class="bi bi-calendar-event"></i>
-              Partidos
-              <span class="soon">Próximamente</span>
-            </a>
+          <li>
+              <a
+                  href="{{ url_for('partidos.index') }}"
+                  class="{% if request.endpoint and request.endpoint.startswith('partidos.') %}active{% endif %}"
+              >
+                  <i class="bi bi-calendar-event"></i>
+                  Partidos
+              </a>
           </li>
 
-          <li class="disabled">
-            <a href="javascript:void(0)">
-              <i class="bi bi-person-badge"></i>
-              Árbitros
-              <span class="soon">Próximamente</span>
-            </a>
+          <li>
+              <a href="{{ url_for('arbitros.index') }}"
+                class="{% if request.endpoint and request.endpoint.startswith('arbitros.') %}active{% endif %}">
+                  <i class="bi bi-person-badge"></i>
+                  Árbitros
+              </a>
           </li>
 
-          <li class="disabled">
-            <a href="javascript:void(0)">
-              <i class="bi bi-building"></i>
-              Estadios
-              <span class="soon">Próximamente</span>
-            </a>
+          <li>
+              <a
+                  href="{{ url_for('estadios.index') }}"
+                  class="{% if request.endpoint and request.endpoint.startswith('estadios.') %}active{% endif %}"
+              >
+                  <i class="bi bi-building"></i>
+                  Estadios
+              </a>
           </li>
 
           <li class="disabled">
@@ -143,12 +149,14 @@
             </a>
           </li>
 
-          <li class="disabled">
-            <a href="javascript:void(0)">
-              <i class="bi bi-gear"></i>
-              Configuración
-              <span class="soon">Próximamente</span>
-            </a>
+          <li>
+              <a
+                  href="{{ url_for('configuracion.index') }}"
+                  class="{% if request.endpoint and request.endpoint.startswith('configuracion.') %}active{% endif %}"
+              >
+                  <i class="bi bi-gear"></i>
+                  Configuración
+              </a>
           </li>
 
         </ul>
@@ -200,6 +208,9 @@
 
     <!-- App -->
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+    <!-- Scripts específicos de cada página -->
+    {% block page_scripts %}{% endblock %}
 
   </body>
 </html>

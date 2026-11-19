@@ -1,22 +1,25 @@
-{% extends "base.html" %} {% block title %}Nuevo Equipo{% endblock %} {% block
-content %}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <div>
-    <h2>
-      <i class="bi bi-plus-circle-fill text-success"></i>
+{% extends "base.html" %}
 
-      Nuevo Equipo
-    </h2>
+{% block title %}Registrar equipo | Gestión Deportiva{% endblock %}
 
-    <p class="text-muted">Registra un nuevo equipo en el sistema.</p>
-  </div>
+{% block content %}
 
-  <a href="{{ url_for('equipos.index') }}" class="btn btn-outline-secondary">
-    <i class="bi bi-arrow-left"></i>
+{% block page_scripts %}
+<script src="{{ url_for('static', filename='js/cropper/team_cropper.js') }}"></script>
+{% endblock %}
 
-    Volver
-  </a>
-</div>
+<section class="form-page-header">
+    <a href="{{ url_for('equipos.index') }}" class="module-back-link">
+        <i class="bi bi-arrow-left"></i>
+        Volver a equipos
+    </a>
 
-{% include "equipos/_form.html" %} {% endblock %}
+    <span class="section-eyebrow">GESTIÓN DEPORTIVA / EQUIPOS</span>
+    <h1>Registrar equipo</h1>
+    <p>Incorpora un nuevo club a tu organización deportiva.</p>
+</section>
+
+{% include "equipos/_form.html" %}
+
+{% endblock %}
